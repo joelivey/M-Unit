@@ -1,5 +1,5 @@
 ut01POST ;VEN-SMH/JLI - post install for M-Unit Test software ;08/28/14  12:29
- ;;0.1;MASH UTILITIES
+ ;;0.1;MASH UTILITIES;;
  N X,I
  I +$SY=47 D  R X:$G(DTIME,300) D MES^XPDUTL(" ")
  . S X(1)=" "

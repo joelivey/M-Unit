@@ -1,5 +1,5 @@
 %utt5 ;JLI - test for aspects of MUnit functionality ;08/29/14  11:23
- ;;0.1;MASH UTILITIES;
+ ;;0.1;MASH UTILITIES;;
  Q
  ;
 OLDSTYLE ;

@@ -1,5 +1,5 @@
 ut01PRE ;VEN/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;08/22/14  13:02
- ;;0.1;MASH UTILITIES
+ ;;0.1;MASH UTILITIES;;
  ;
  ; The following is used to create, if it does not exist, the MASH UTILITIES
  ; package, and to assign the %u namespace to this package.  This special
@@ -16,17 +16,27 @@ CACHEMAP ; Map %ut* Globals and Routines away from %SYS in Cache
  I $P($P($ZV,") ",2),"(")<2012 S NMSP=$ZU(5)
  I $P($P($ZV,") ",2),"(")>2011 S NMSP=$NAMESPACE
  ;
- ; Map %ut globals away from %SYS
+ N $ET S $ET="ZN NMSP D ^%ZTER S $EC="""""
+ ;
  ZN "%SYS" ; Go to SYS
- N % S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",NMSP,NMSP)
- I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",NMSP,NMSP)
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) QUIT
+ ;
+ ; Props
+ N % S %=##Class(Config.Namespaces).Get(NMSP,.PROP) ; Get all namespace properties
+ I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
+ ;
+ N DBG S DBG=PROP("Globals")  ; get the database globals location
+ N DBR S DBR=PROP("Routines") ; get the database routines location
+ ;
+ ; Map %ut globals away from %SYS
+ N % S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+ I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+ I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
  ;
  ; Map %ut routines away from %SYS
- N A S A("Database")=NMSP
- N % S %=##Class(Config.MapRoutines).Get(NMSP,"%ut*",.A)
- S A("Database")=NMSP
- I '% S %=##Class(Config.MapRoutines).Create(NMSP,"%ut*",.A)
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) QUIT
+ N PROPRTN S PROPRTN("Database")=DBR
+ N % S %=##Class(Config.MapRoutines).Get(NMSP,"%ut*",.PROPRTN)
+ N PROPRTN S PROPRTN("Database")=DBR  ; Cache seems to like deleting this
+ I '% S %=##Class(Config.MapRoutines).Create(NMSP,"%ut*",.PROPRTN)
+ I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
  ZN NMSP ; Go back
  QUIT

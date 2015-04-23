@@ -1,5 +1,5 @@
 %uttcovr ;JLI/JIVEYSOFT - runs coverage tests on %ut and %ut1 routines via unit tests ;09/10/14  14:34
- ;;0.1;MASH UTILITIES;
+ ;;0.1;MASH UTILITIES;;
  ;
  I '(+$SY=47) W !,"This coverage analysis is currently only available in GT.M" Q  ; GT.M only!
  ;
