@@ -1,5 +1,9 @@
-%uttcovr	;JLI/JIVEYSOFT - runs coverage tests on %ut and %ut1 routines via unit tests ;08/08/15  16:20
+%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;08/10/15  14:31
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Joel L. Ivey
+	;
 	;
 	; ZEXCEPT: DTIME - if present the value is Kernel timeout for reads
 	N RUNCODE,XCLUDE

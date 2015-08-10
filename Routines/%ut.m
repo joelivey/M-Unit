@@ -1,5 +1,9 @@
-%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;08/07/15  19:58
+%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;08/10/15  14:31
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
+	; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
 	;
 	; This routine and its companion, %ut1, provide the basic functionality for
 	; running unit tests on parts of M programs either at the command line level

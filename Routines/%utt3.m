@@ -1,5 +1,10 @@
-%utt3	; VEN/SMH - Unit Tests Coverage Tests;08/07/15  13:29
+%utt3	; VEN/SMH-JLI - Unit Tests Coverage Tests;08/10/15  14:29
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Sam H. Habiel 07/2013?04/2014
+	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+	;
 XTMUNITV	; VEN/SMH - Unit Tests Coverage Tests;2014-04-16  7:14 PM
 	;
 	; *** BE VERY CAREFUL IN MODIFIYING THIS ROUTINE ***

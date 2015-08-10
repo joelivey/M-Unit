@@ -1,5 +1,9 @@
-%utt5	;JLI - test for aspects of MUnit functionality ;08/07/15  13:30
+%utt5	;JLI - test for aspects of MUnit functionality ;08/10/15  14:30
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Joel L. Ivey
+	;
 	Q
 	;
 OLDSTYLE	;

@@ -1,5 +1,9 @@
-%utt6	;JLI - Unit tests for MUnit functionality ;08/07/15  13:31
+%utt6	;JLI - Unit tests for MUnit functionality ;08/10/15  14:30
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Joel L. Ivey 05/2014-08/2015
+	;
 	;
 	; This routine uses ZZUTJLI2 as a test routine, it does not include the routine as an extension,
 	; since it uses it for tests.

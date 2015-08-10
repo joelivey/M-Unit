@@ -1,5 +1,9 @@
-%utcover	;JLI - generic coverage and unit test runner ;08/07/15  14:35
+%utcover	;JLI - generic coverage and unit test runner ;08/10/15  14:32
 	;;0.2;MASH UTILITIES;;
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Joel L. Ivey
+	;
 	D EN^%ut("%uttcovr") ; unit tests
 	Q
 	;

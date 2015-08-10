@@ -1,5 +1,10 @@
-%utPOST	;VEN-SMH/JLI - post install for M-Unit Test software ;08/08/15  16:2
+%utPOST	;VEN-SMH/JLI - post install for M-Unit Test software ;08/10/15  14:34
 	;;0.2;MASH UTILITIES;;;Build 7
+	;
+	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Original routine authored by Sam H. Habiel 07/2013?04/2014
+	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+	;
 	N X,I
 	I +$SY=47 D  R X:$G(DTIME,300) D MES^XPDUTL(" ")
 	. S X(1)=" "
