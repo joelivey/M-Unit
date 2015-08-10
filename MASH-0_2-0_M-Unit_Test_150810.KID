@@ -1,9 +1,7 @@
-$TXT Created by IVEY,JOEL L at JIVEY3.JIVEYSOFT.COM  (KIDS) on Monday, 08/10/15 at 14:42
- 
+KIDS Distribution saved on Aug 10, 2015@14:41:43
 Updated M-Unit Functionality
- 
-$END TXT
-$KID MASH*0.2*0
+**KIDS**:MASH*0.2*0^
+
 **INSTALL NAME**
 MASH*0.2*0
 "BLD",9544,0)
@@ -93,7 +91,7 @@ y^y^f^^n^^y^o^n
 "BLD",9544,4,"B",17.9001,17.9001)
 
 "BLD",9544,6.3)
-10
+9
 "BLD",9544,"ABPKG")
 n
 "BLD",9544,"INI")
@@ -545,7 +543,7 @@ D XPZ2^XPDIQ
 "RTN","ZZUTPOST",1,0)
 %utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;08/10/15  14:34
 "RTN","ZZUTPOST",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","ZZUTPOST",3,0)
  ;
 "RTN","ZZUTPOST",4,0)
@@ -853,7 +851,7 @@ GTMPROB ; come here in case of error trying to run unit tests - checks whether r
 "RTN","ZZUTPRE",1,0)
 %utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;08/10/15  14:35
 "RTN","ZZUTPRE",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","ZZUTPRE",3,0)
  ;
 "RTN","ZZUTPRE",4,0)
@@ -947,7 +945,7 @@ CACHEMAP ; Map %ut* Globals and Routines away from %SYS in Cache
 "RTN","ut",1,0)
 %ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;08/10/15  14:31
 "RTN","ut",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","ut",3,0)
  ;
 "RTN","ut",4,0)
@@ -1783,7 +1781,7 @@ GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - calle
 "RTN","ut1",1,0)
 %ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;08/10/15  14:32
 "RTN","ut1",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","ut1",3,0)
  ;
 "RTN","ut1",4,0)
@@ -2629,7 +2627,7 @@ COVRPTGL(C,S,R,OUT) ; [Private] - Coverage Global for silent invokers
 "RTN","utcover",1,0)
 %utcover ;JLI - generic coverage and unit test runner ;08/10/15  14:32
 "RTN","utcover",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utcover",3,0)
  ;
 "RTN","utcover",4,0)
@@ -2921,7 +2919,7 @@ TRIMDATA(ROULIST,GLOB) ;
 "RTN","utt1",1,0)
 %utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;08/10/15  14:32
 "RTN","utt1",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt1",3,0)
  ;
 "RTN","utt1",4,0)
@@ -3265,7 +3263,7 @@ XTROU ; Routines containing additional tests
 "RTN","utt2",1,0)
 %utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;08/10/15  14:29
 "RTN","utt2",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt2",3,0)
  ;
 "RTN","utt2",4,0)
@@ -3299,7 +3297,7 @@ XTENT ;
 "RTN","utt3",1,0)
 %utt3 ; VEN/SMH-JLI - Unit Tests Coverage Tests;08/10/15  14:29
 "RTN","utt3",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt3",3,0)
  ;
 "RTN","utt3",4,0)
@@ -3397,7 +3395,7 @@ INTERNAL(A) ; Counts
 "RTN","utt4",1,0)
 %utt4 ; VEN/SMH/JLI - Coverage Test Runner;08/10/15  14:30
 "RTN","utt4",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt4",3,0)
  ;
 "RTN","utt4",4,0)
@@ -3443,7 +3441,7 @@ MAIN ; @TEST - Test coverage calculations
 "RTN","utt5",1,0)
 %utt5 ;JLI - test for aspects of MUnit functionality ;08/10/15  14:30
 "RTN","utt5",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt5",3,0)
  ;
 "RTN","utt5",4,0)
@@ -3723,7 +3721,7 @@ XTENT ;
 "RTN","utt6",1,0)
 %utt6 ;JLI - Unit tests for MUnit functionality ;08/10/15  14:30
 "RTN","utt6",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","utt6",3,0)
  ;
 "RTN","utt6",4,0)
@@ -3963,7 +3961,7 @@ XTENT ;
 "RTN","uttcovr",1,0)
 %uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;08/10/15  14:31
 "RTN","uttcovr",2,0)
- ;;0.2;MASH UTILITIES;;;Build 10
+ ;;0.2;MASH UTILITIES;;;Build 9
 "RTN","uttcovr",3,0)
  ;
 "RTN","uttcovr",4,0)
@@ -4610,4 +4608,5 @@ M-UNIT TEST GROUP^17.9001
 ^%ut(17.9001,
 "^DIC",17.9001,"B","M-UNIT TEST GROUP",17.9001)
 
-$END KID MASH*0.2*0
+**END**
+**END**
