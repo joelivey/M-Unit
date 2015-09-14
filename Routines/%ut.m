@@ -1,7 +1,6 @@
-%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;08/10/15  14:31
+%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;09/14/15  09:38
 	;;0.2;MASH UTILITIES;;;Build 7
-	;
-	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
 	; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
 	;
@@ -413,5 +412,6 @@ GUINEXT(%utRSLT,%utLOC,XTGUISEP)	; Entry point for GUI execute next test - calle
 	. D @("TEARDOWN^"_%utROUT)
 	. Q
 	S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_XTGUISEP_%utERR
+	K ^TMP("%ut",$J,"UTVALS")
 	Q
 	;

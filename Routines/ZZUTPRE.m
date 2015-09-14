@@ -1,7 +1,6 @@
-%utPRE	;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;08/10/15  14:35
+%utPRE	;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;09/14/15  12:39
 	;;0.2;MASH UTILITIES;;;Build 7
-	;
-	; Submitted to OSEHRA 08/10/2015 by	Joel L. Ivey
+	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013?04/2014
 	;
 	;

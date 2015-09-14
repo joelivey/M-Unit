@@ -1,7 +1,6 @@
-%utt6	;JLI - Unit tests for MUnit functionality ;08/10/15  14:30
-	;;0.2;MASH UTILITIES;;;Build 7
-	;
-	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+%utt6	;JLI - Unit tests for MUnit functionality ;09/14/15  09:38
+	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
+	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-08/2015
 	;
 	;

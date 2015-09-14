@@ -1,7 +1,6 @@
-%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;08/10/15  14:32
-	;;0.2;MASH UTILITIES;;;Build 7
-	;
-	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;09/14/15  09:38
+	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
+	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013?04/2014
 	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
 	;
@@ -101,8 +100,6 @@ T7	; Make sure we write to principal even though we are on another device
 	;
 	; Now open back the file, and read the hello, but open in read only so
 	; M-Unit will error out if it will write something out there.
-	;
-	; Per VISTA conventions, current IO device should be IO, old is IO(0).
 	;
 	I +$SY=0 O D:"R"
 	I +$SY=47 O D:(readonly)

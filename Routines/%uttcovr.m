@@ -1,7 +1,6 @@
-%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;08/10/15  14:31
-	;;0.2;MASH UTILITIES;;;Build 7
-	;
-	; Submitted to OSEHRA 08/10/2015 by Joel L. Ivey
+%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;09/14/15  09:35
+	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
+	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey
 	;
 	;
