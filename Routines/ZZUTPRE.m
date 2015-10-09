@@ -1,4 +1,4 @@
-%utPRE	;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;09/14/15  12:39
+%utPRE	;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;10/08/15  19:11
 	;;0.2;MASH UTILITIES;;;Build 7
 	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013?04/2014
@@ -29,10 +29,15 @@ CACHEMAP	; Map %ut* Globals and Routines away from %SYS in Cache
 	;
 	N DBG S DBG=PROP("Globals")  ; get the database globals location
 	N DBR S DBR=PROP("Routines") ; get the database routines location
+	S PROP("Database")="VISTA" ; needed for call to MapGlobals.Create below
 	;
 	; Map %ut globals away from %SYS
-	N % S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
-	I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+	N %
+	;S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+	S %=##Class(Config.MapGlobals).Get(NMSP,"%ut*",.PROP)
+	;I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+	I '% S %=##Class(Config.MapGlobals).Create(NMSP,"%ut",.PROP) ; doesn't work with "%ut*"
+	;
 	I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
 	;
 	; Map %ut routines away from %SYS

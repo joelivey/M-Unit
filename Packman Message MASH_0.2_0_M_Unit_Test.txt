@@ -1,13 +1,13 @@
-$TXT Created by IVEY,JOEL L at JIVEY3.JIVEYSOFT.COM  (KIDS) on Monday, 09/14/15 at 12:43
+$TXT Created by IVEY,JOEL L at JIVEY3.JIVEYSOFT.COM  (KIDS) on Thursday, 10/08/15 at 19:49
  
-Updated M-Unit Functionality
+Updated M-Unit Functionality with revised PRE-INSTALL routine for Cache
  
 $END TXT
 $KID MASH*0.2*0
 **INSTALL NAME**
 MASH*0.2*0
 "BLD",9544,0)
-MASH*0.2*0^MASH UTILITIES^0^3150914^n
+MASH*0.2*0^MASH UTILITIES^0^3151008^n
 "BLD",9544,1,0)
 ^^40^40^3150914^^^^
 "BLD",9544,1,1,0)
@@ -99,7 +99,7 @@ y^y^f^^n^^y^o^n
 "BLD",9544,4,"B",17.9001,17.9001)
 
 "BLD",9544,6.3)
-12
+15
 "BLD",9544,"ABPKG")
 n
 "BLD",9544,"INI")
@@ -397,9 +397,9 @@ MASH UTILITIES^%u^Utilities associated with the M Advanced Shell
 "PKG",222,22,1,0)
 0.2
 "PKG",222,22,1,"PAH",1,0)
-0^3150914^17
+0^3151008^17
 "PKG",222,22,1,"PAH",1,1,0)
-^^40^40^3150914
+^^40^40^3151008
 "PKG",222,22,1,"PAH",1,1,1,0)
 Changes to functionality include:
 "PKG",222,22,1,"PAH",1,1,2,0)
@@ -557,7 +557,7 @@ D XPZ2^XPDIQ
 "RTN","ZZUTPOST",1,0)
 %utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;09/14/15  12:39
 "RTN","ZZUTPOST",2,0)
- ;;0.2;MASH UTILITIES;;;Build 12
+ ;;0.2;MASH UTILITIES;;;Build 15
 "RTN","ZZUTPOST",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ZZUTPOST",4,0)
@@ -859,11 +859,11 @@ GTMPROB ; come here in case of error trying to run unit tests - checks whether r
 "RTN","ZZUTPOST",152,0)
  Q
 "RTN","ZZUTPRE")
-0^^B6681444
+0^^B7184945
 "RTN","ZZUTPRE",1,0)
-%utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;09/14/15  12:39
+%utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;10/08/15  19:11
 "RTN","ZZUTPRE",2,0)
- ;;0.2;MASH UTILITIES;;;Build 12
+ ;;0.2;MASH UTILITIES;;;Build 15
 "RTN","ZZUTPRE",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ZZUTPRE",4,0)
@@ -923,39 +923,49 @@ CACHEMAP ; Map %ut* Globals and Routines away from %SYS in Cache
 "RTN","ZZUTPRE",31,0)
  N DBR S DBR=PROP("Routines") ; get the database routines location
 "RTN","ZZUTPRE",32,0)
- ;
+ S PROP("Database")="VISTA" ; needed for call to MapGlobals.Create below
 "RTN","ZZUTPRE",33,0)
- ; Map %ut globals away from %SYS
-"RTN","ZZUTPRE",34,0)
- N % S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
-"RTN","ZZUTPRE",35,0)
- I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
-"RTN","ZZUTPRE",36,0)
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
-"RTN","ZZUTPRE",37,0)
  ;
+"RTN","ZZUTPRE",34,0)
+ ; Map %ut globals away from %SYS
+"RTN","ZZUTPRE",35,0)
+ N %
+"RTN","ZZUTPRE",36,0)
+ ;S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
+"RTN","ZZUTPRE",37,0)
+ S %=##Class(Config.MapGlobals).Get(NMSP,"%ut*",.PROP)
 "RTN","ZZUTPRE",38,0)
- ; Map %ut routines away from %SYS
+ ;I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
 "RTN","ZZUTPRE",39,0)
- N PROPRTN S PROPRTN("Database")=DBR
+ I '% S %=##Class(Config.MapGlobals).Create(NMSP,"%ut",.PROP) ; doesn't work with "%ut*"
 "RTN","ZZUTPRE",40,0)
- N % S %=##Class(Config.MapRoutines).Get(NMSP,"%ut*",.PROPRTN)
+ ;
 "RTN","ZZUTPRE",41,0)
- N PROPRTN S PROPRTN("Database")=DBR  ; Cache seems to like deleting this
-"RTN","ZZUTPRE",42,0)
- I '% S %=##Class(Config.MapRoutines).Create(NMSP,"%ut*",.PROPRTN)
-"RTN","ZZUTPRE",43,0)
  I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
+"RTN","ZZUTPRE",42,0)
+ ;
+"RTN","ZZUTPRE",43,0)
+ ; Map %ut routines away from %SYS
 "RTN","ZZUTPRE",44,0)
- ZN NMSP ; Go back
+ N PROPRTN S PROPRTN("Database")=DBR
 "RTN","ZZUTPRE",45,0)
+ N % S %=##Class(Config.MapRoutines).Get(NMSP,"%ut*",.PROPRTN)
+"RTN","ZZUTPRE",46,0)
+ N PROPRTN S PROPRTN("Database")=DBR  ; Cache seems to like deleting this
+"RTN","ZZUTPRE",47,0)
+ I '% S %=##Class(Config.MapRoutines).Create(NMSP,"%ut*",.PROPRTN)
+"RTN","ZZUTPRE",48,0)
+ I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
+"RTN","ZZUTPRE",49,0)
+ ZN NMSP ; Go back
+"RTN","ZZUTPRE",50,0)
  QUIT
 "RTN","ut")
 0^1^B196383387
 "RTN","ut",1,0)
 %ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;09/14/15  09:38
 "RTN","ut",2,0)
- ;;0.2;MASH UTILITIES;;;Build 12
+ ;;0.2;MASH UTILITIES;;;Build 15
 "RTN","ut",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ut",4,0)
@@ -1791,7 +1801,7 @@ GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - calle
 "RTN","ut1",1,0)
 %ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;09/14/15  09:37
 "RTN","ut1",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","ut1",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ut1",4,0)
@@ -2635,7 +2645,7 @@ COVRPTGL(C,S,R,OUT) ; [Private] - Coverage Global for silent invokers
 "RTN","utcover",1,0)
 %utcover ;JLI - generic coverage and unit test runner ;09/14/15  09:37
 "RTN","utcover",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utcover",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utcover",4,0)
@@ -2925,7 +2935,7 @@ TRIMDATA(ROULIST,GLOB) ;
 "RTN","utt1",1,0)
 %utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;09/14/15  09:38
 "RTN","utt1",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt1",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt1",4,0)
@@ -3263,7 +3273,7 @@ XTROU ; Routines containing additional tests
 "RTN","utt2",1,0)
 %utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;09/14/15  09:38
 "RTN","utt2",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt2",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt2",4,0)
@@ -3295,7 +3305,7 @@ XTENT ;
 "RTN","utt3",1,0)
 %utt3 ; VEN/SMH-JLI - Unit Tests Coverage Tests;09/14/15  09:38
 "RTN","utt3",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt3",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt3",4,0)
@@ -3391,7 +3401,7 @@ INTERNAL(A) ; Counts
 "RTN","utt4",1,0)
 %utt4 ; VEN/SMH/JLI - Coverage Test Runner;09/14/15  09:38
 "RTN","utt4",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt4",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt4",4,0)
@@ -3435,7 +3445,7 @@ MAIN ; @TEST - Test coverage calculations
 "RTN","utt5",1,0)
 %utt5 ;JLI - test for aspects of MUnit functionality ;09/14/15  09:38
 "RTN","utt5",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt5",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt5",4,0)
@@ -3713,7 +3723,7 @@ XTENT ;
 "RTN","utt6",1,0)
 %utt6 ;JLI - Unit tests for MUnit functionality ;09/14/15  09:38
 "RTN","utt6",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","utt6",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt6",4,0)
@@ -3951,7 +3961,7 @@ XTENT ;
 "RTN","uttcovr",1,0)
 %uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;09/14/15  09:35
 "RTN","uttcovr",2,0)
- ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 12
+ ;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 15
 "RTN","uttcovr",3,0)
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","uttcovr",4,0)
@@ -4597,3 +4607,4 @@ M-UNIT TEST GROUP^17.9001
 "^DIC",17.9001,"B","M-UNIT TEST GROUP",17.9001)
 
 $END KID MASH*0.2*0
+
