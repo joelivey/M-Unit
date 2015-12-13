@@ -1,0 +1,1657 @@
+
+ ------------------ START OF ADDED COMMENT ----------------------
+   The KIDS file was loaded ionto the tmp directory, it was 
+   then converted to unix line terminators with dos2unix.
+   The MUMPS instance was then started and 
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+
+[jiveysoft@jiveysoft-VirtualBox ~]$ cd tmp
+[jiveysoft@jiveysoft-VirtualBox tmp]$ dos2unix MASH_0.3_900_152120-7.KID
+dos2unix: converting file MASH_0.3_0_151207.KID to Unix format ...
+[jiveysoft@jiveysoft-VirtualBox tmp]$ cd ..
+[jiveysoft@jiveysoft-VirtualBox ~]$ mumps -dir
+
+VISTA2A>S DUZ=17 D Q^DI,^%ZIS
+
+
+VA FILEMAN 22.2V2
+
+
+Select OPTION: 
+DEVICE: HOME//   TELNET
+
+VISTA2A>D ^XUP
+
+Setting up programmer environment
+This is a TEST account.
+
+Terminal Type set to: C-VT100
+
+Select OPTION NAME: EVE
+     1   EVE       Systems Manager Menu
+     2   EVENT CAPTURE  ECX ECS MAINTENANCE     Event Capture
+     3   EVENT CAPTURE (ECS) EXTRACT AU  ECX ECS SOURCE AUDIT     Event Capture 
+(ECS) Extract Audit
+     4   EVENT CAPTURE DATA ENTRY  ECENTER     Event Capture Data Entry
+     5   EVENT CAPTURE EXTRACT  ECXEC     Event Capture Extract
+Press <Enter> to see more, '^' to exit this list,  OR
+CHOOSE 1-5: 1  EVE     Systems Manager Menu
+
+Select Systems Manager Menu Option: PROGrammer Options
+Select Programmer Options Option: KIDS  Kernel Installation & Dis
+tribution System
+
+          Edits and Distribution ...
+          Utilities ...
+          Installation ...
+          Patch Monitor Main Menu ...
+
+Select Kernel Installation & Distribution System Option: INSTalla
+tion
+
+   1      Load a Distribution
+   2      Verify Checksums in Transport Global
+   3      Print Transport Global
+   4      Compare Transport Global to Current System
+   5      Backup a Transport Global
+   6      Install Package(s)
+          Restart Install of Package(s)
+          Unload a Distribution
+
+Select Installation Option: LOAd a Distribution
+Enter a Host File: /home/jiveysoft/tmp/MASH_0.3_0_151207.KID
+
+KIDS Distribution saved on Dec 07, 2015@17:14:06
+Comment: Update with coverage for Cache systems
+
+This Distribution contains Transport Globals for the following Package(s):
+   MASH*0.3*0
+Distribution OK!
+
+Want to Continue with Load? YES// 
+Loading Distribution...
+   MASH*0.3*0
+Use INSTALL NAME: MASH*0.3*0 to install this Distribution.
+
+   1      Load a Distribution
+   2      Verify Checksums in Transport Global
+   3      Print Transport Global
+   4      Compare Transport Global to Current System
+   5      Backup a Transport Global
+   6      Install Package(s)
+          Restart Install of Package(s)
+          Unload a Distribution
+
+Select Installation Option: INstall Package(s)
+Select INSTALL NAME:    MASH*0.3*0     Loaded from Distribution    12/10/15@19:0
+1:59
+     => Update with coverage for Cache systems  ;Created on Dec 07, 2015@17:14
+
+This Distribution was loaded on Dec 10, 2015@19:01:59 with header of 
+   Update with coverage for Cache systems  ;Created on Dec 07, 2015@17:14:06
+   It consisted of the following Install(s):
+     MASH*0.3*0
+Checking Install for Package MASH*0.3*0
+
+Install Questions for MASH*0.3*0
+
+Incoming Files:
+
+   17.9001   M-UNIT TEST GROUP  (including data)
+Want KIDS to Rebuild Menu Trees Upon Completion of Install? NO// 
+Want KIDS to INHIBIT LOGONs during the install? NO// 
+Want to DISABLE Scheduled Options, Menu Options, and Protocols? NO// 
+Enter the Device you want to print the Install messages.
+You can queue the install by enter a 'Q' at the device prompt.
+Enter a '^' to abort the install.
+
+DEVICE: HOME//   TELNET
+ 
+ Install Started for MASH*0.3*0 : 
+               Dec 10, 2015@19:02:29
+ 
+Build Distribution Date: Dec 07, 2015
+ 
+ Installing Routines: 
+ 
+ ------------------ START OF ADDED COMMENT ----------------------
+   At this point GT.M identifies functions that it does not
+   recognize - these are functions for Cache and are functional.
+   Also, similar listings may be seen the first time that the 
+   routines are run - they will not be shown after that.
+ ------------------- END OF ADDED COMMMENT ----------------------
+ 
+               Dec 10, 2015@19:02:29
+ 
+ Running Pre-Install Routine: ^ZZUTPRE
+ 
+ Installing Data Dictionaries: 
+               Dec 10, 2015@19:02:29
+ 
+ Installing Data: 
+               Dec 10, 2015@19:02:29
+ 
+ Installing PACKAGE COMPONENTS: 
+ 
+ Installing REMOTE PROCEDURE
+ 
+ Installing OPTION
+               Dec 10, 2015@19:02:30
+ 
+ Running Post-Install Routine: ^ZZUTPOST
+ 
+ 
+In the next section, as it tries to copy the ut* routines
+to %ut* routines watch for text that indicates the following:
+ 
+cp: cannot create regular file `/_ut.m': Permission denied
+ 
+If this is seen, respond Yes at the prompt after the attempt:
+   Press ENTER to continue: 
+ 
+Routine:       ut Loaded, Saved as      %ut
+Routine:      ut1 Loaded, Saved as     %ut1
+Routine:  utcover Loaded, Saved as %utcover
+Routine:     utt1 Loaded, Saved as    %utt1
+Routine:     utt2 Loaded, Saved as    %utt2
+Routine:     utt3 Loaded, Saved as    %utt3
+Routine:     utt4 Loaded, Saved as    %utt4
+Routine:     utt5 Loaded, Saved as    %utt5
+Routine:     utt6 Loaded, Saved as    %utt6
+Routine:  uttcovr Loaded, Saved as %uttcovr
+ 
+ 
+  Your entry on the next line may not echo
+If error text was seen enter Y (and RETURN):  NO// 
+ 
+ ------------------ START OF ADDED COMMENT ----------------------
+   At this point if there were errors renaming the routines, the
+   following text is displayed.  Normally, it will not appear.
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+*** An error occurred during renaming of routines to %ut*.
+*** The renaming has been seen to fail on one type of Linux system.
+*** In this case, at the Linux command line copy each ut*.m routine
+*** (ut.m, ut1.m, utcover.m, utt1.m, utt2.m, utt3.m, utt4.m, utt5.m, utt6.m, 
+*** and uttcovr.m) to _ut*.m (e.g., 'cp ut.m _ut.m', 'cp ut1.m _ut1.m',
+*** 'cp utcover.m _utcover.m', etc., to 'cp uttcovr.m _uttcovr.m').  Then 
+*** in GT.M use the command 'ZLINK %ut', then 'ZLINK %ut1', etc., these may
+*** indicate an undefined local variable error, but continue doing it.
+*** When complete, use the M command 'DO ^%utt1' to run the unit tests on
+*** the %ut and %ut1 routines to confirm they are working
+ 
+  Press Enter to continue: 
+
+ ----------------- END OF HELP MESSAGE FOR PROBLEM -------------------
+  
+ Updating Routine file...
+ Updating KIDS files...
+ MASH*0.3*0 Installed. 
+               Dec 10, 2015@19:03:26
+ NO Install Message sent 
+Install Completed
+
+   1      Load a Distribution
+   2      Verify Checksums in Transport Global
+   3      Print Transport Global
+   4      Compare Transport Global to Current System
+   5      Backup a Transport Global
+   6      Install Package(s)
+          Restart Install of Package(s)
+          Unload a Distribution
+
+Select Installation Option: ^PG   Programmer mode
+%GTM-I-BREAK, Break instruction encountered
+		At M source location PRGMODE+6^%ZOSV
+
+ ------------------ START OF ADDED COMMENT ----------------------		
+ ---- RUNNING THE BASIC UNIT TESTS - Note these do throw expected errors ----
+ ----- Also, GTM invalid function names messages have been removed      -----
+ ----- they won't appear in subsequent runs                             -----
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+VISTA2A>D ^%utt1
+T1 - - Make sure Start-up Ran.-----------------------------------------  [OK]
+T2 - - Make sure Set-up runs.------------------------------------------  [OK]
+T3 - - Make sure Teardown runs.----------------------------------------  [OK]
+T4 - Entry point using XTMENT.-----------------------------------------  [OK]
+T5 - Error count check
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.----------------------------------------------------------------------  [FAIL]
+T6 - Succeed Entry Point...--------------------------------------------  [OK]
+T7 - Make sure we write to principal even though we are on another device..[OK]
+T8 - If IO starts with another device, write to that device as if it's the prici
+pal device
+Loading routines to test coverage...
+%utt3 .----------------------------------------------------------------  [OK]
+COVRPTGL - coverage report returning global....------------------------  [OK]
+T11 - An @TEST Entry point in Another Routine invoked through XTROU offsets.[OK]
+T12 - An XTENT offset entry point in Another Routine invoked through XTROU offse
+ts.--------------------------------------------------------------------  [OK]
+MAIN - - Test coverage calculations
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.....---------  [OK]
+NEWSTYLE - identify new style test indicator functionality.------------  [OK]
+OLDSTYLE -  identify old style test indicator functionality..----------  [OK]
+OLDSTYL1 -  identify old style test indicator 2.-----------------------  [OK]
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+-----------------------------------------------------------------------  [FAIL]
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+-----------------------------------------------------------------------  [FAIL]
+LEAKSOK - check leaks should be ok-------------------------------------  [OK]
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+-----------------------------------------------------------------------  [FAIL]
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+-----------------------------------------------------------------------  [FAIL]
+ISUTEST - check ISUTEST inside unit test.------------------------------  [OK]
+SETROUS - - generate array with indices of routines to exclude......---  [OK]
+CHKCMDLN - check command line processing of %utt5----------------------  [OK]
+CHKGUI - check GUI processing of %utt5---------------------------------  [OK]
+CKGUISET - check list of tests returned by GUISET----------------------  [OK]
+NEWSTYLE - test return of valid new style or @TEST indicators...-------  [OK]
+RTNANAL - - routine analysis...----------------------------------------  [OK]
+COVCOV - - check COVCOV - remove seen lines......----------------------  [OK]
+COVRPT...........------------------------------------------------------  [OK]
+COVRPTLS - - coverage report returning text in global...........-------  [OK]
+TRIMDATA - - TRIMDATA in %utcover..------------------------------------  [OK]
+LIST - - LIST in %utcover............----------------------------------  [OK]
+CACHECOV - - set up routine for analysis in globals..------------------  [OK]
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-------------------------------------------------  [OK]
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........---------------------------  [OK]
+
+Ran 6 Routines, 37 Entry Tags
+Checked 113 tests, with 7 failures and encountered 1 error.
+
+ ------------------ START OF ADDED COMMENT ----------------------
+   Running the %utt6 routine from the top runs a number of different 
+   entry points as unit tests 
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+VISTA2A>d ^%utt6
+
+--
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+ ------------------ START OF ADDED COMMENT ----------------------
+   Running %uttcovr from the top of the routine runs coverage by 
+   calling a number of unit tests from different entry points so 
+   that each of them is included in the analysis.  Looking at 
+   this shows how to run many different entry points in one 
+   coverage analysis, as well as removing unit tests that may 
+   have the same base namespace from the displayed analysis.
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+VISTA2A>d ^%uttcovr
+
+Loading routines to test coverage...
+%ut %ut1 %utcover %utf2hex %utt1 %utt2 %utt3 %utt4 %utt5 %utt6 %uttcovr 
+
+------------------- RUNNING %utt1 -------------------....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.................
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 6 Routines, 37 Entry Tags
+Checked 109 tests, with 7 failures and encountered 1 error.
+
+------------------- RUNNING %uttcovr -------------------........................
+..............................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ENTRY^%uttcovr -------------------
+LEAKSBAD TEST - X NOT SPECIFIED VARIABLE LEAK: X
+xxxxxxxxxxxxxxxxxxxx GOING TO COV^%ut FOR %utt5 at 3
+
+Loading routines to test coverage...
+%ut1 ....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+xxxxxxxxxxxxxxxxxxxx GOING TO COV^%ut FOR %utt5 at -1
+
+Loading routines to test coverage...
+%ut1 ....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+xxxxxxxxxxxxxxxxxxxx GOING TO MULTAPIS for %utt4 and %ut
+
+------------------- RUNNING ^%ut -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utt4 -------------------
+MAIN - - Test coverage calculations
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.....---------  [OK]
+
+Ran 1 Routine, 1 Entry Tag
+Checked 4 tests, with 0 failures and encountered 0 errors.
+
+
+------------ SUMMARY ------------
+Ran 2 Routines, 6 Entry Tags
+Checked 13 tests, with 0 failures and encountered 0 errors.
+xxxxxxxxxxxxxxxxxxxx GOING TO COVERAGE for %utt4 and %ut at 3
+
+
+
+Loading routines to test coverage...
+%ut %ut1 %utcover %utf2hex %utt1 %utt2 %utt3 %utt4 %utt5 %utt6 %uttcovr 
+
+------------------- RUNNING ^%ut -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+ ------------------ START OF ADDED COMMENT ----------------------
+   %utt4 contains unit tests to run coverage analysis on the
+   %utt3 routine from the COV^%ut API, while %uttcovr runs
+   all of the analyses from the COVERAGE^%utcover API.
+ ------------------- END OF ADDED COMMMENT ----------------------
+
+------------------- RUNNING ^%utt4 -------------------
+MAIN - - Test coverage calculations
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.....---------  [OK]
+
+Ran 1 Routine, 1 Entry Tag
+Checked 4 tests, with 0 failures and encountered 0 errors.
+
+------------ SUMMARY ------------
+Ran 2 Routines, 6 Entry Tags
+Checked 13 tests, with 0 failures and encountered 0 errors.
+
+Routine %utt3           (73.68%)   14 out of 19 lines covered
+  - Detailed Breakdown
+ Tag INTERNAL^%utt3        (40.00%)   2 out of 5 lines covered
+   the following is a list of the lines **NOT** covered
+     INTERNAL+3   S A=2      ; Dead code
+     INTERNAL+4   S Y=2      ; Dead code
+     INTERNAL+5   QUIT       ; Dead code
+ Tag SETUP^%utt3          (100.00%)   1 out of 1 lines covered
+ Tag SHUTDOWN^%utt3       (100.00%)   1 out of 1 lines covered
+ Tag STARTUP^%utt3        (100.00%)   3 out of 3 lines covered
+ Tag T1^%utt3             (100.00%)   2 out of 2 lines covered
+ Tag T2^%utt3              (60.00%)   3 out of 5 lines covered
+   the following is a list of the lines **NOT** covered
+     T2+4   S X=1                  ; Dead code
+     T2+5   QUIT                   ; Dead code
+ Tag TEARDOWN^%utt3       (100.00%)   2 out of 2 lines covered
+ Tag XTMUNITV^%utt3         ------    0 out of 0 lines covered
+
+Routine %utt3           (73.68%)   14 out of 19 lines covered
+  - Summary
+ Tag INTERNAL^%utt3        (40.00%)   2 out of 5 lines covered
+ Tag SETUP^%utt3          (100.00%)   1 out of 1 lines covered
+ Tag SHUTDOWN^%utt3       (100.00%)   1 out of 1 lines covered
+ Tag STARTUP^%utt3        (100.00%)   3 out of 3 lines covered
+ Tag T1^%utt3             (100.00%)   2 out of 2 lines covered
+ Tag T2^%utt3              (60.00%)   3 out of 5 lines covered
+ Tag TEARDOWN^%utt3       (100.00%)   2 out of 2 lines covered
+ Tag XTMUNITV^%utt3         ------    0 out of 0 lines covered
+
+Routine %utt3      (73.68%)   14 out of 19 lines covered
+
+Overall Analysis 14 out of 19 lines covered (73% coverage)
+xxxxxxxxxxxxxxxxxxxx LISTING DATA VIA LIST
+
+Routine %utt3           (73.68%)   14 out of 19 lines covered
+  - Detailed Breakdown
+ Tag INTERNAL^%utt3        (40.00%)   2 out of 5 lines covered
+   the following is a list of the lines **NOT** covered
+     INTERNAL+3   S A=2      ; Dead code
+     INTERNAL+4   S Y=2      ; Dead code
+     INTERNAL+5   QUIT       ; Dead code
+ Tag SETUP^%utt3          (100.00%)   1 out of 1 lines covered
+ Tag SHUTDOWN^%utt3       (100.00%)   1 out of 1 lines covered
+ Tag STARTUP^%utt3        (100.00%)   3 out of 3 lines covered
+ Tag T1^%utt3             (100.00%)   2 out of 2 lines covered
+ Tag T2^%utt3              (60.00%)   3 out of 5 lines covered
+   the following is a list of the lines **NOT** covered
+     T2+4   S X=1                  ; Dead code
+     T2+5   QUIT                   ; Dead code
+ Tag TEARDOWN^%utt3       (100.00%)   2 out of 2 lines covered
+ Tag XTMUNITV^%utt3         ------    0 out of 0 lines covered
+
+Routine %utt3           (73.68%)   14 out of 19 lines covered
+  - Summary
+ Tag INTERNAL^%utt3        (40.00%)   2 out of 5 lines covered
+ Tag SETUP^%utt3          (100.00%)   1 out of 1 lines covered
+ Tag SHUTDOWN^%utt3       (100.00%)   1 out of 1 lines covered
+ Tag STARTUP^%utt3        (100.00%)   3 out of 3 lines covered
+ Tag T1^%utt3             (100.00%)   2 out of 2 lines covered
+ Tag T2^%utt3              (60.00%)   3 out of 5 lines covered
+ Tag TEARDOWN^%utt3       (100.00%)   2 out of 2 lines covered
+ Tag XTMUNITV^%utt3         ------    0 out of 0 lines covered
+
+Routine %utt3      (73.68%)   14 out of 19 lines covered
+
+Overall Analysis 14 out of 19 lines covered (73% coverage)
+xxxxxxxxxxxxxxxxxxxx Finished in ENTRY^%uttcovr
+
+------------------- RUNNING VERBOSE^%utt6 -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+
+T1 - - Make sure Start-up Ran.-----------------------------------------  [OK]
+T2 - - Make sure Set-up runs.------------------------------------------  [OK]
+T3 - - Make sure Teardown runs.----------------------------------------  [OK]
+T4 - Entry point using XTMENT.-----------------------------------------  [OK]
+T5 - Error count check
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.----------------------------------------------------------------------  [FAIL]
+T6 - Succeed Entry Point...--------------------------------------------  [OK]
+T7 - Make sure we write to principal even though we are on another device..[OK]
+T8 - If IO starts with another device, write to that device as if it's the prici
+pal device
+Loading routines to test coverage...
+%utt3 .----------------------------------------------------------------  [OK]
+COVRPTGL - coverage report returning global....------------------------  [OK]
+T11 - An @TEST Entry point in Another Routine invoked through XTROU offsets.[OK]
+T12 - An XTENT offset entry point in Another Routine invoked through XTROU offse
+ts.--------------------------------------------------------------------  [OK]
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+MAIN - - Test coverage calculations
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.....---------  [OK]
+NEWSTYLE - identify new style test indicator functionality.------------  [OK]
+OLDSTYLE -  identify old style test indicator functionality..----------  [OK]
+OLDSTYL1 -  identify old style test indicator 2.-----------------------  [OK]
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+-----------------------------------------------------------------------  [FAIL]
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+-----------------------------------------------------------------------  [FAIL]
+LEAKSOK - check leaks should be ok-------------------------------------  [OK]
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+-----------------------------------------------------------------------  [FAIL]
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+-----------------------------------------------------------------------  [FAIL]
+ISUTEST - check ISUTEST inside unit test.------------------------------  [OK]
+SETROUS - - generate array with indices of routines to exclude......---  [OK]
+CHKCMDLN - check command line processing of %utt5----------------------  [OK]
+CHKGUI - check GUI processing of %utt5---------------------------------  [OK]
+CKGUISET - check list of tests returned by GUISET----------------------  [OK]
+NEWSTYLE - test return of valid new style or @TEST indicators...-------  [OK]
+RTNANAL - - routine analysis...----------------------------------------  [OK]
+COVCOV - - check COVCOV - remove seen lines......----------------------  [OK]
+COVRPT...........------------------------------------------------------  [OK]
+COVRPTLS - - coverage report returning text in global...........-------  [OK]
+TRIMDATA - - TRIMDATA in %utcover..------------------------------------  [OK]
+LIST - - LIST in %utcover............----------------------------------  [OK]
+CACHECOV - - set up routine for analysis in globals..------------------  [OK]
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-------------------------------------------------  [OK]
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........---------------------------  [OK]
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+
+NEWSTYLE - identify new style test indicator functionality.------------  [OK]
+OLDSTYLE -  identify old style test indicator functionality..----------  [OK]
+OLDSTYL1 -  identify old style test indicator 2.-----------------------  [OK]
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+-----------------------------------------------------------------------  [FAIL]
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+-----------------------------------------------------------------------  [FAIL]
+LEAKSOK - check leaks should be ok-------------------------------------  [OK]
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+-----------------------------------------------------------------------  [FAIL]
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+-----------------------------------------------------------------------  [FAIL]
+ISUTEST - check ISUTEST inside unit test.------------------------------  [OK]
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+RTNANAL - - routine analysis...----------------------------------------  [OK]
+COVCOV - - check COVCOV - remove seen lines......----------------------  [OK]
+COVRPT...........------------------------------------------------------  [OK]
+COVRPTLS - - coverage report returning text in global...........-------  [OK]
+TRIMDATA - - TRIMDATA in %utcover..------------------------------------  [OK]
+LIST - - LIST in %utcover............----------------------------------  [OK]
+CACHECOV - - set up routine for analysis in globals..------------------  [OK]
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-------------------------------------------------  [OK]
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........---------------------------  [OK]
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+SETROUS - - generate array with indices of routines to exclude......---  [OK]
+CHKCMDLN - check command line processing of %utt5----------------------  [OK]
+CHKGUI - check GUI processing of %utt5---------------------------------  [OK]
+CKGUISET - check list of tests returned by GUISET----------------------  [OK]
+NEWSTYLE - test return of valid new style or @TEST indicators...-------  [OK]
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%ut -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%ut1 -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utcover -------------------.......................
+...............................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utt1 -------------------
+T1 - - Make sure Start-up Ran.-----------------------------------------  [OK]
+T2 - - Make sure Set-up runs.------------------------------------------  [OK]
+T3 - - Make sure Teardown runs.----------------------------------------  [OK]
+T4 - Entry point using XTMENT.-----------------------------------------  [OK]
+T5 - Error count check
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.----------------------------------------------------------------------  [FAIL]
+T6 - Succeed Entry Point...--------------------------------------------  [OK]
+T7 - Make sure we write to principal even though we are on another device..[OK]
+T8 - If IO starts with another device, write to that device as if it's the prici
+pal device
+Loading routines to test coverage...
+%utt3 .----------------------------------------------------------------  [OK]
+COVRPTGL - coverage report returning global....------------------------  [OK]
+T11 - An @TEST Entry point in Another Routine invoked through XTROU offsets.[OK]
+T12 - An XTENT offset entry point in Another Routine invoked through XTROU offse
+ts.--------------------------------------------------------------------  [OK]
+MAIN - - Test coverage calculations
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.....---------  [OK]
+NEWSTYLE - identify new style test indicator functionality.------------  [OK]
+OLDSTYLE -  identify old style test indicator functionality..----------  [OK]
+OLDSTYL1 -  identify old style test indicator 2.-----------------------  [OK]
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+-----------------------------------------------------------------------  [FAIL]
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+-----------------------------------------------------------------------  [FAIL]
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+-----------------------------------------------------------------------  [FAIL]
+LEAKSOK - check leaks should be ok-------------------------------------  [OK]
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+-----------------------------------------------------------------------  [FAIL]
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+-----------------------------------------------------------------------  [FAIL]
+ISUTEST - check ISUTEST inside unit test.------------------------------  [OK]
+SETROUS - - generate array with indices of routines to exclude......---  [OK]
+CHKCMDLN - check command line processing of %utt5----------------------  [OK]
+CHKGUI - check GUI processing of %utt5---------------------------------  [OK]
+CKGUISET - check list of tests returned by GUISET----------------------  [OK]
+NEWSTYLE - test return of valid new style or @TEST indicators...-------  [OK]
+RTNANAL - - routine analysis...----------------------------------------  [OK]
+COVCOV - - check COVCOV - remove seen lines......----------------------  [OK]
+COVRPT...........------------------------------------------------------  [OK]
+COVRPTLS - - coverage report returning text in global...........-------  [OK]
+TRIMDATA - - TRIMDATA in %utcover..------------------------------------  [OK]
+LIST - - LIST in %utcover............----------------------------------  [OK]
+CACHECOV - - set up routine for analysis in globals..------------------  [OK]
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-------------------------------------------------  [OK]
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........---------------------------  [OK]
+
+Ran 6 Routines, 37 Entry Tags
+Checked 113 tests, with 7 failures and encountered 1 error.
+
+------------------- RUNNING ^%utt6 -------------------
+
+RUNNING COMMAND LINE TESTS VIA DOSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+Running command line tests by RUNSET^%ut
+....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+......
+Loading routines to test coverage...
+%utt3 .........
+Loading routines to test coverage...
+%utt3 
+T1 - Test 1.-----------------------------------------------------------  [OK]
+T2 - Test 2.-----------------------------------------------------------  [OK]
+
+Ran 1 Routine, 2 Entry Tags
+Checked 2 tests, with 0 failures and encountered 0 errors.........
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 7 Routines, 39 Entry Tags
+Checked 115 tests, with 7 failures and encountered 1 error.
+
+RUNNING COMMAND LINE UNIT TESTS FOR %utt5
+....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+
+RUNNING UNIT TESTS FOR %utt5 VIA GUI CALLS - Silent
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------ SUMMARY ------------
+Ran 18 Routines, 112 Entry Tags
+Checked 398 tests, with 14 failures and encountered 2 errors.
+
+Routine %ut            (100.00%)   256 out of 256 lines covered
+  - Detailed Breakdown
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   17 out of 17 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   13 out of 13 lines covered
+ Tag CHKTF^%ut            (100.00%)   14 out of 14 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut            (100.00%)   6 out of 6 lines covered
+ Tag EN^%ut               (100.00%)   7 out of 7 lines covered
+ Tag EN1^%ut              (100.00%)   44 out of 44 lines covered
+ Tag ERROR^%ut            (100.00%)   9 out of 9 lines covered
+ Tag ERROR1^%ut           (100.00%)   7 out of 7 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut          (100.00%)   11 out of 11 lines covered
+ Tag GETSET^%ut           (100.00%)   4 out of 4 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GUILOAD^%ut          (100.00%)   8 out of 8 lines covered
+ Tag GUINEXT^%ut          (100.00%)   43 out of 43 lines covered
+ Tag GUISET^%ut           (100.00%)   8 out of 8 lines covered
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut             (100.00%)   10 out of 10 lines covered
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut           (100.00%)   9 out of 9 lines covered
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   7 out of 7 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+
+Routine %ut1            (84.70%)   227 out of 268 lines covered
+  - Detailed Breakdown
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1        (100.00%)   12 out of 12 lines covered
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (53.85%)   35 out of 65 lines covered
+   the following is a list of the lines **NOT** covered
+     COV+31   . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
+     COV+32   . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
+     COV+33   . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S RTN
+S(RTN)=""
+     COV+34   . Q
+     COV+45   . K ^TMP("%utCOVCOHORTSAV",$J)
+     COV+46   . M ^TMP("%utCOVCOHORTSAV",$J)=^TMP("%utCOVCOHORT",$J)
+     COV+47   . K ^TMP("%utCOVRESULT",$J)
+     COV+48   . S ^TMP("%utcovrunning",$J)=1,%utcovxx=1
+     COV+50   . I (+$SY=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J))  ; GT.M 
+START PROFILING
+     COV+53   . . S STATUS=##class(%Monitor.System.LineByLine).Start($lb(NMSP),$
+lb("RtnLine"),$lb($j))
+     COV+54   . . I +STATUS'=1 D DecomposeStatus^%apiOBJ(STATUS,.ERR,"-d") F I=1
+:1:ERR W ERR(I),!
+     COV+55   . . I +STATUS'=1 K ERR S EXIT=1
+     COV+56   . . Q
+     COV+70   . I (+$SY=0) ; CACHE SPECIFIC
+     COV+71   . K %utcovxx,^TMP("%utcovrunning",$J)
+     COV+72   . Q
+     COV+75   . I (+$SY=0) D  ; CACHE SPECIFIC CODE
+     COV+76   . . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
+     COV+77   . . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
+     COV+78   . . D CACHECOV(COVERSAV,COVER)
+     COV+79   . . D TOTAGS(COVERSAV,0),TOTAGS(COVER,1)
+     COV+80   . . D ##class(%Monitor.System.LineByLine).Stop()
+     COV+81   . . Q
+     COV+82   . D COVCOV($NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J
+))) ; Venn diagram matching between globals
+     COV+84   . I VERBOSITY=-1 D
+     COV+85   . . K ^TMP("%utCOVREPORT",$J)
+     COV+86   . . D COVRPTGL($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOH
+ORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+     COV+87   . . Q
+     COV+88   . E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHO
+RT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+     COV+89   . Q
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTGL^%ut1        (100.00%)   14 out of 14 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETVALS+2   N LINE,MORE,ROUNAME,RSET,VAL,X
+     GETVALS+4   S RSET=##class(%ResultSet).%New("%Monitor.System.LineByLine:Res
+ult")
+     GETVALS+5   S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(RO
+UNUM)
+     GETVALS+6   S LINE=RSET.Execute(ROUNAME)
+     GETVALS+7   F LINE=1:1 S MORE=RSET.Next() Q:'MORE  D
+     GETVALS+8   . S X=RSET.GetData(1)
+     GETVALS+9   . S VAL=$LI(X,MTRICNUM)
+     GETVALS+10   . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, 
+otherwises positive number
+     GETVALS+11   . Q
+     GETVALS+12   D RSET.Close()
+     GETVALS+13   Q
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   30 out of 30 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+Routine %utcover       (100.00%)   79 out of 79 lines covered
+  - Detailed Breakdown
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+Routine %ut            (100.00%)   256 out of 256 lines covered
+  - Summary
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   17 out of 17 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   13 out of 13 lines covered
+ Tag CHKTF^%ut            (100.00%)   14 out of 14 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut            (100.00%)   6 out of 6 lines covered
+ Tag EN^%ut               (100.00%)   7 out of 7 lines covered
+ Tag EN1^%ut              (100.00%)   44 out of 44 lines covered
+ Tag ERROR^%ut            (100.00%)   9 out of 9 lines covered
+ Tag ERROR1^%ut           (100.00%)   7 out of 7 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut          (100.00%)   11 out of 11 lines covered
+ Tag GETSET^%ut           (100.00%)   4 out of 4 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GUILOAD^%ut          (100.00%)   8 out of 8 lines covered
+ Tag GUINEXT^%ut          (100.00%)   43 out of 43 lines covered
+ Tag GUISET^%ut           (100.00%)   8 out of 8 lines covered
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut             (100.00%)   10 out of 10 lines covered
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut           (100.00%)   9 out of 9 lines covered
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   7 out of 7 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+
+Routine %ut1            (84.70%)   227 out of 268 lines covered
+  - Summary
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1        (100.00%)   12 out of 12 lines covered
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (53.85%)   35 out of 65 lines covered
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTGL^%ut1        (100.00%)   14 out of 14 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   30 out of 30 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+Routine %utcover       (100.00%)   79 out of 79 lines covered
+  - Summary
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+Routine %ut     (100.00%)   256 out of 256 lines covered
+Routine %ut1      (84.70%)   227 out of 268 lines covered
+Routine %utcover     (100.00%)   79 out of 79 lines covered
+
+Overall Analysis 562 out of 603 lines covered (93% coverage)
+
+VISTA2A>D H^XUS
+
+Logged out at Dec 10, 2015 7:04 pm
+VISTA2A>D H^XUS
