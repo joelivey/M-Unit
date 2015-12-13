@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 %ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;12/07/15  15:34
-=======
-%ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;11/21/15  11:50
->>>>>>> origin/master
-	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 1
+	; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey as XTMUNIT1 while working for U.S. Department of Veterans Affairs 2003-2012
 	; Includes addition of original COV entry and code related coverage analysis as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
 	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
@@ -210,11 +206,7 @@ COV(NMSP,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
 	. . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
 	. . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
 	. . D CACHECOV(COVERSAV,COVER)
-<<<<<<< HEAD
 	. . D TOTAGS(COVERSAV,0),TOTAGS(COVER,1)
-=======
-	. . D TOTAGS(COVERSAV),TOTAGS(COVER)
->>>>>>> origin/master
 	. . D ##class(%Monitor.System.LineByLine).Stop()
 	. . Q
 	. D COVCOV($NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J))) ; Venn diagram matching between globals
@@ -230,33 +222,20 @@ COV(NMSP,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
 CACHECOV(GLOBSAV,GLOB)	;
 	; ZEXCEPT: %Monitor,GetMetrics,GetRoutineCount,GetRoutineName,LineByLine,System,class - not variable names, part of classes
 	N DIF,I,METRIC,METRICNT,METRICS,MTRICNUM,ROUNAME,ROUNUM,X,XCNP,XXX
-<<<<<<< HEAD
 	I $$ISUTEST(),'$D(^TMP("%utt4val",$J)) S ROUNUM=1,METRICS="RtnLine",METRICNT=1,ROUNAME="%ut"
 	I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNUM=##class(%Monitor.System.LineByLine).GetRoutineCount(),METRICS=##class(%Monitor.System.LineByLine).GetMetrics(),METRICNT=$l(METRICS,",")
-=======
-	I $$ISUTEST S ROUNUM=1,METRICS="RtnLine",METRICNT=1,ROUNAME="%ut"
-	I '$$ISUTEST S ROUNUM=##class(%Monitor.System.LineByLine).GetRoutineCount(),METRICS=##class(%Monitor.System.LineByLine).GetMetrics(),METRICNT=$l(METRICS,",")
->>>>>>> origin/master
 	; if only running to do coverage, should be 1
 	S MTRICNUM=0 F I=1:1:METRICNT S METRIC=$P(METRICS,",",I) I METRIC="RtnLine" S MTRICNUM=I Q
 	;
 	F I=1:1:ROUNUM D
-<<<<<<< HEAD
 	. I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(I)
-=======
-	. I '$$ISUTEST() S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(I)
->>>>>>> origin/master
 	. ; get routine loaded into location
 	. S DIF=$NA(@GLOBSAV@(ROUNAME)),DIF=$E(DIF,1,$L(DIF)-1)_",",XCNP=0,X=ROUNAME
 	. X ^%ZOSF("LOAD")
 	. M @GLOB@(ROUNAME)=@GLOBSAV@(ROUNAME)
 	. Q
 	;
-<<<<<<< HEAD
 	I $D(^TMP("%utt4val",$J))!'$$ISUTEST() F XXX=1:1:ROUNUM D GETVALS(XXX,GLOB,MTRICNUM)
-=======
-	I '$$ISUTEST() F XXX=1:1:ROUNUM D GETVALS(XXX,GLOB,MTRICNUM)
->>>>>>> origin/master
 	Q
 	;
 GETVALS(ROUNUM,GLOB,MTRICNUM)	; get data on number of times a line seen (set into VAL)
@@ -274,11 +253,7 @@ GETVALS(ROUNUM,GLOB,MTRICNUM)	; get data on number of times a line seen (set int
 	D RSET.Close()
 	Q
 	;
-<<<<<<< HEAD
 TOTAGS(GLOBAL,ACTIVE)	; convert to lines from tags and set value only if not seen
-=======
-TOTAGS(GLOBAL)	; convert to lines from tags and set value only if not seen
->>>>>>> origin/master
 	N ACTIVCOD,LINE,LINENUM,ROU,ROUCODE
 	S ROU="" F  S ROU=$O(@GLOBAL@(ROU)) Q:ROU=""  D
 	. M ROUCODE(ROU)=@GLOBAL@(ROU) K @GLOBAL@(ROU)
@@ -287,12 +262,8 @@ TOTAGS(GLOBAL)	; convert to lines from tags and set value only if not seen
 	. . S LINE=ROUCODE(ROU,LINENUM,0)
 	. . S ACTIVCOD=$$LINEDATA(LINE,.TAG,.OFFSET)
 	. . I TAG'=OLDTAG S @GLOBAL@(ROU,TAG)=TAG
-<<<<<<< HEAD
 	. . I ACTIVE,ACTIVCOD,(+$G(ROUCODE(ROU,LINENUM,"C"))'>0) S @GLOBAL@(ROU,TAG,OFFSET)=LINE
 	. . I 'ACTIVE,ACTIVCOD S @GLOBAL@(ROU,TAG,OFFSET)=LINE
-=======
-	. . I ACTIVCOD,(+$G(ROUCODE(ROU,LINENUM,"C"))'>0) S @GLOBAL@(ROU,TAG,OFFSET)=LINE
->>>>>>> origin/master
 	. . Q
 	. Q
 	Q
@@ -406,15 +377,10 @@ COVRPTLS(C,S,R,V,X)	;
 	. N O S O=$$ACTLINES($NA(@C@(RTN)))
 	. N L S L=$$ACTLINES($NA(@S@(RTN)))
 	. ;W ?3,RTN,?21,$S(O:$J(O-L/O*100,"",2),1:"100.00"),!
-<<<<<<< HEAD
 	. N XX,XY S XX="  "_RTN_"                    ",XX=$E(XX,1,12)
 	. S XY="        "_$S(O:$J((O-L)/O*100,"",2)_"%",1:"------"),XY=$E(XY,$L(XY)-11,$L(XY))
 	. ;S LINNUM=LINNUM+1,@X@(LINNUM)=XX_$S(O:$J((O-L)/O*100,"",2)_"%",1:"------")_"  "_(O-L)_" out of "_O
 	. S LINNUM=LINNUM+1,@X@(LINNUM)=XX_XY_"  "_(O-L)_" out of "_O
-=======
-	. N XX,XY S XX="  "_RTN_"                    ",XX=$E(XX,1,20)
-	. S LINNUM=LINNUM+1,@X@(LINNUM)=XX_$S(O:$J((O-L)/O*100,"",2),1:"---- ")
->>>>>>> origin/master
 	. I V=1 QUIT  ; Just print the routine coverage for V=1
 	. N TAG S TAG=""
 	. F  S TAG=$O(@C@(RTN,TAG)) Q:TAG=""  D
@@ -422,15 +388,9 @@ COVRPTLS(C,S,R,V,X)	;
 	. . N L S L=$$ACTLINES($NA(@S@(RTN,TAG)))
 	. . ;W ?5,TAG,?21,$S(O:$J(O-L/O*100,"",2),1:"100.00"),!
 	. . S XX="    "_TAG_"                  ",XX=$E(XX,1,20)
-<<<<<<< HEAD
 	. . ;S XY="        ("_(O-L)_"/"_O_")",XY=$E(XY,$L(XY)-11,$L(XY)),XX=XX_XY
 	. . S XY="      "_$S(O:$J((O-L)/O*100,"",2)_"%",1:"------"),XY=$E(XY,$L(XY)-7,$L(XY))
 	. . S LINNUM=LINNUM+1,@X@(LINNUM)=XX_XY_"  "_(O-L)_" out of "_O
-=======
-	. . S XY="        ("_(O-L)_"/"_O_")",XY=$E(XY,$L(XY)-11,$L(XY)),XX=XX_XY
-	. . S XY="      "_$S(O:$J((O-L)/O*100,"",2)_"%",1:"---- "),XY=$E(XY,$L(XY)-7,$L(XY))
-	. . S LINNUM=LINNUM+1,@X@(LINNUM)=XX_XY
->>>>>>> origin/master
 	. . I V=2 QUIT  ; Just print routine/tags coverage for V=2; V=3 print uncovered lines
 	. . N LN S LN=""
 	. . ;F  S LN=$O(@S@(RTN,TAG,LN)) Q:LN=""  W TAG_"+"_LN_": "_^(LN),!
