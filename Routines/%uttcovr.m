@@ -1,7 +1,7 @@
-%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;12/07/15  16:46
-	;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 1
-	; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Joel L. Ivey
+%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;12/16/15  08:48
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	;
 	;
 	; ZEXCEPT: DTIME - if present the value is Kernel timeout for reads

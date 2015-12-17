@@ -1,155 +1,162 @@
-$TXT Created by IVEY,JOEL at JIVEY3.JIVEYSOFT.COM  (KIDS) on Monday, 12/07/15 at 17:15
+$TXT Created by IVEY,JOEL at JIVEY3.JIVEYSOFT.COM  (KIDS) on Wednesday, 12/16/15 at 09:53
  
-Update for coverage with Cache systems
+This updated version adds coverage analysis for Cache systems
+to the M-Unit unit test functionality.
  
 $END TXT
-$KID MASH*0.3*0
+$KID MASH*1.3*0
 **INSTALL NAME**
-MASH*0.3*0
-"BLD",9545,0)
-MASH*0.3*0^MASH UTILITIES^0^3151207^n
-"BLD",9545,1,0)
-^^2^2^3151207^
-"BLD",9545,1,1,0)
-This update adds the ability to perform coverage analysis on Cache
-"BLD",9545,1,2,0)
-systems as well as GT.M systems.
-"BLD",9545,4,0)
+MASH*1.3*0
+"BLD",9546,0)
+MASH*1.3*0^MASH UTILITIES^0^3151216^n
+"BLD",9546,1,0)
+^^5^5^3151216^
+"BLD",9546,1,1,0)
+Updated version of the open source M Advanced Shell (MASH) package.  
+"BLD",9546,1,2,0)
+This version includes the M-Unit testing functionality and adds 
+"BLD",9546,1,3,0)
+the capability of performing coverage analysis in Intersystems Cache 
+"BLD",9546,1,4,0)
+systems to the previous ability to perform such analyses in GT.M 
+"BLD",9546,1,5,0)
+systems.
+"BLD",9546,4,0)
 ^9.64PA^17.9001^1
-"BLD",9545,4,17.9001,0)
+"BLD",9546,4,17.9001,0)
 17.9001
-"BLD",9545,4,17.9001,222)
-y^y^f^^n^^y^a^n
-"BLD",9545,4,"B",17.9001,17.9001)
-"BLD",9545,6.3)
-2
-"BLD",9545,"INI")
+"BLD",9546,4,17.9001,222)
+y^y^f^^n^^y^m^n
+"BLD",9546,4,"B",17.9001,17.9001)
+"BLD",9546,6.3)
+3
+"BLD",9546,"INI")
 ZZUTPRE
-"BLD",9545,"INID")
-^y^y
-"BLD",9545,"INIT")
+"BLD",9546,"INID")
+^n^n
+"BLD",9546,"INIT")
 ZZUTPOST
-"BLD",9545,"KRN",0)
+"BLD",9546,"KRN",0)
 ^9.67PA^779.2^20
-"BLD",9545,"KRN",.4,0)
+"BLD",9546,"KRN",.4,0)
 .4
-"BLD",9545,"KRN",.401,0)
+"BLD",9546,"KRN",.401,0)
 .401
-"BLD",9545,"KRN",.402,0)
+"BLD",9546,"KRN",.402,0)
 .402
-"BLD",9545,"KRN",.403,0)
+"BLD",9546,"KRN",.403,0)
 .403
-"BLD",9545,"KRN",.5,0)
+"BLD",9546,"KRN",.5,0)
 .5
-"BLD",9545,"KRN",.84,0)
+"BLD",9546,"KRN",.84,0)
 .84
-"BLD",9545,"KRN",3.6,0)
+"BLD",9546,"KRN",3.6,0)
 3.6
-"BLD",9545,"KRN",3.8,0)
+"BLD",9546,"KRN",3.8,0)
 3.8
-"BLD",9545,"KRN",9.2,0)
+"BLD",9546,"KRN",9.2,0)
 9.2
-"BLD",9545,"KRN",9.8,0)
+"BLD",9546,"KRN",9.8,0)
 9.8
-"BLD",9545,"KRN",9.8,"NM",0)
+"BLD",9546,"KRN",9.8,"NM",0)
 ^9.68A^10^10
-"BLD",9545,"KRN",9.8,"NM",1,0)
-ut^^0^B229598217
-"BLD",9545,"KRN",9.8,"NM",2,0)
+"BLD",9546,"KRN",9.8,"NM",1,0)
+ut^^0^B230412209
+"BLD",9546,"KRN",9.8,"NM",2,0)
 ut1^^0^B226313375
-"BLD",9545,"KRN",9.8,"NM",3,0)
+"BLD",9546,"KRN",9.8,"NM",3,0)
 utcover^^0^B52893402
-"BLD",9545,"KRN",9.8,"NM",4,0)
+"BLD",9546,"KRN",9.8,"NM",4,0)
 utt1^^0^B39370749
-"BLD",9545,"KRN",9.8,"NM",5,0)
+"BLD",9546,"KRN",9.8,"NM",5,0)
 utt2^^0^B501728
-"BLD",9545,"KRN",9.8,"NM",6,0)
+"BLD",9546,"KRN",9.8,"NM",6,0)
 utt3^^0^B1628564
-"BLD",9545,"KRN",9.8,"NM",7,0)
+"BLD",9546,"KRN",9.8,"NM",7,0)
 utt4^^0^B1568129
-"BLD",9545,"KRN",9.8,"NM",8,0)
+"BLD",9546,"KRN",9.8,"NM",8,0)
 utt5^^0^B23054235
-"BLD",9545,"KRN",9.8,"NM",9,0)
+"BLD",9546,"KRN",9.8,"NM",9,0)
 utt6^^0^B39118749
-"BLD",9545,"KRN",9.8,"NM",10,0)
+"BLD",9546,"KRN",9.8,"NM",10,0)
 uttcovr^^0^B186023122
-"BLD",9545,"KRN",9.8,"NM","B","ut",1)
-"BLD",9545,"KRN",9.8,"NM","B","ut1",2)
-"BLD",9545,"KRN",9.8,"NM","B","utcover",3)
-"BLD",9545,"KRN",9.8,"NM","B","utt1",4)
-"BLD",9545,"KRN",9.8,"NM","B","utt2",5)
-"BLD",9545,"KRN",9.8,"NM","B","utt3",6)
-"BLD",9545,"KRN",9.8,"NM","B","utt4",7)
-"BLD",9545,"KRN",9.8,"NM","B","utt5",8)
-"BLD",9545,"KRN",9.8,"NM","B","utt6",9)
-"BLD",9545,"KRN",9.8,"NM","B","uttcovr",10)
-"BLD",9545,"KRN",19,0)
+"BLD",9546,"KRN",9.8,"NM","B","ut",1)
+"BLD",9546,"KRN",9.8,"NM","B","ut1",2)
+"BLD",9546,"KRN",9.8,"NM","B","utcover",3)
+"BLD",9546,"KRN",9.8,"NM","B","utt1",4)
+"BLD",9546,"KRN",9.8,"NM","B","utt2",5)
+"BLD",9546,"KRN",9.8,"NM","B","utt3",6)
+"BLD",9546,"KRN",9.8,"NM","B","utt4",7)
+"BLD",9546,"KRN",9.8,"NM","B","utt5",8)
+"BLD",9546,"KRN",9.8,"NM","B","utt6",9)
+"BLD",9546,"KRN",9.8,"NM","B","uttcovr",10)
+"BLD",9546,"KRN",19,0)
 19
-"BLD",9545,"KRN",19,"NM",0)
+"BLD",9546,"KRN",19,"NM",0)
 ^9.68A^3^3
-"BLD",9545,"KRN",19,"NM",1,0)
+"BLD",9546,"KRN",19,"NM",1,0)
 utMUNIT^^0
-"BLD",9545,"KRN",19,"NM",2,0)
+"BLD",9546,"KRN",19,"NM",2,0)
 utMUNIT GROUP EDIT^^0
-"BLD",9545,"KRN",19,"NM",3,0)
+"BLD",9546,"KRN",19,"NM",3,0)
 utMUNIT GROUP RUN^^0
-"BLD",9545,"KRN",19,"NM","B","utMUNIT",1)
-"BLD",9545,"KRN",19,"NM","B","utMUNIT GROUP EDIT",2)
-"BLD",9545,"KRN",19,"NM","B","utMUNIT GROUP RUN",3)
-"BLD",9545,"KRN",19.1,0)
+"BLD",9546,"KRN",19,"NM","B","utMUNIT",1)
+"BLD",9546,"KRN",19,"NM","B","utMUNIT GROUP EDIT",2)
+"BLD",9546,"KRN",19,"NM","B","utMUNIT GROUP RUN",3)
+"BLD",9546,"KRN",19.1,0)
 19.1
-"BLD",9545,"KRN",101,0)
+"BLD",9546,"KRN",101,0)
 101
-"BLD",9545,"KRN",409.61,0)
+"BLD",9546,"KRN",409.61,0)
 409.61
-"BLD",9545,"KRN",771,0)
+"BLD",9546,"KRN",771,0)
 771
-"BLD",9545,"KRN",779.2,0)
+"BLD",9546,"KRN",779.2,0)
 779.2
-"BLD",9545,"KRN",870,0)
+"BLD",9546,"KRN",870,0)
 870
-"BLD",9545,"KRN",8989.51,0)
+"BLD",9546,"KRN",8989.51,0)
 8989.51
-"BLD",9545,"KRN",8989.52,0)
+"BLD",9546,"KRN",8989.52,0)
 8989.52
-"BLD",9545,"KRN",8994,0)
+"BLD",9546,"KRN",8994,0)
 8994
-"BLD",9545,"KRN",8994,"NM",0)
+"BLD",9546,"KRN",8994,"NM",0)
 ^9.68A^3^3
-"BLD",9545,"KRN",8994,"NM",1,0)
+"BLD",9546,"KRN",8994,"NM",1,0)
 utMUNIT-TEST GROUP LOAD^^0
-"BLD",9545,"KRN",8994,"NM",2,0)
+"BLD",9546,"KRN",8994,"NM",2,0)
 utMUNIT-TEST LOAD^^0
-"BLD",9545,"KRN",8994,"NM",3,0)
+"BLD",9546,"KRN",8994,"NM",3,0)
 utMUNIT-TEST NEXT^^0
-"BLD",9545,"KRN",8994,"NM","B","utMUNIT-TEST GROUP LOAD",1)
-"BLD",9545,"KRN",8994,"NM","B","utMUNIT-TEST LOAD",2)
-"BLD",9545,"KRN",8994,"NM","B","utMUNIT-TEST NEXT",3)
-"BLD",9545,"KRN","B",.4,.4)
-"BLD",9545,"KRN","B",.401,.401)
-"BLD",9545,"KRN","B",.402,.402)
-"BLD",9545,"KRN","B",.403,.403)
-"BLD",9545,"KRN","B",.5,.5)
-"BLD",9545,"KRN","B",.84,.84)
-"BLD",9545,"KRN","B",3.6,3.6)
-"BLD",9545,"KRN","B",3.8,3.8)
-"BLD",9545,"KRN","B",9.2,9.2)
-"BLD",9545,"KRN","B",9.8,9.8)
-"BLD",9545,"KRN","B",19,19)
-"BLD",9545,"KRN","B",19.1,19.1)
-"BLD",9545,"KRN","B",101,101)
-"BLD",9545,"KRN","B",409.61,409.61)
-"BLD",9545,"KRN","B",771,771)
-"BLD",9545,"KRN","B",779.2,779.2)
-"BLD",9545,"KRN","B",870,870)
-"BLD",9545,"KRN","B",8989.51,8989.51)
-"BLD",9545,"KRN","B",8989.52,8989.52)
-"BLD",9545,"KRN","B",8994,8994)
-"BLD",9545,"QDEF")
+"BLD",9546,"KRN",8994,"NM","B","utMUNIT-TEST GROUP LOAD",1)
+"BLD",9546,"KRN",8994,"NM","B","utMUNIT-TEST LOAD",2)
+"BLD",9546,"KRN",8994,"NM","B","utMUNIT-TEST NEXT",3)
+"BLD",9546,"KRN","B",.4,.4)
+"BLD",9546,"KRN","B",.401,.401)
+"BLD",9546,"KRN","B",.402,.402)
+"BLD",9546,"KRN","B",.403,.403)
+"BLD",9546,"KRN","B",.5,.5)
+"BLD",9546,"KRN","B",.84,.84)
+"BLD",9546,"KRN","B",3.6,3.6)
+"BLD",9546,"KRN","B",3.8,3.8)
+"BLD",9546,"KRN","B",9.2,9.2)
+"BLD",9546,"KRN","B",9.8,9.8)
+"BLD",9546,"KRN","B",19,19)
+"BLD",9546,"KRN","B",19.1,19.1)
+"BLD",9546,"KRN","B",101,101)
+"BLD",9546,"KRN","B",409.61,409.61)
+"BLD",9546,"KRN","B",771,771)
+"BLD",9546,"KRN","B",779.2,779.2)
+"BLD",9546,"KRN","B",870,870)
+"BLD",9546,"KRN","B",8989.51,8989.51)
+"BLD",9546,"KRN","B",8989.52,8989.52)
+"BLD",9546,"KRN","B",8994,8994)
+"BLD",9546,"QDEF")
 ^^^^NO^^^^NO^^NO
-"BLD",9545,"QUES",0)
+"BLD",9546,"QUES",0)
 ^9.62^^
-"BLD",9545,"REQB",0)
+"BLD",9546,"REQB",0)
 ^9.611^^
 "DATA",17.9001,1,0)
 TESTS FOR UNIT TEST ROUTINES
@@ -165,6 +172,16 @@ TESTS FOR UNIT TEST ROUTINES
 %utt4
 "DATA",17.9001,1,1,5,0)
 %utt5
+"DATA",17.9001,1,2,0)
+^^4^4^3141008^
+"DATA",17.9001,1,2,1,0)
+This group will run all of the unit tests associated with the M-Unit
+"DATA",17.9001,1,2,2,0)
+code.  In addition, the routine %utt6 should be run as a regular routine
+"DATA",17.9001,1,2,3,0)
+from the top, and it will run all of the unit tests and,if on a G.TM
+"DATA",17.9001,1,2,4,0)
+system will run coverage analysis as well.
 "FIA",17.9001)
 M-UNIT TEST GROUP
 "FIA",17.9001,0)
@@ -172,12 +189,12 @@ M-UNIT TEST GROUP
 "FIA",17.9001,0,0)
 17.9001
 "FIA",17.9001,0,1)
-y^y^f^^n^^y^a^n
+y^y^f^^n^^y^m^n
 "FIA",17.9001,0,10)
 "FIA",17.9001,0,11)
 "FIA",17.9001,0,"RLRO")
 "FIA",17.9001,0,"VR")
-0.3^MASH
+1.3^MASH
 "FIA",17.9001,17.9001)
 0
 "FIA",17.9001,17.90011)
@@ -279,15 +296,21 @@ MASH UTILITIES^%u^Utilities associated with the M Advanced Shell
 "PKG",222,22,0)
 ^9.49I^1^1
 "PKG",222,22,1,0)
-0.3
+1.3^3151216^3151216
 "PKG",222,22,1,"PAH",1,0)
-0^3151207
+0^3151216
 "PKG",222,22,1,"PAH",1,1,0)
-^^2^2^3151207
+^^5^5^3151216
 "PKG",222,22,1,"PAH",1,1,1,0)
-This update adds the ability to perform coverage analysis on Cache
+Updated version of the open source M Advanced Shell (MASH) package.  
 "PKG",222,22,1,"PAH",1,1,2,0)
-systems as well as GT.M systems.
+This version includes the M-Unit testing functionality and adds 
+"PKG",222,22,1,"PAH",1,1,3,0)
+the capability of performing coverage analysis in Intersystems Cache 
+"PKG",222,22,1,"PAH",1,1,4,0)
+systems to the previous ability to perform such analyses in GT.M 
+"PKG",222,22,1,"PAH",1,1,5,0)
+systems.
 "QUES","XPF1",0)
 Y
 "QUES","XPF1","??")
@@ -362,11 +385,11 @@ D XPZ2^XPDIQ
 "RTN","ZZUTPOST")
 0^^B31712373
 "RTN","ZZUTPOST",1,0)
-%utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;09/14/15  12:39
+%utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;12/16/15  08:58
 "RTN","ZZUTPOST",2,0)
- ;;0.3;MASH UTILITIES;;;Build 1
+ ;;1.3;MASH UTILITIES;;DEC 16,2015;Build 3
 "RTN","ZZUTPOST",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA DEC 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ZZUTPOST",4,0)
  ; Original routine authored by Sam H. Habiel 07/2013-04/2014
 "RTN","ZZUTPOST",5,0)
@@ -668,13 +691,13 @@ GTMPROB ; come here in case of error trying to run unit tests - checks whether r
 "RTN","ZZUTPRE")
 0^^B7184945
 "RTN","ZZUTPRE",1,0)
-%utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;10/08/15  19:11
+%utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;12/16/15  08:59
 "RTN","ZZUTPRE",2,0)
- ;;0.3;MASH UTILITIES;;;Build 1
+ ;;1.3;MASH UTILITIES;;DEC 16, ;Build 3
 "RTN","ZZUTPRE",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ZZUTPRE",4,0)
- ; Original routine authored by Sam H. Habiel 07/2013?04/2014
+ ; Original routine authored by Sam H. Habiel 07/2013-04/2014
 "RTN","ZZUTPRE",5,0)
  ;
 "RTN","ZZUTPRE",6,0)
@@ -768,919 +791,921 @@ CACHEMAP ; Map %ut* Globals and Routines away from %SYS in Cache
 "RTN","ZZUTPRE",50,0)
  QUIT
 "RTN","ut")
-0^1^B229598217
+0^1^B230412209
 "RTN","ut",1,0)
-%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;12/07/15  15:32
+%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;12/16/15  08:40
 "RTN","ut",2,0)
- ;;0.3;MASH UTILITIES;;;Build 1
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","ut",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ut",4,0)
  ; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
 "RTN","ut",5,0)
- ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
+ ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013-04/2014
 "RTN","ut",6,0)
- ;
+ ; Additional work by Joel L. Ivey 05/14-12/15
 "RTN","ut",7,0)
- ; This routine and its companion, %ut1, provide the basic functionality for
+ ;
 "RTN","ut",8,0)
- ; running unit tests on parts of M programs either at the command line level
+ ; This routine and its companion, %ut1, provide the basic functionality for
 "RTN","ut",9,0)
- ; or via the M-Unit GUI application for windows operating systems.
+ ; running unit tests on parts of M programs either at the command line level
 "RTN","ut",10,0)
- ;
+ ; or via the M-Unit GUI application for windows operating systems.
 "RTN","ut",11,0)
- ; Original by Dr. Joel Ivey
+ ;
 "RTN","ut",12,0)
- ; Contributions by Dr. Sam Habiel
+ ; Original by Dr. Joel Ivey
 "RTN","ut",13,0)
- ;   comments moved to %ut1 due to space requirements
+ ; Contributions by Dr. Sam Habiel
 "RTN","ut",14,0)
- ;
+ ;   comments moved to %ut1 due to space requirements
 "RTN","ut",15,0)
- D ^%utt6 ; runs unit tests on all of it
+ ;
 "RTN","ut",16,0)
- Q
+ D ^%utt6 ; runs unit tests on all of it
 "RTN","ut",17,0)
- ;
+ Q
 "RTN","ut",18,0)
-EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name, optional 1 for verbose output
+ ;
 "RTN","ut",19,0)
- N %utLIST,%utROU,%ut
+EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name, optional 1 for verbose output
 "RTN","ut",20,0)
- I '+$G(%utVERB) S %utVERB=0
+ N %utLIST,%utROU,%ut
 "RTN","ut",21,0)
- S %utLIST=1,%utROU(%utLIST)=%utRNAM
+ I '+$G(%utVERB) S %utVERB=0
 "RTN","ut",22,0)
- K ^TMP("%ut",$J,"UTVALS")
+ S %utLIST=1,%utROU(%utLIST)=%utRNAM
 "RTN","ut",23,0)
- D SETUT
-"RTN","ut",24,0)
- D EN1(.%utROU,%utLIST)
-"RTN","ut",25,0)
- Q
-"RTN","ut",26,0)
- ;
-"RTN","ut",27,0)
-SETUT ;
-"RTN","ut",28,0)
- ; VEN/SMH 26JUL2013
-"RTN","ut",29,0)
- I '($D(IO)#2) S IO=$P
-"RTN","ut",30,0)
- S U="^"
-"RTN","ut",31,0)
- ; VEN/SMH 26JUL2013 END
-"RTN","ut",32,0)
- ;
-"RTN","ut",33,0)
- ; ZEXCEPT: %ut  -- NEWED ON ENTRY
-"RTN","ut",34,0)
- S %ut("IO")=IO
-"RTN","ut",35,0)
- S %ut=1 ; set to identify unit test being run check with $$ISUTEST^%ut()
-"RTN","ut",36,0)
- ;
-"RTN","ut",37,0)
- ; ZEXCEPT: %utBREAK
-"RTN","ut",38,0)
- I $G(%utBREAK) S %ut("BREAK")=1
-"RTN","ut",39,0)
- Q
-"RTN","ut",40,0)
- ;
-"RTN","ut",41,0)
-EN1(%utROU,%utLIST) ;
-"RTN","ut",42,0)
- ; VEN/SMH 26JUL2013 - This block is refactored to fix problems with
-"RTN","ut",43,0)
- ; SETUP and TEARDOWN not happening at the right time
-"RTN","ut",44,0)
- N %utERRL,%utK,%utI,%utJ,%utSTRT
-"RTN","ut",45,0)
- ; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
-"RTN","ut",46,0)
- ; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
-"RTN","ut",47,0)
- ; ZEXCEPT: %ut  -- NEWED IN EN
-"RTN","ut",48,0)
- ;
-"RTN","ut",49,0)
- ; Structure map for %ut
-"RTN","ut",50,0)
- ; -- CURR = Counter for routine number. Used as sub in %utROU
-"RTN","ut",51,0)
- ; -- ECNT = Entry point count in loop (cf. NERT); VEN/SMH - Needed?
-"RTN","ut",52,0)
- ; -- FAIL = Number of failures
-"RTN","ut",53,0)
- ; -- CHK  = Number of checks ran (TF/EQ/FAIL)
-"RTN","ut",54,0)
- ; -- NENT = Number of entry points ran
-"RTN","ut",55,0)
- ; -- ERRN = Number of errors
-"RTN","ut",56,0)
- S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("NENT")=0,%ut("ERRN")=0
-"RTN","ut",57,0)
- ;
-"RTN","ut",58,0)
- ; -- GET LIST OF ROUTINES --
-"RTN","ut",59,0)
- ; first get any tree of routines from this one
-"RTN","ut",60,0)
- D GETTREE^%ut1(.%utROU,.%utLIST)
-"RTN","ut",61,0)
- ;
-"RTN","ut",62,0)
- ; Now process each routine that has been referenced
-"RTN","ut",63,0)
- N CURRROU
-"RTN","ut",64,0)
- S %ut("CURR")=0
-"RTN","ut",65,0)
- F  S %ut("CURR")=%ut("CURR")+1 Q:'$D(%utROU(%ut("CURR")))  S CURRROU=%utROU(%ut("CURR")) D  I $T(@("SHUTDOWN^"_CURRROU))'="" D @("SHUTDOWN^"_CURRROU)
-"RTN","ut",66,0)
- . ; 141018 - add ability to run STARTUP and SHUTDOWN in each routine JLI
-"RTN","ut",67,0)
- . I $T(@("STARTUP^"_CURRROU))'="" D @("STARTUP^"_CURRROU) ; 141018
-"RTN","ut",68,0)
- . N %utETRY ; Test list to run
-"RTN","ut",69,0)
- . ;
-"RTN","ut",70,0)
- . ; Collect Test list.
-"RTN","ut",71,0)
- . D CHEKTEST^%ut1(%utROU(%ut("CURR")),.%ut,.%utETRY)
-"RTN","ut",72,0)
- . ;
-"RTN","ut",73,0)
- . ; if a SETUP entry point exists, save it off in %ut
-"RTN","ut",74,0)
- . S %ut("SETUP")="" ; 141018 need to clear any previous values JLI
-"RTN","ut",75,0)
- . N %utSETUP S %utSETUP="SETUP^"_%utROU(%ut("CURR"))
-"RTN","ut",76,0)
- . S %ut("LINE")=$T(@%utSETUP) I %ut("LINE")'="" S %ut("SETUP")=%utSETUP
-"RTN","ut",77,0)
- . K %utSETUP ; we're done!
-"RTN","ut",78,0)
- . ;
-"RTN","ut",79,0)
- . ; if a TEARDOWN entry point exists, ditto
-"RTN","ut",80,0)
- . S %ut("TEARDOWN")="" ; 141018 need to clear any previous values JLI
-"RTN","ut",81,0)
- . N %utTEARDOWN S %utTEARDOWN="TEARDOWN^"_%utROU(%ut("CURR"))
-"RTN","ut",82,0)
- . S %ut("LINE")=$T(@%utTEARDOWN) I %ut("LINE")'="" S %ut("TEARDOWN")=%utTEARDOWN
-"RTN","ut",83,0)
- . K %utTEARDOWN ; done here.
-"RTN","ut",84,0)
- . ;
-"RTN","ut",85,0)
- . ; VEN/SMH 26JUL2013 - this block changed to correct running of setup and teardown
-"RTN","ut",86,0)
- . ; run each of the specified entry points
-"RTN","ut",87,0)
- . ;
-"RTN","ut",88,0)
- . ; == THIS FOR/DO BLOCK IS THE CENTRAL TEST RUNNER ==
-"RTN","ut",89,0)
- . S %utI=0
-"RTN","ut",90,0)
- . F  S %utI=$O(%utETRY(%utI)) Q:%utI'>0  S %ut("ENUM")=%ut("ERRN")+%ut("FAIL") D
-"RTN","ut",91,0)
- . . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",92,0)
- . . ;
-"RTN","ut",93,0)
- . . ; Run Set-up Code (only if present)
-"RTN","ut",94,0)
- . . S %ut("ENT")=$G(%ut("SETUP")) ; Current entry
-"RTN","ut",95,0)
- . . S %ut("NAME")="Set-up Code"
-"RTN","ut",96,0)
- . . D:%ut("ENT")]"" @%ut("ENT")
-"RTN","ut",97,0)
- . . ;
-"RTN","ut",98,0)
- . . ; Run actual test
-"RTN","ut",99,0)
- . . S %ut("ECNT")=%ut("ECNT")+1
-"RTN","ut",100,0)
- . . S %ut("NAME")=%utETRY(%utI,"NAME")
-"RTN","ut",101,0)
- . . S %ut("ENT")=%utETRY(%utI)_"^"_%utROU(%ut("CURR"))
-"RTN","ut",102,0)
- . . I %utVERB,'$D(%utGUI) D VERBOSE1(.%utETRY,%utI) ; Say what we executed.
-"RTN","ut",103,0)
- . . D @%ut("ENT")
-"RTN","ut",104,0)
- . . ;
-"RTN","ut",105,0)
- . . ; Run Teardown Code (only if present)
-"RTN","ut",106,0)
- . . S %ut("ENT")=$G(%ut("TEARDOWN"))
-"RTN","ut",107,0)
- . . S %ut("NAME")="Teardown Code"
-"RTN","ut",108,0)
- . . D:%ut("ENT")]"" @%ut("ENT")
-"RTN","ut",109,0)
- . . ;
-"RTN","ut",110,0)
- . . ; ENUM = Number of errors + failures
-"RTN","ut",111,0)
- . . ; Only print out the success message [OK] If our error number remains
-"RTN","ut",112,0)
- . . ; the same as when we started the loop.
-"RTN","ut",113,0)
- . . I %utVERB,'$D(%utGUI) D
-"RTN","ut",114,0)
- . . . I %ut("ENUM")=(%ut("ERRN")+%ut("FAIL")) D VERBOSE(.%utETRY,%utI,1) I 1
-"RTN","ut",115,0)
- . . . E  D VERBOSE(.%utETRY,%utI,0)
-"RTN","ut",116,0)
- . . . Q
-"RTN","ut",117,0)
- . . Q
-"RTN","ut",118,0)
- . ; keep a %utCNT of number of entry points executed across all routines
-"RTN","ut",119,0)
- . S %ut("NENT")=%ut("NENT")+%ut("ENTN")
-"RTN","ut",120,0)
- . Q
-"RTN","ut",121,0)
- ;
-"RTN","ut",122,0)
- ; -- SHUTDOWN --
-"RTN","ut",123,0)
- D SETIO^%ut1
-"RTN","ut",124,0)
- W !!,"Ran ",%utLIST," Routine",$S(%utLIST>1:"s",1:""),", ",%ut("NENT")," Entry Tag",$S(%ut("NENT")>1:"s",1:"")
-"RTN","ut",125,0)
- W !,"Checked ",%ut("CHK")," test",$S(%ut("CHK")>1:"s",1:""),", with ",%ut("FAIL")," failure",$S(%ut("FAIL")'=1:"s",1:"")," and encountered ",%ut("ERRN")," error",$S(%ut("ERRN")'=1:"s",1:""),"."
-"RTN","ut",126,0)
- S ^TMP("%ut",$J,"UTVALS")=%utLIST_U_%ut("NENT")_U_%ut("CHK")_U_%ut("FAIL")_U_%ut("ERRN") ; JLI 150621 so programs running several sets of unit tests can generate totals
-"RTN","ut",127,0)
- D RESETIO^%ut1
-"RTN","ut",128,0)
- Q
-"RTN","ut",129,0)
- ; -- end EN1
-"RTN","ut",130,0)
-VERBOSE(%utETRY,%utI,SUCCESS) ; Say whether we succeeded or failed.
-"RTN","ut",131,0)
- ; ZEXCEPT: %ut - NEWED IN EN
-"RTN","ut",132,0)
- D SETIO^%ut1
-"RTN","ut",133,0)
- N I F I=$X+3:1:73 W "-"
-"RTN","ut",134,0)
- W ?73
-"RTN","ut",135,0)
- I $G(SUCCESS) W "[OK]"
-"RTN","ut",136,0)
- E  W "[FAIL]"
-"RTN","ut",137,0)
- D RESETIO^%ut1
-"RTN","ut",138,0)
- Q
-"RTN","ut",139,0)
- ;
-"RTN","ut",140,0)
-VERBOSE1(%utETRY,%utI) ; Print out the entry point info
-"RTN","ut",141,0)
- ; ZEXCEPT: %ut - NEWED IN EN
-"RTN","ut",142,0)
- D SETIO^%ut1
-"RTN","ut",143,0)
- W !,%utETRY(%utI) I $G(%utETRY(%utI,"NAME"))'="" W " - ",%utETRY(%utI,"NAME")
-"RTN","ut",144,0)
- D RESETIO^%ut1
-"RTN","ut",145,0)
- Q
-"RTN","ut",146,0)
- ;
-"RTN","ut",147,0)
-CHKTF(XTSTVAL,XTERMSG) ; Entry point for checking True or False values
-"RTN","ut",148,0)
- ; ZEXCEPT: %utERRL,%utGUI - CREATED IN SETUP, KILLED IN END
-"RTN","ut",149,0)
- ; ZEXCEPT: %ut - NEWED IN EN
-"RTN","ut",150,0)
- ; ZEXCEPT: XTGUISEP - newed in GUINEXT
-"RTN","ut",151,0)
- I '$D(XTSTVAL) D NVLDARG^%ut1("CHKTF") Q
-"RTN","ut",152,0)
- I $G(XTERMSG)="" S XTERMSG="no failure message provided"
-"RTN","ut",153,0)
- S %ut("CHK")=$G(%ut("CHK"))+1
-"RTN","ut",154,0)
- I '$D(%utGUI) D
-"RTN","ut",155,0)
- . D SETIO^%ut1
-"RTN","ut",156,0)
- . I 'XTSTVAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " D
-"RTN","ut",157,0)
- . . W XTERMSG,! S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
-"RTN","ut",158,0)
- . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
-"RTN","ut",159,0)
- . . Q
-"RTN","ut",160,0)
- . I XTSTVAL W "."
-"RTN","ut",161,0)
- . D RESETIO^%ut1
-"RTN","ut",162,0)
- . Q
-"RTN","ut",163,0)
- I $D(%utGUI),'XTSTVAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
-"RTN","ut",164,0)
- Q
-"RTN","ut",165,0)
- ;
-"RTN","ut",166,0)
-CHKEQ(XTEXPECT,XTACTUAL,XTERMSG) ; Entry point for checking values to see if they are EQUAL
-"RTN","ut",167,0)
- N FAILMSG
-"RTN","ut",168,0)
- ; ZEXCEPT: %utERRL,%utGUI -CREATED IN SETUP, KILLED IN END
-"RTN","ut",169,0)
- ; ZEXCEPT: %ut  -- NEWED IN EN
-"RTN","ut",170,0)
- ; ZEXCEPT: XTGUISEP - newed in GUINEXT
-"RTN","ut",171,0)
- I '$D(XTEXPECT)!'$D(XTACTUAL) D NVLDARG^%ut1("CHKEQ") Q
-"RTN","ut",172,0)
- S XTACTUAL=$G(XTACTUAL),XTEXPECT=$G(XTEXPECT)
-"RTN","ut",173,0)
- I $G(XTERMSG)="" S XTERMSG="no failure message provided"
-"RTN","ut",174,0)
- S %ut("CHK")=%ut("CHK")+1
-"RTN","ut",175,0)
- I XTEXPECT'=XTACTUAL S FAILMSG="<"_XTEXPECT_"> vs <"_XTACTUAL_"> - "
-"RTN","ut",176,0)
- I '$D(%utGUI) D
-"RTN","ut",177,0)
- . D SETIO^%ut1
-"RTN","ut",178,0)
- . I XTEXPECT'=XTACTUAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W FAILMSG,XTERMSG,! D
-"RTN","ut",179,0)
- . . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
-"RTN","ut",180,0)
-     . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
-"RTN","ut",181,0)
- . . Q
-"RTN","ut",182,0)
- . E  W "."
-"RTN","ut",183,0)
- . D RESETIO^%ut1
-"RTN","ut",184,0)
- . Q
-"RTN","ut",185,0)
- I $D(%utGUI),XTEXPECT'=XTACTUAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_FAILMSG_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
-"RTN","ut",186,0)
- Q
-"RTN","ut",187,0)
- ;
-"RTN","ut",188,0)
-FAIL(XTERMSG) ; Entry point for generating a failure message
-"RTN","ut",189,0)
- D FAIL^%ut1($G(XTERMSG))
-"RTN","ut",190,0)
- Q
-"RTN","ut",191,0)
- ;
-"RTN","ut",192,0)
-SUCCEED ; Entry point for forcing a success (Thx David Whitten)
-"RTN","ut",193,0)
- ; ZEXCEPT: %utERRL,%utGUI - CREATED IN SETUP, KILLED IN END
-"RTN","ut",194,0)
- ; ZEXCEPT: %ut - NEWED IN EN
-"RTN","ut",195,0)
- ; Switch IO and write out the dot for activity
-"RTN","ut",196,0)
- I '$D(%utGUI) D
-"RTN","ut",197,0)
- . D SETIO^%ut1
-"RTN","ut",198,0)
- . W "."
-"RTN","ut",199,0)
- . D RESETIO^%ut1
-"RTN","ut",200,0)
- ;
-"RTN","ut",201,0)
- ; Increment test counter
-"RTN","ut",202,0)
- S %ut("CHK")=%ut("CHK")+1
-"RTN","ut",203,0)
- QUIT
-"RTN","ut",204,0)
- ;
-"RTN","ut",205,0)
-CHKLEAKS(%utCODE,%utLOC,%utINPT) ; functionality to check for variable leaks on executing a section of code
-"RTN","ut",206,0)
- ; %utCODE - A string that specifies the code that is to be XECUTED and checked for leaks.
-"RTN","ut",207,0)
- ;            this should be a complete piece of code (e.g., "S X=$$NOW^XLFDT()" or "D EN^%ut(""ROUNAME"")")
-"RTN","ut",208,0)
- ; %utLOC  - A string that is used to indicate the code tested for variable leaks
-"RTN","ut",209,0)
- ; %utINPT - An optional variable which may be passed by reference.  This may
-"RTN","ut",210,0)
- ;           be used to pass any variable values, etc. into the code to be
-"RTN","ut",211,0)
- ;           XECUTED.  In this case, set the subscript to the variable name and the
-"RTN","ut",212,0)
- ;           value of the subscripted variable to the desired value of the subscript.
-"RTN","ut",213,0)
- ;              e.g., (using NAME as my current namespace)
-"RTN","ut",214,0)
- ;                   S CODE="S %utINPT=$$ENTRY^ROUTINE(ZZVALUE1,ZZVALUE2)"
-"RTN","ut",215,0)
- ;                   S NAMELOC="ENTRY^ROUTINE leak test"   (or simply "ENTRY^ROUTINE")
-"RTN","ut",216,0)
- ;                   S NAMEINPT("ZZVALUE1")=ZZVALUE1
-"RTN","ut",217,0)
- ;                   S NAMEINPT("ZZVALUE2")=ZZVALUE2
-"RTN","ut",218,0)
- ;                   D CHKLEAKS^%ut(CODE,NAMELOC,.NAMEINPT)
-"RTN","ut",219,0)
- ;
-"RTN","ut",220,0)
- ;           If part of a unit test, any leaked variables in ENTRY^ROUTINE which result
-"RTN","ut",221,0)
- ;           from running the code with the variables indicated will be shown as FAILUREs.
-"RTN","ut",222,0)
- ;
-"RTN","ut",223,0)
- ;           If called outside of a unit test, any leaked variables will be printed to the
-"RTN","ut",224,0)
- ;           current device.
-"RTN","ut",225,0)
- ;
-"RTN","ut",226,0)
- N (%utCODE,%utLOC,%utINPT,DUZ,IO,U,%utERRL,%ut,%utGUI,%utERR,%utI,%utJ,%utK,%utLIST,%utROU,%utSTRT,XTGUISEP)
-"RTN","ut",227,0)
- ; ZEXCEPT: %ut - part of exclusive NEW TESTS FOR EXISTENCE ONLY
-"RTN","ut",228,0)
- ; ZEXCEPT: %utVAR - handled by exclusive NEW
-"RTN","ut",229,0)
- ;
-"RTN","ut",230,0)
- ; ACTIVATE ANY VARIABLES PASSED AS SUBSCRIPTS TO %utINPT TO THEIR VALUES
-"RTN","ut",231,0)
- S %utVAR=" " F  S %utVAR=$O(%utINPT(%utVAR)) Q:%utVAR=""  S (@%utVAR)=%utINPT(%utVAR)
-"RTN","ut",232,0)
- X %utCODE
-"RTN","ut",233,0)
- N ZZUTVAR S ZZUTVAR="%"
-"RTN","ut",234,0)
- I $G(%ut)=1 D
-"RTN","ut",235,0)
- . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
-"RTN","ut",236,0)
- . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
-"RTN","ut",237,0)
- . Q
-"RTN","ut",238,0)
- I '($G(%ut)=1) D
-"RTN","ut",239,0)
- . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
-"RTN","ut",240,0)
- . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
-"RTN","ut",241,0)
- . Q
-"RTN","ut",242,0)
- Q
-"RTN","ut",243,0)
- ;
-"RTN","ut",244,0)
-ERROR ; record errors
-"RTN","ut",245,0)
- ; ZEXCEPT: %utERRL,%utGUI,%utERR -CREATED IN SETUP, KILLED IN END
-"RTN","ut",246,0)
- ; ZEXCEPT: %ut  -- NEWED ON ENTRY
-"RTN","ut",247,0)
- ; ZEXCEPT: XTGUISEP - newed in GUINEXT
-"RTN","ut",248,0)
- S %ut("CHK")=%ut("CHK")+1
-"RTN","ut",249,0)
- I '$D(%utGUI) D ERROR1
-"RTN","ut",250,0)
- I $D(%utGUI) D
-"RTN","ut",251,0)
- . S %ut("CNT")=%ut("CNT")+1
-"RTN","ut",252,0)
- . S %utERR=%utERR+1
-"RTN","ut",253,0)
- . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISEP_$S(+$SY=47:$ZS,1:$ZE)
-"RTN","ut",254,0)
- . Q
-"RTN","ut",255,0)
- S @($S(+$SY=47:"$ZS",1:"$ZE")_"="_""""""),$EC=""
-"RTN","ut",256,0)
- Q
-"RTN","ut",257,0)
- ;
-"RTN","ut",258,0)
-ERROR1 ;
-"RTN","ut",259,0)
- I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
-"RTN","ut",260,0)
- ; ZEXCEPT: %utERRL -CREATED IN SETUP, KILLED IN END
-"RTN","ut",261,0)
- ; ZEXCEPT: %ut  -- NEWED ON ENTRY
-"RTN","ut",262,0)
- D SETIO^%ut1
-"RTN","ut",263,0)
- W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - Error: " W $S(+$SY=47:$ZS,1:$ZE),! D
-"RTN","ut",264,0)
- . S %ut("ERRN")=%ut("ERRN")+1,%utERRL(%ut("ERRN"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=$S(+$SY=47:$ZS,1:$ZE),%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
-"RTN","ut",265,0)
- . Q
-"RTN","ut",266,0)
- D RESETIO^%ut1
-"RTN","ut",267,0)
- Q
-"RTN","ut",268,0)
- ;
-"RTN","ut",269,0)
-ISUTEST() ; .SUPPORTED API TO DETERMINE IF CURRENTLY IN UNIT TEST
-"RTN","ut",270,0)
- ; ZEXCEPT: %ut  -- NEWED ON ENTRY
-"RTN","ut",271,0)
- Q $G(%ut)=1
-"RTN","ut",272,0)
- ;
-"RTN","ut",273,0)
-PICKSET ; .OPT Interactive selection of MUnit Test Group
-"RTN","ut",274,0)
- N DIC,Y,%utROU,%utLIST,DIR
-"RTN","ut",275,0)
- I '$$ISUTEST^%ut() S DIC=17.9001,DIC(0)="AEQM" D ^DIC Q:Y'>0  W ! D GETSET(+Y,.%utROU,.%utLIST) N DIC,Y,%ut D SETUT D EN1(.%utROU,%utLIST) S DIR(0)="EA",DIR("A")="Enter RETURN to continue:" D ^DIR K DIR
-"RTN","ut",276,0)
- Q
-"RTN","ut",277,0)
- ;
-"RTN","ut",278,0)
-RUNSET(SETNAME,VERBOSE) ; .SR Run with Specified Selection of MUnit Test Group
-"RTN","ut",279,0)
- N Y,%utROU,%utLIST,%utVERB
-"RTN","ut",280,0)
- Q:$G(SETNAME)=""
-"RTN","ut",281,0)
- S %utVERB=$G(VERBOSE,0)
-"RTN","ut",282,0)
- S Y=+$$FIND1^DIC(17.9001,"","X",SETNAME) Q:Y'>0
-"RTN","ut",283,0)
- D GETSET(Y,.%utROU,.%utLIST)
-"RTN","ut",284,0)
- N Y,SETNAME,%ut
-"RTN","ut",285,0)
- D SETUT
-"RTN","ut",286,0)
- D EN1(.%utROU,%utLIST)
-"RTN","ut",287,0)
- Q
-"RTN","ut",288,0)
- ;
-"RTN","ut",289,0)
- ; DOSET CAN BE USED TO RUN A SET OF TESTS BASED ON THE IEN IN THE MUNIT TEST GROUP file (#17.9001)
-"RTN","ut",290,0)
-DOSET(IEN,%utVERB) ; 140731 JLI added %utVERB as a second argument
-"RTN","ut",291,0)
- ; IEN - Internal entry number for selected set of tests in the MUNIT TEST GROUP file (#17.9001)
-"RTN","ut",292,0)
- ; %utVERB - optional input that indicates verbose output is permitted
-"RTN","ut",293,0)
- ;
-"RTN","ut",294,0)
- N %utROU,%utLIST
-"RTN","ut",295,0)
- I '$D(%utVERB) S %utVERB=0
-"RTN","ut",296,0)
- S %utLIST=0
-"RTN","ut",297,0)
- D GETSET($G(IEN),.%utROU,.%utLIST)
-"RTN","ut",298,0)
- I %utLIST>0  N IEN,%ut D SETUT,EN1(.%utROU,%utLIST)
-"RTN","ut",299,0)
- Q
-"RTN","ut",300,0)
- ;
-"RTN","ut",301,0)
-GETSET(IEN,%utROU,%utLIST) ;  JLI 140731 - called from PICKSET, RUNSET, DOSET, GUISET
-"RTN","ut",302,0)
- N IENS,%utROOT
-"RTN","ut",303,0)
- S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
-"RTN","ut",304,0)
- S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
-"RTN","ut",305,0)
- Q
-"RTN","ut",306,0)
- ;
-"RTN","ut",307,0)
-COV(NMSP,COVCODE,VERBOSITY) ; simply make it callable from %ut1 as well (along with other APIs) JLI 150101
-"RTN","ut",308,0)
- D COV^%ut1(NMSP,COVCODE,+$G(VERBOSITY)) ; see COV^%ut1 for description of arguments
-"RTN","ut",309,0)
- Q
-"RTN","ut",310,0)
- ;
-"RTN","ut",311,0)
-MULTAPIS(TESTROUS) ; .SR - RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
-"RTN","ut",312,0)
- ; input - TESTROUS - passed by reference
-"RTN","ut",313,0)
- ; see TESTONLY in routine %utcover for full description of TESTROUS argument
-"RTN","ut",314,0)
- D MULTAPIS^%utcover(.TESTROUS) ; RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
-"RTN","ut",315,0)
- Q
-"RTN","ut",316,0)
- ;
-"RTN","ut",317,0)
-COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)    ;.SR - run coverage analysis for multiple routines and entry points
-"RTN","ut",318,0)
- ; input ROUNMSP
-"RTN","ut",319,0)
- ; input TESTROUS - passed by reference
-"RTN","ut",320,0)
- ; input XCLDROUS - passed by reference
-"RTN","ut",321,0)
- ; input RESLTLVL
-"RTN","ut",322,0)
- ; see COVERAGE in routine %utcover for full description of arguments
-"RTN","ut",323,0)
- D COVERAGE^%utcover(ROUNMSP,.TESTROUS,.XCLDROUS,+$G(RESLTLVL))
-"RTN","ut",324,0)
- Q
-"RTN","ut",325,0)
- ;
-"RTN","ut",326,0)
-GETUTVAL(UTDATA) ; .SR - returns totals for current unit test data in cumulative totals
-"RTN","ut",327,0)
- ; usage   D GETUTVAL^%ut(.UTDATA)
-"RTN","ut",328,0)
- ; input - UTDATA - passed by reference
-"RTN","ut",329,0)
- ;
-"RTN","ut",330,0)
- ; subscripted values returned:
-"RTN","ut",331,0)
- ;   1) cumulative number of routines run;  2) cumulative number of entry tags;
-"RTN","ut",332,0)
- ;   3) cumulative number of tests;         4) cummulative number of failures;
-"RTN","ut",333,0)
- ;   5) cumulative number of errors
-"RTN","ut",334,0)
- N VALS,I,VAL
-"RTN","ut",335,0)
- S VALS=$G(^TMP("%ut",$J,"UTVALS")) I VALS="" Q
-"RTN","ut",336,0)
- F I=1:1 S VAL=$P(VALS,U,I) Q:VAL=""  S UTDATA(I)=$G(UTDATA(I))+VAL
-"RTN","ut",337,0)
  K ^TMP("%ut",$J,"UTVALS")
-"RTN","ut",338,0)
+"RTN","ut",24,0)
+ D SETUT
+"RTN","ut",25,0)
+ D EN1(.%utROU,%utLIST)
+"RTN","ut",26,0)
  Q
-"RTN","ut",339,0)
+"RTN","ut",27,0)
  ;
-"RTN","ut",340,0)
-LSTUTVAL(UTDATA) ; .SR - lists cumulative totals in UTDATA array
-"RTN","ut",341,0)
- ; usage   D LSTUTVAL^%ut(.UTDATA)
-"RTN","ut",342,0)
+"RTN","ut",28,0)
+SETUT ;
+"RTN","ut",29,0)
+ ; VEN/SMH 26JUL2013
+"RTN","ut",30,0)
+ I '($D(IO)#2) S IO=$P
+"RTN","ut",31,0)
+ S U="^"
+"RTN","ut",32,0)
+ ; VEN/SMH 26JUL2013 END
+"RTN","ut",33,0)
+ ;
+"RTN","ut",34,0)
+ ; ZEXCEPT: %ut  -- NEWED ON ENTRY
+"RTN","ut",35,0)
+ S %ut("IO")=IO
+"RTN","ut",36,0)
+ S %ut=1 ; set to identify unit test being run check with $$ISUTEST^%ut()
+"RTN","ut",37,0)
+ ;
+"RTN","ut",38,0)
+ ; ZEXCEPT: %utBREAK
+"RTN","ut",39,0)
+ I $G(%utBREAK) S %ut("BREAK")=1
+"RTN","ut",40,0)
+ Q
+"RTN","ut",41,0)
+ ;
+"RTN","ut",42,0)
+EN1(%utROU,%utLIST) ;
+"RTN","ut",43,0)
+ ; VEN/SMH 26JUL2013 - This block is refactored to fix problems with
+"RTN","ut",44,0)
+ ; SETUP and TEARDOWN not happening at the right time
+"RTN","ut",45,0)
+ N %utERRL,%utK,%utI,%utJ,%utSTRT
+"RTN","ut",46,0)
+ ; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
+"RTN","ut",47,0)
+ ; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
+"RTN","ut",48,0)
+ ; ZEXCEPT: %ut  -- NEWED IN EN
+"RTN","ut",49,0)
+ ;
+"RTN","ut",50,0)
+ ; Structure map for %ut
+"RTN","ut",51,0)
+ ; -- CURR = Counter for routine number. Used as sub in %utROU
+"RTN","ut",52,0)
+ ; -- ECNT = Entry point count in loop (cf. NERT); VEN/SMH - Needed?
+"RTN","ut",53,0)
+ ; -- FAIL = Number of failures
+"RTN","ut",54,0)
+ ; -- CHK  = Number of checks ran (TF/EQ/FAIL)
+"RTN","ut",55,0)
+ ; -- NENT = Number of entry points ran
+"RTN","ut",56,0)
+ ; -- ERRN = Number of errors
+"RTN","ut",57,0)
+ S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("NENT")=0,%ut("ERRN")=0
+"RTN","ut",58,0)
+ ;
+"RTN","ut",59,0)
+ ; -- GET LIST OF ROUTINES --
+"RTN","ut",60,0)
+ ; first get any tree of routines from this one
+"RTN","ut",61,0)
+ D GETTREE^%ut1(.%utROU,.%utLIST)
+"RTN","ut",62,0)
+ ;
+"RTN","ut",63,0)
+ ; Now process each routine that has been referenced
+"RTN","ut",64,0)
+ N CURRROU
+"RTN","ut",65,0)
+ S %ut("CURR")=0
+"RTN","ut",66,0)
+ F  S %ut("CURR")=%ut("CURR")+1 Q:'$D(%utROU(%ut("CURR")))  S CURRROU=%utROU(%ut("CURR")) D  I $T(@("SHUTDOWN^"_CURRROU))'="" D @("SHUTDOWN^"_CURRROU)
+"RTN","ut",67,0)
+ . ; 141018 - add ability to run STARTUP and SHUTDOWN in each routine JLI
+"RTN","ut",68,0)
+ . I $T(@("STARTUP^"_CURRROU))'="" D @("STARTUP^"_CURRROU) ; 141018
+"RTN","ut",69,0)
+ . N %utETRY ; Test list to run
+"RTN","ut",70,0)
+ . ;
+"RTN","ut",71,0)
+ . ; Collect Test list.
+"RTN","ut",72,0)
+ . D CHEKTEST^%ut1(%utROU(%ut("CURR")),.%ut,.%utETRY)
+"RTN","ut",73,0)
+ . ;
+"RTN","ut",74,0)
+ . ; if a SETUP entry point exists, save it off in %ut
+"RTN","ut",75,0)
+ . S %ut("SETUP")="" ; 141018 need to clear any previous values JLI
+"RTN","ut",76,0)
+ . N %utSETUP S %utSETUP="SETUP^"_%utROU(%ut("CURR"))
+"RTN","ut",77,0)
+ . S %ut("LINE")=$T(@%utSETUP) I %ut("LINE")'="" S %ut("SETUP")=%utSETUP
+"RTN","ut",78,0)
+ . K %utSETUP ; we're done!
+"RTN","ut",79,0)
+ . ;
+"RTN","ut",80,0)
+ . ; if a TEARDOWN entry point exists, ditto
+"RTN","ut",81,0)
+ . S %ut("TEARDOWN")="" ; 141018 need to clear any previous values JLI
+"RTN","ut",82,0)
+ . N %utTEARDOWN S %utTEARDOWN="TEARDOWN^"_%utROU(%ut("CURR"))
+"RTN","ut",83,0)
+ . S %ut("LINE")=$T(@%utTEARDOWN) I %ut("LINE")'="" S %ut("TEARDOWN")=%utTEARDOWN
+"RTN","ut",84,0)
+ . K %utTEARDOWN ; done here.
+"RTN","ut",85,0)
+ . ;
+"RTN","ut",86,0)
+ . ; VEN/SMH 26JUL2013 - this block changed to correct running of setup and teardown
+"RTN","ut",87,0)
+ . ; run each of the specified entry points
+"RTN","ut",88,0)
+ . ;
+"RTN","ut",89,0)
+ . ; == THIS FOR/DO BLOCK IS THE CENTRAL TEST RUNNER ==
+"RTN","ut",90,0)
+ . S %utI=0
+"RTN","ut",91,0)
+ . F  S %utI=$O(%utETRY(%utI)) Q:%utI'>0  S %ut("ENUM")=%ut("ERRN")+%ut("FAIL") D
+"RTN","ut",92,0)
+ . . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",93,0)
+ . . ;
+"RTN","ut",94,0)
+ . . ; Run Set-up Code (only if present)
+"RTN","ut",95,0)
+ . . S %ut("ENT")=$G(%ut("SETUP")) ; Current entry
+"RTN","ut",96,0)
+ . . S %ut("NAME")="Set-up Code"
+"RTN","ut",97,0)
+ . . D:%ut("ENT")]"" @%ut("ENT")
+"RTN","ut",98,0)
+ . . ;
+"RTN","ut",99,0)
+ . . ; Run actual test
+"RTN","ut",100,0)
+ . . S %ut("ECNT")=%ut("ECNT")+1
+"RTN","ut",101,0)
+ . . S %ut("NAME")=%utETRY(%utI,"NAME")
+"RTN","ut",102,0)
+ . . S %ut("ENT")=%utETRY(%utI)_"^"_%utROU(%ut("CURR"))
+"RTN","ut",103,0)
+ . . I %utVERB,'$D(%utGUI) D VERBOSE1(.%utETRY,%utI) ; Say what we executed.
+"RTN","ut",104,0)
+ . . D @%ut("ENT")
+"RTN","ut",105,0)
+ . . ;
+"RTN","ut",106,0)
+ . . ; Run Teardown Code (only if present)
+"RTN","ut",107,0)
+ . . S %ut("ENT")=$G(%ut("TEARDOWN"))
+"RTN","ut",108,0)
+ . . S %ut("NAME")="Teardown Code"
+"RTN","ut",109,0)
+ . . D:%ut("ENT")]"" @%ut("ENT")
+"RTN","ut",110,0)
+ . . ;
+"RTN","ut",111,0)
+ . . ; ENUM = Number of errors + failures
+"RTN","ut",112,0)
+ . . ; Only print out the success message [OK] If our error number remains
+"RTN","ut",113,0)
+ . . ; the same as when we started the loop.
+"RTN","ut",114,0)
+ . . I %utVERB,'$D(%utGUI) D
+"RTN","ut",115,0)
+ . . . I %ut("ENUM")=(%ut("ERRN")+%ut("FAIL")) D VERBOSE(.%utETRY,%utI,1) I 1
+"RTN","ut",116,0)
+ . . . E  D VERBOSE(.%utETRY,%utI,0)
+"RTN","ut",117,0)
+ . . . Q
+"RTN","ut",118,0)
+ . . Q
+"RTN","ut",119,0)
+ . ; keep a %utCNT of number of entry points executed across all routines
+"RTN","ut",120,0)
+ . S %ut("NENT")=%ut("NENT")+%ut("ENTN")
+"RTN","ut",121,0)
+ . Q
+"RTN","ut",122,0)
+ ;
+"RTN","ut",123,0)
+ ; -- SHUTDOWN --
+"RTN","ut",124,0)
+ D SETIO^%ut1
+"RTN","ut",125,0)
+ W !!,"Ran ",%utLIST," Routine",$S(%utLIST>1:"s",1:""),", ",%ut("NENT")," Entry Tag",$S(%ut("NENT")>1:"s",1:"")
+"RTN","ut",126,0)
+ W !,"Checked ",%ut("CHK")," test",$S(%ut("CHK")>1:"s",1:""),", with ",%ut("FAIL")," failure",$S(%ut("FAIL")'=1:"s",1:"")," and encountered ",%ut("ERRN")," error",$S(%ut("ERRN")'=1:"s",1:""),"."
+"RTN","ut",127,0)
+ S ^TMP("%ut",$J,"UTVALS")=%utLIST_U_%ut("NENT")_U_%ut("CHK")_U_%ut("FAIL")_U_%ut("ERRN") ; JLI 150621 so programs running several sets of unit tests can generate totals
+"RTN","ut",128,0)
+ D RESETIO^%ut1
+"RTN","ut",129,0)
+ Q
+"RTN","ut",130,0)
+ ; -- end EN1
+"RTN","ut",131,0)
+VERBOSE(%utETRY,%utI,SUCCESS) ; Say whether we succeeded or failed.
+"RTN","ut",132,0)
+ ; ZEXCEPT: %ut - NEWED IN EN
+"RTN","ut",133,0)
+ D SETIO^%ut1
+"RTN","ut",134,0)
+ N I F I=$X+3:1:73 W "-"
+"RTN","ut",135,0)
+ W ?73
+"RTN","ut",136,0)
+ I $G(SUCCESS) W "[OK]"
+"RTN","ut",137,0)
+ E  W "[FAIL]"
+"RTN","ut",138,0)
+ D RESETIO^%ut1
+"RTN","ut",139,0)
+ Q
+"RTN","ut",140,0)
+ ;
+"RTN","ut",141,0)
+VERBOSE1(%utETRY,%utI) ; Print out the entry point info
+"RTN","ut",142,0)
+ ; ZEXCEPT: %ut - NEWED IN EN
+"RTN","ut",143,0)
+ D SETIO^%ut1
+"RTN","ut",144,0)
+ W !,%utETRY(%utI) I $G(%utETRY(%utI,"NAME"))'="" W " - ",%utETRY(%utI,"NAME")
+"RTN","ut",145,0)
+ D RESETIO^%ut1
+"RTN","ut",146,0)
+ Q
+"RTN","ut",147,0)
+ ;
+"RTN","ut",148,0)
+CHKTF(XTSTVAL,XTERMSG) ; Entry point for checking True or False values
+"RTN","ut",149,0)
+ ; ZEXCEPT: %utERRL,%utGUI - CREATED IN SETUP, KILLED IN END
+"RTN","ut",150,0)
+ ; ZEXCEPT: %ut - NEWED IN EN
+"RTN","ut",151,0)
+ ; ZEXCEPT: XTGUISEP - newed in GUINEXT
+"RTN","ut",152,0)
+ I '$D(XTSTVAL) D NVLDARG^%ut1("CHKTF") Q
+"RTN","ut",153,0)
+ I $G(XTERMSG)="" S XTERMSG="no failure message provided"
+"RTN","ut",154,0)
+ S %ut("CHK")=$G(%ut("CHK"))+1
+"RTN","ut",155,0)
+ I '$D(%utGUI) D
+"RTN","ut",156,0)
+ . D SETIO^%ut1
+"RTN","ut",157,0)
+ . I 'XTSTVAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " D
+"RTN","ut",158,0)
+ . . W XTERMSG,! S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+"RTN","ut",159,0)
+ . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+"RTN","ut",160,0)
+ . . Q
+"RTN","ut",161,0)
+ . I XTSTVAL W "."
+"RTN","ut",162,0)
+ . D RESETIO^%ut1
+"RTN","ut",163,0)
+ . Q
+"RTN","ut",164,0)
+ I $D(%utGUI),'XTSTVAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
+"RTN","ut",165,0)
+ Q
+"RTN","ut",166,0)
+ ;
+"RTN","ut",167,0)
+CHKEQ(XTEXPECT,XTACTUAL,XTERMSG) ; Entry point for checking values to see if they are EQUAL
+"RTN","ut",168,0)
+ N FAILMSG
+"RTN","ut",169,0)
+ ; ZEXCEPT: %utERRL,%utGUI -CREATED IN SETUP, KILLED IN END
+"RTN","ut",170,0)
+ ; ZEXCEPT: %ut  -- NEWED IN EN
+"RTN","ut",171,0)
+ ; ZEXCEPT: XTGUISEP - newed in GUINEXT
+"RTN","ut",172,0)
+ I '$D(XTEXPECT)!'$D(XTACTUAL) D NVLDARG^%ut1("CHKEQ") Q
+"RTN","ut",173,0)
+ S XTACTUAL=$G(XTACTUAL),XTEXPECT=$G(XTEXPECT)
+"RTN","ut",174,0)
+ I $G(XTERMSG)="" S XTERMSG="no failure message provided"
+"RTN","ut",175,0)
+ S %ut("CHK")=%ut("CHK")+1
+"RTN","ut",176,0)
+ I XTEXPECT'=XTACTUAL S FAILMSG="<"_XTEXPECT_"> vs <"_XTACTUAL_"> - "
+"RTN","ut",177,0)
+ I '$D(%utGUI) D
+"RTN","ut",178,0)
+ . D SETIO^%ut1
+"RTN","ut",179,0)
+ . I XTEXPECT'=XTACTUAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W FAILMSG,XTERMSG,! D
+"RTN","ut",180,0)
+ . . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+"RTN","ut",181,0)
+     . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+"RTN","ut",182,0)
+ . . Q
+"RTN","ut",183,0)
+ . E  W "."
+"RTN","ut",184,0)
+ . D RESETIO^%ut1
+"RTN","ut",185,0)
+ . Q
+"RTN","ut",186,0)
+ I $D(%utGUI),XTEXPECT'=XTACTUAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_FAILMSG_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
+"RTN","ut",187,0)
+ Q
+"RTN","ut",188,0)
+ ;
+"RTN","ut",189,0)
+FAIL(XTERMSG) ; Entry point for generating a failure message
+"RTN","ut",190,0)
+ D FAIL^%ut1($G(XTERMSG))
+"RTN","ut",191,0)
+ Q
+"RTN","ut",192,0)
+ ;
+"RTN","ut",193,0)
+SUCCEED ; Entry point for forcing a success (Thx David Whitten)
+"RTN","ut",194,0)
+ ; ZEXCEPT: %utERRL,%utGUI - CREATED IN SETUP, KILLED IN END
+"RTN","ut",195,0)
+ ; ZEXCEPT: %ut - NEWED IN EN
+"RTN","ut",196,0)
+ ; Switch IO and write out the dot for activity
+"RTN","ut",197,0)
+ I '$D(%utGUI) D
+"RTN","ut",198,0)
+ . D SETIO^%ut1
+"RTN","ut",199,0)
+ . W "."
+"RTN","ut",200,0)
+ . D RESETIO^%ut1
+"RTN","ut",201,0)
+ ;
+"RTN","ut",202,0)
+ ; Increment test counter
+"RTN","ut",203,0)
+ S %ut("CHK")=%ut("CHK")+1
+"RTN","ut",204,0)
+ QUIT
+"RTN","ut",205,0)
+ ;
+"RTN","ut",206,0)
+CHKLEAKS(%utCODE,%utLOC,%utINPT) ; functionality to check for variable leaks on executing a section of code
+"RTN","ut",207,0)
+ ; %utCODE - A string that specifies the code that is to be XECUTED and checked for leaks.
+"RTN","ut",208,0)
+ ;            this should be a complete piece of code (e.g., "S X=$$NOW^XLFDT()" or "D EN^%ut(""ROUNAME"")")
+"RTN","ut",209,0)
+ ; %utLOC  - A string that is used to indicate the code tested for variable leaks
+"RTN","ut",210,0)
+ ; %utINPT - An optional variable which may be passed by reference.  This may
+"RTN","ut",211,0)
+ ;           be used to pass any variable values, etc. into the code to be
+"RTN","ut",212,0)
+ ;           XECUTED.  In this case, set the subscript to the variable name and the
+"RTN","ut",213,0)
+ ;           value of the subscripted variable to the desired value of the subscript.
+"RTN","ut",214,0)
+ ;              e.g., (using NAME as my current namespace)
+"RTN","ut",215,0)
+ ;                   S CODE="S %utINPT=$$ENTRY^ROUTINE(ZZVALUE1,ZZVALUE2)"
+"RTN","ut",216,0)
+ ;                   S NAMELOC="ENTRY^ROUTINE leak test"   (or simply "ENTRY^ROUTINE")
+"RTN","ut",217,0)
+ ;                   S NAMEINPT("ZZVALUE1")=ZZVALUE1
+"RTN","ut",218,0)
+ ;                   S NAMEINPT("ZZVALUE2")=ZZVALUE2
+"RTN","ut",219,0)
+ ;                   D CHKLEAKS^%ut(CODE,NAMELOC,.NAMEINPT)
+"RTN","ut",220,0)
+ ;
+"RTN","ut",221,0)
+ ;           If part of a unit test, any leaked variables in ENTRY^ROUTINE which result
+"RTN","ut",222,0)
+ ;           from running the code with the variables indicated will be shown as FAILUREs.
+"RTN","ut",223,0)
+ ;
+"RTN","ut",224,0)
+ ;           If called outside of a unit test, any leaked variables will be printed to the
+"RTN","ut",225,0)
+ ;           current device.
+"RTN","ut",226,0)
+ ;
+"RTN","ut",227,0)
+ N (%utCODE,%utLOC,%utINPT,DUZ,IO,U,%utERRL,%ut,%utGUI,%utERR,%utI,%utJ,%utK,%utLIST,%utROU,%utSTRT,XTGUISEP)
+"RTN","ut",228,0)
+ ; ZEXCEPT: %ut - part of exclusive NEW TESTS FOR EXISTENCE ONLY
+"RTN","ut",229,0)
+ ; ZEXCEPT: %utVAR - handled by exclusive NEW
+"RTN","ut",230,0)
+ ;
+"RTN","ut",231,0)
+ ; ACTIVATE ANY VARIABLES PASSED AS SUBSCRIPTS TO %utINPT TO THEIR VALUES
+"RTN","ut",232,0)
+ S %utVAR=" " F  S %utVAR=$O(%utINPT(%utVAR)) Q:%utVAR=""  S (@%utVAR)=%utINPT(%utVAR)
+"RTN","ut",233,0)
+ X %utCODE
+"RTN","ut",234,0)
+ N ZZUTVAR S ZZUTVAR="%"
+"RTN","ut",235,0)
+ I $G(%ut)=1 D
+"RTN","ut",236,0)
+ . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
+"RTN","ut",237,0)
+ . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
+"RTN","ut",238,0)
+ . Q
+"RTN","ut",239,0)
+ I '($G(%ut)=1) D
+"RTN","ut",240,0)
+ . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
+"RTN","ut",241,0)
+ . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
+"RTN","ut",242,0)
+ . Q
+"RTN","ut",243,0)
+ Q
+"RTN","ut",244,0)
+ ;
+"RTN","ut",245,0)
+ERROR ; record errors
+"RTN","ut",246,0)
+ ; ZEXCEPT: %utERRL,%utGUI,%utERR -CREATED IN SETUP, KILLED IN END
+"RTN","ut",247,0)
+ ; ZEXCEPT: %ut  -- NEWED ON ENTRY
+"RTN","ut",248,0)
+ ; ZEXCEPT: XTGUISEP - newed in GUINEXT
+"RTN","ut",249,0)
+ S %ut("CHK")=%ut("CHK")+1
+"RTN","ut",250,0)
+ I '$D(%utGUI) D ERROR1
+"RTN","ut",251,0)
+ I $D(%utGUI) D
+"RTN","ut",252,0)
+ . S %ut("CNT")=%ut("CNT")+1
+"RTN","ut",253,0)
+ . S %utERR=%utERR+1
+"RTN","ut",254,0)
+ . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISEP_$S(+$SY=47:$ZS,1:$ZE)
+"RTN","ut",255,0)
+ . Q
+"RTN","ut",256,0)
+ S @($S(+$SY=47:"$ZS",1:"$ZE")_"="_""""""),$EC=""
+"RTN","ut",257,0)
+ Q
+"RTN","ut",258,0)
+ ;
+"RTN","ut",259,0)
+ERROR1 ;
+"RTN","ut",260,0)
+ I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
+"RTN","ut",261,0)
+ ; ZEXCEPT: %utERRL -CREATED IN SETUP, KILLED IN END
+"RTN","ut",262,0)
+ ; ZEXCEPT: %ut  -- NEWED ON ENTRY
+"RTN","ut",263,0)
+ D SETIO^%ut1
+"RTN","ut",264,0)
+ W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - Error: " W $S(+$SY=47:$ZS,1:$ZE),! D
+"RTN","ut",265,0)
+ . S %ut("ERRN")=%ut("ERRN")+1,%utERRL(%ut("ERRN"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=$S(+$SY=47:$ZS,1:$ZE),%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+"RTN","ut",266,0)
+ . Q
+"RTN","ut",267,0)
+ D RESETIO^%ut1
+"RTN","ut",268,0)
+ Q
+"RTN","ut",269,0)
+ ;
+"RTN","ut",270,0)
+ISUTEST() ; .SUPPORTED API TO DETERMINE IF CURRENTLY IN UNIT TEST
+"RTN","ut",271,0)
+ ; ZEXCEPT: %ut  -- NEWED ON ENTRY
+"RTN","ut",272,0)
+ Q $G(%ut)=1
+"RTN","ut",273,0)
+ ;
+"RTN","ut",274,0)
+PICKSET ; .OPT Interactive selection of MUnit Test Group
+"RTN","ut",275,0)
+ N DIC,Y,%utROU,%utLIST,DIR
+"RTN","ut",276,0)
+ I '$$ISUTEST^%ut() S DIC=17.9001,DIC(0)="AEQM" D ^DIC Q:Y'>0  W ! D GETSET(+Y,.%utROU,.%utLIST) N DIC,Y,%ut D SETUT D EN1(.%utROU,%utLIST) S DIR(0)="EA",DIR("A")="Enter RETURN to continue:" D ^DIR K DIR
+"RTN","ut",277,0)
+ Q
+"RTN","ut",278,0)
+ ;
+"RTN","ut",279,0)
+RUNSET(SETNAME,VERBOSE) ; .SR Run with Specified Selection of MUnit Test Group
+"RTN","ut",280,0)
+ N Y,%utROU,%utLIST,%utVERB
+"RTN","ut",281,0)
+ Q:$G(SETNAME)=""
+"RTN","ut",282,0)
+ S %utVERB=$G(VERBOSE,0)
+"RTN","ut",283,0)
+ S Y=+$$FIND1^DIC(17.9001,"","X",SETNAME) Q:Y'>0
+"RTN","ut",284,0)
+ D GETSET(Y,.%utROU,.%utLIST)
+"RTN","ut",285,0)
+ N Y,SETNAME,%ut
+"RTN","ut",286,0)
+ D SETUT
+"RTN","ut",287,0)
+ D EN1(.%utROU,%utLIST)
+"RTN","ut",288,0)
+ Q
+"RTN","ut",289,0)
+ ;
+"RTN","ut",290,0)
+ ; DOSET CAN BE USED TO RUN A SET OF TESTS BASED ON THE IEN IN THE MUNIT TEST GROUP file (#17.9001)
+"RTN","ut",291,0)
+DOSET(IEN,%utVERB) ; 140731 JLI added %utVERB as a second argument
+"RTN","ut",292,0)
+ ; IEN - Internal entry number for selected set of tests in the MUNIT TEST GROUP file (#17.9001)
+"RTN","ut",293,0)
+ ; %utVERB - optional input that indicates verbose output is permitted
+"RTN","ut",294,0)
+ ;
+"RTN","ut",295,0)
+ N %utROU,%utLIST
+"RTN","ut",296,0)
+ I '$D(%utVERB) S %utVERB=0
+"RTN","ut",297,0)
+ S %utLIST=0
+"RTN","ut",298,0)
+ D GETSET($G(IEN),.%utROU,.%utLIST)
+"RTN","ut",299,0)
+ I %utLIST>0  N IEN,%ut D SETUT,EN1(.%utROU,%utLIST)
+"RTN","ut",300,0)
+ Q
+"RTN","ut",301,0)
+ ;
+"RTN","ut",302,0)
+GETSET(IEN,%utROU,%utLIST) ;  JLI 140731 - called from PICKSET, RUNSET, DOSET, GUISET
+"RTN","ut",303,0)
+ N IENS,%utROOT
+"RTN","ut",304,0)
+ S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
+"RTN","ut",305,0)
+ S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
+"RTN","ut",306,0)
+ Q
+"RTN","ut",307,0)
+ ;
+"RTN","ut",308,0)
+COV(NMSP,COVCODE,VERBOSITY) ; simply make it callable from %ut1 as well (along with other APIs) JLI 150101
+"RTN","ut",309,0)
+ D COV^%ut1(NMSP,COVCODE,+$G(VERBOSITY)) ; see COV^%ut1 for description of arguments
+"RTN","ut",310,0)
+ Q
+"RTN","ut",311,0)
+ ;
+"RTN","ut",312,0)
+MULTAPIS(TESTROUS) ; .SR - RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
+"RTN","ut",313,0)
+ ; input - TESTROUS - passed by reference
+"RTN","ut",314,0)
+ ; see TESTONLY in routine %utcover for full description of TESTROUS argument
+"RTN","ut",315,0)
+ D MULTAPIS^%utcover(.TESTROUS) ; RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
+"RTN","ut",316,0)
+ Q
+"RTN","ut",317,0)
+ ;
+"RTN","ut",318,0)
+COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)    ;.SR - run coverage analysis for multiple routines and entry points
+"RTN","ut",319,0)
+ ; input ROUNMSP
+"RTN","ut",320,0)
+ ; input TESTROUS - passed by reference
+"RTN","ut",321,0)
+ ; input XCLDROUS - passed by reference
+"RTN","ut",322,0)
+ ; input RESLTLVL
+"RTN","ut",323,0)
+ ; see COVERAGE in routine %utcover for full description of arguments
+"RTN","ut",324,0)
+ D COVERAGE^%utcover(ROUNMSP,.TESTROUS,.XCLDROUS,+$G(RESLTLVL))
+"RTN","ut",325,0)
+ Q
+"RTN","ut",326,0)
+ ;
+"RTN","ut",327,0)
+GETUTVAL(UTDATA) ; .SR - returns totals for current unit test data in cumulative totals
+"RTN","ut",328,0)
+ ; usage   D GETUTVAL^%ut(.UTDATA)
+"RTN","ut",329,0)
  ; input - UTDATA - passed by reference
-"RTN","ut",343,0)
- W !!!,"------------ SUMMARY ------------"
-"RTN","ut",344,0)
- W !,"Ran ",UTDATA(1)," Routine",$S(UTDATA(1)>1:"s",1:""),", ",UTDATA(2)," Entry Tag",$S(UTDATA(2)>1:"s",1:"")
-"RTN","ut",345,0)
- W !,"Checked ",UTDATA(3)," test",$S(UTDATA(3)>1:"s",1:""),", with ",UTDATA(4)," failure",$S(UTDATA(4)'=1:"s",1:"")," and encountered ",UTDATA(5)," error",$S(UTDATA(5)'=1:"s",1:""),"."
-"RTN","ut",346,0)
- Q
-"RTN","ut",347,0)
+"RTN","ut",330,0)
  ;
+"RTN","ut",331,0)
+ ; subscripted values returned:
+"RTN","ut",332,0)
+ ;   1) cumulative number of routines run;  2) cumulative number of entry tags;
+"RTN","ut",333,0)
+ ;   3) cumulative number of tests;         4) cummulative number of failures;
+"RTN","ut",334,0)
+ ;   5) cumulative number of errors
+"RTN","ut",335,0)
+ N VALS,I,VAL
+"RTN","ut",336,0)
+ S VALS=$G(^TMP("%ut",$J,"UTVALS")) I VALS="" Q
+"RTN","ut",337,0)
+ F I=1:1 S VAL=$P(VALS,U,I) Q:VAL=""  S UTDATA(I)=$G(UTDATA(I))+VAL
+"RTN","ut",338,0)
+ K ^TMP("%ut",$J,"UTVALS")
+"RTN","ut",339,0)
+ Q
+"RTN","ut",340,0)
+ ;
+"RTN","ut",341,0)
+LSTUTVAL(UTDATA) ; .SR - lists cumulative totals in UTDATA array
+"RTN","ut",342,0)
+ ; usage   D LSTUTVAL^%ut(.UTDATA)
+"RTN","ut",343,0)
+ ; input - UTDATA - passed by reference
+"RTN","ut",344,0)
+ W !!!,"------------ SUMMARY ------------"
+"RTN","ut",345,0)
+ W !,"Ran ",UTDATA(1)," Routine",$S(UTDATA(1)>1:"s",1:""),", ",UTDATA(2)," Entry Tag",$S(UTDATA(2)>1:"s",1:"")
+"RTN","ut",346,0)
+ W !,"Checked ",UTDATA(3)," test",$S(UTDATA(3)>1:"s",1:""),", with ",UTDATA(4)," failure",$S(UTDATA(4)'=1:"s",1:"")," and encountered ",UTDATA(5)," error",$S(UTDATA(5)'=1:"s",1:""),"."
+"RTN","ut",347,0)
+ Q
 "RTN","ut",348,0)
  ;
 "RTN","ut",349,0)
-GUISET(%utRSLT,XTSET) ; Entry point for GUI start with selected Test Set IEN - called by %ut-TEST GROUP LOAD rpc
+ ;
 "RTN","ut",350,0)
- N %utROU,%utLIST,%ut
+GUISET(%utRSLT,XTSET) ; Entry point for GUI start with selected Test Set IEN - called by %ut-TEST GROUP LOAD rpc
 "RTN","ut",351,0)
- D SETUT
+ N %utROU,%utLIST,%ut
 "RTN","ut",352,0)
- S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+ D SETUT
 "RTN","ut",353,0)
- D GETSET(XTSET,.%utROU,.%utLIST)
-"RTN","ut",354,0)
- D GETLIST(.%utROU,%utLIST,%ut("RSLT"))
-"RTN","ut",355,0)
- S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new version
-"RTN","ut",356,0)
- S %utRSLT=%ut("RSLT")
-"RTN","ut",357,0)
- Q
-"RTN","ut",358,0)
- ;
-"RTN","ut",359,0)
-GUILOAD(%utRSLT,%utROUN) ; Entry point for GUI start with %utROUN containing primary routine name - called by %ut-TEST LOAD rpc
-"RTN","ut",360,0)
- N %utROU,%ut
-"RTN","ut",361,0)
- D SETUT
-"RTN","ut",362,0)
  S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
-"RTN","ut",363,0)
- S %utROU(1)=%utROUN
-"RTN","ut",364,0)
- D GETLIST(.%utROU,1,%ut("RSLT"))
-"RTN","ut",365,0)
+"RTN","ut",354,0)
+ D GETSET(XTSET,.%utROU,.%utLIST)
+"RTN","ut",355,0)
+ D GETLIST(.%utROU,%utLIST,%ut("RSLT"))
+"RTN","ut",356,0)
  S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new version
-"RTN","ut",366,0)
+"RTN","ut",357,0)
  S %utRSLT=%ut("RSLT")
-"RTN","ut",367,0)
+"RTN","ut",358,0)
  Q
-"RTN","ut",368,0)
+"RTN","ut",359,0)
  ;
-"RTN","ut",369,0)
-GETLIST(%utROU,%utLIST,%utRSLT) ; called from GUISET, GUILOAD
-"RTN","ut",370,0)
- N I,%utROUL,%utROUN,%ut,XTCOMNT,XTVALUE,%utCNT
-"RTN","ut",371,0)
- S XTVALUE=$NA(^TMP("GUI-MUNIT",$J)) K @XTVALUE
-"RTN","ut",372,0)
- S %utCNT=0,XTCOMNT=""
-"RTN","ut",373,0)
- D GETTREE^%ut1(.%utROU,%utLIST)
-"RTN","ut",374,0)
- F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
-"RTN","ut",375,0)
- S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
-"RTN","ut",376,0)
- M @%utRSLT=@XTVALUE
-"RTN","ut",377,0)
- K @%utRSLT@("SHUTDOWN")
-"RTN","ut",378,0)
- K @%utRSLT@("STARTUP")
-"RTN","ut",379,0)
- S @XTVALUE@("LASTROU")="" ; Use this to keep track of place in routines
-"RTN","ut",380,0)
- Q
-"RTN","ut",381,0)
- ;
-"RTN","ut",382,0)
- ; generate list of unit test routines, entry points and comments on test for entry point
-"RTN","ut",383,0)
-LOAD(%utROUN,%utNCNT,XTVALUE,XTCOMNT,%utROUL) ; called from GETLIST, and recursively from LOAD
-"RTN","ut",384,0)
- I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
-"RTN","ut",385,0)
- S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
-"RTN","ut",386,0)
- ;N %utI,XTX1,XTX2,LINE
-"RTN","ut",387,0)
- N %utI,XTX1,XTX2,LINE,LIST,I
-"RTN","ut",388,0)
- ; 100622 JLI added code to identify STARTUP and TEARDOWN
-"RTN","ut",389,0)
- I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVALUE@("STARTUP")="STARTUP^"_%utROUN
-"RTN","ut",390,0)
- I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTVALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
-"RTN","ut",391,0)
- ; JLI 140731 handle @TEST identified test tags
-"RTN","ut",392,0)
- D NEWSTYLE^%ut1(.LIST,%utROUN)
-"RTN","ut",393,0)
- F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST(I)
-"RTN","ut",394,0)
- ; JLI 140731 end of @TEST addition
-"RTN","ut",395,0)
- F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_XTX1_U_XTX2
-"RTN","ut",396,0)
- F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)="" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
-"RTN","ut",397,0)
- Q
-"RTN","ut",398,0)
- ;
-"RTN","ut",399,0)
-GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - called by %ut-TEST NEXT rpc
-"RTN","ut",400,0)
- ; XTGUISEP - added 110719 to provide for changing separator for GUI
-"RTN","ut",401,0)
- ;            return from ^ to another value ~~^~~  so that data returned
-"RTN","ut",402,0)
- ;            is not affected by ^ values in the data - if not present
-"RTN","ut",403,0)
- ;            sets value to default ^
-"RTN","ut",404,0)
- N %utETRY,%utROUT,XTOLROU,XTVALUE,%utERR,%utGUI
-"RTN","ut",405,0)
- N %ut
-"RTN","ut",406,0)
- I $G(XTGUISEP)="" S XTGUISEP="^"
-"RTN","ut",407,0)
+"RTN","ut",360,0)
+GUILOAD(%utRSLT,%utROUN) ; Entry point for GUI start with %utROUN containing primary routine name - called by %ut-TEST LOAD rpc
+"RTN","ut",361,0)
+ N %utROU,%ut
+"RTN","ut",362,0)
  D SETUT
-"RTN","ut",408,0)
- S %ut("LOC")=%utLOC
-"RTN","ut",409,0)
- S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("NENT")=0,%ut("ERRN")=0
-"RTN","ut",410,0)
- S XTVALUE=$NA(^TMP("GUI-MUNIT",$J))
-"RTN","ut",411,0)
- S %ut("RSLT")=$NA(^TMP("GUINEXT",$J)) K @%ut("RSLT")
-"RTN","ut",412,0)
+"RTN","ut",363,0)
+ S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+"RTN","ut",364,0)
+ S %utROU(1)=%utROUN
+"RTN","ut",365,0)
+ D GETLIST(.%utROU,1,%ut("RSLT"))
+"RTN","ut",366,0)
+ S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new version
+"RTN","ut",367,0)
  S %utRSLT=%ut("RSLT")
-"RTN","ut",413,0)
- S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVALUE@("LASTROU"))
-"RTN","ut",414,0)
- S %utGUI=1
-"RTN","ut",415,0)
- S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
-"RTN","ut",416,0)
- ; I %utROUT'=XTOLROU D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ;140731 JLI - commented out
-"RTN","ut",417,0)
- ;D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ; 140731 JLI - replaced previous line - moves check for SHUTDOWN at end of processing
-"RTN","ut",418,0)
- D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to leave XTVALUE intact, in case they simply run again for STARTUP, etc.
-"RTN","ut",419,0)
- . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
-"RTN","ut",420,0)
- . . S %ut("LOC")=@XTVALUE@("STARTUP")
-"RTN","ut",421,0)
- . . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",422,0)
- . . D @(@XTVALUE@("STARTUP"))
-"RTN","ut",423,0)
- . . Q
-"RTN","ut",424,0)
- . S @XTVALUE@("LASTROU")=%utROUT I %utROUT'="",$T(@("SETUP^"_%utROUT))'="" D
-"RTN","ut",425,0)
- . . S %ut("LOC")="SETUP^"_%utROUT
-"RTN","ut",426,0)
- . . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",427,0)
- . . D @("SETUP^"_%utROUT)
-"RTN","ut",428,0)
- . . Q
-"RTN","ut",429,0)
- . I %utROUT="",$D(@XTVALUE@("SHUTDOWN")) D
-"RTN","ut",430,0)
- . . S %ut("LOC")=@XTVALUE@("SHUTDOWN")
-"RTN","ut",431,0)
- . . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",432,0)
- . . D @(@XTVALUE@("SHUTDOWN"))
-"RTN","ut",433,0)
- . . Q
-"RTN","ut",434,0)
- . Q
-"RTN","ut",435,0)
- S %ut("LOC")=%utLOC
-"RTN","ut",436,0)
- S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
-"RTN","ut",437,0)
- D  ; to limit range of error trap so we continue through other tests
-"RTN","ut",438,0)
- . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",439,0)
- . D @%ut("LOC")
-"RTN","ut",440,0)
- . Q
-"RTN","ut",441,0)
- I $T(@("TEARDOWN^"_%utROUT))'="" D
-"RTN","ut",442,0)
- . S %ut("LOC")="TEARDOWN^"_%utROUT
-"RTN","ut",443,0)
- . N $ETRAP S $ETRAP="D ERROR^%ut"
-"RTN","ut",444,0)
- . D @("TEARDOWN^"_%utROUT)
-"RTN","ut",445,0)
- . Q
-"RTN","ut",446,0)
- S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_XTGUISEP_%utERR
-"RTN","ut",447,0)
- K ^TMP("%ut",$J,"UTVALS")
-"RTN","ut",448,0)
+"RTN","ut",368,0)
  Q
+"RTN","ut",369,0)
+ ;
+"RTN","ut",370,0)
+GETLIST(%utROU,%utLIST,%utRSLT) ; called from GUISET, GUILOAD
+"RTN","ut",371,0)
+ N I,%utROUL,%utROUN,%ut,XTCOMNT,XTVALUE,%utCNT
+"RTN","ut",372,0)
+ S XTVALUE=$NA(^TMP("GUI-MUNIT",$J)) K @XTVALUE
+"RTN","ut",373,0)
+ S %utCNT=0,XTCOMNT=""
+"RTN","ut",374,0)
+ D GETTREE^%ut1(.%utROU,%utLIST)
+"RTN","ut",375,0)
+ F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
+"RTN","ut",376,0)
+ S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
+"RTN","ut",377,0)
+ M @%utRSLT=@XTVALUE
+"RTN","ut",378,0)
+ K @%utRSLT@("SHUTDOWN")
+"RTN","ut",379,0)
+ K @%utRSLT@("STARTUP")
+"RTN","ut",380,0)
+ S @XTVALUE@("LASTROU")="" ; Use this to keep track of place in routines
+"RTN","ut",381,0)
+ Q
+"RTN","ut",382,0)
+ ;
+"RTN","ut",383,0)
+ ; generate list of unit test routines, entry points and comments on test for entry point
+"RTN","ut",384,0)
+LOAD(%utROUN,%utNCNT,XTVALUE,XTCOMNT,%utROUL) ; called from GETLIST, and recursively from LOAD
+"RTN","ut",385,0)
+ I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
+"RTN","ut",386,0)
+ S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
+"RTN","ut",387,0)
+ ;N %utI,XTX1,XTX2,LINE
+"RTN","ut",388,0)
+ N %utI,XTX1,XTX2,LINE,LIST,I
+"RTN","ut",389,0)
+ ; 100622 JLI added code to identify STARTUP and TEARDOWN
+"RTN","ut",390,0)
+ I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVALUE@("STARTUP")="STARTUP^"_%utROUN
+"RTN","ut",391,0)
+ I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTVALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
+"RTN","ut",392,0)
+ ; JLI 140731 handle @TEST identified test tags
+"RTN","ut",393,0)
+ D NEWSTYLE^%ut1(.LIST,%utROUN)
+"RTN","ut",394,0)
+ F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST(I)
+"RTN","ut",395,0)
+ ; JLI 140731 end of @TEST addition
+"RTN","ut",396,0)
+ F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_XTX1_U_XTX2
+"RTN","ut",397,0)
+ F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)="" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
+"RTN","ut",398,0)
+ Q
+"RTN","ut",399,0)
+ ;
+"RTN","ut",400,0)
+GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - called by %ut-TEST NEXT rpc
+"RTN","ut",401,0)
+ ; XTGUISEP - added 110719 to provide for changing separator for GUI
+"RTN","ut",402,0)
+ ;            return from ^ to another value ~~^~~  so that data returned
+"RTN","ut",403,0)
+ ;            is not affected by ^ values in the data - if not present
+"RTN","ut",404,0)
+ ;            sets value to default ^
+"RTN","ut",405,0)
+ N %utETRY,%utROUT,XTOLROU,XTVALUE,%utERR,%utGUI
+"RTN","ut",406,0)
+ N %ut
+"RTN","ut",407,0)
+ I $G(XTGUISEP)="" S XTGUISEP="^"
+"RTN","ut",408,0)
+ D SETUT
+"RTN","ut",409,0)
+ S %ut("LOC")=%utLOC
+"RTN","ut",410,0)
+ S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("NENT")=0,%ut("ERRN")=0
+"RTN","ut",411,0)
+ S XTVALUE=$NA(^TMP("GUI-MUNIT",$J))
+"RTN","ut",412,0)
+ S %ut("RSLT")=$NA(^TMP("GUINEXT",$J)) K @%ut("RSLT")
+"RTN","ut",413,0)
+ S %utRSLT=%ut("RSLT")
+"RTN","ut",414,0)
+ S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVALUE@("LASTROU"))
+"RTN","ut",415,0)
+ S %utGUI=1
+"RTN","ut",416,0)
+ S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+"RTN","ut",417,0)
+ ; I %utROUT'=XTOLROU D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ;140731 JLI - commented out
+"RTN","ut",418,0)
+ ;D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ; 140731 JLI - replaced previous line - moves check for SHUTDOWN at end of processing
+"RTN","ut",419,0)
+ D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to leave XTVALUE intact, in case they simply run again for STARTUP, etc.
+"RTN","ut",420,0)
+ . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
+"RTN","ut",421,0)
+ . . S %ut("LOC")=@XTVALUE@("STARTUP")
+"RTN","ut",422,0)
+ . . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",423,0)
+ . . D @(@XTVALUE@("STARTUP"))
+"RTN","ut",424,0)
+ . . Q
+"RTN","ut",425,0)
+ . S @XTVALUE@("LASTROU")=%utROUT I %utROUT'="",$T(@("SETUP^"_%utROUT))'="" D
+"RTN","ut",426,0)
+ . . S %ut("LOC")="SETUP^"_%utROUT
+"RTN","ut",427,0)
+ . . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",428,0)
+ . . D @("SETUP^"_%utROUT)
+"RTN","ut",429,0)
+ . . Q
+"RTN","ut",430,0)
+ . I %utROUT="",$D(@XTVALUE@("SHUTDOWN")) D
+"RTN","ut",431,0)
+ . . S %ut("LOC")=@XTVALUE@("SHUTDOWN")
+"RTN","ut",432,0)
+ . . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",433,0)
+ . . D @(@XTVALUE@("SHUTDOWN"))
+"RTN","ut",434,0)
+ . . Q
+"RTN","ut",435,0)
+ . Q
+"RTN","ut",436,0)
+ S %ut("LOC")=%utLOC
+"RTN","ut",437,0)
+ S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+"RTN","ut",438,0)
+ D  ; to limit range of error trap so we continue through other tests
+"RTN","ut",439,0)
+ . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",440,0)
+ . D @%ut("LOC")
+"RTN","ut",441,0)
+ . Q
+"RTN","ut",442,0)
+ I $T(@("TEARDOWN^"_%utROUT))'="" D
+"RTN","ut",443,0)
+ . S %ut("LOC")="TEARDOWN^"_%utROUT
+"RTN","ut",444,0)
+ . N $ETRAP S $ETRAP="D ERROR^%ut"
+"RTN","ut",445,0)
+ . D @("TEARDOWN^"_%utROUT)
+"RTN","ut",446,0)
+ . Q
+"RTN","ut",447,0)
+ S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_XTGUISEP_%utERR
+"RTN","ut",448,0)
+ K ^TMP("%ut",$J,"UTVALS")
 "RTN","ut",449,0)
+ Q
+"RTN","ut",450,0)
  ;
 "RTN","ut1")
 0^2^B226313375
 "RTN","ut1",1,0)
-%ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;12/07/15  15:34
+%ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;12/16/15  08:38
 "RTN","ut1",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","ut1",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","ut1",4,0)
  ; Original routine authored by Joel L. Ivey as XTMUNIT1 while working for U.S. Department of Veterans Affairs 2003-2012
 "RTN","ut1",5,0)
  ; Includes addition of original COV entry and code related coverage analysis as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
 "RTN","ut1",6,0)
- ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+ ; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 "RTN","ut1",7,0)
  ;
 "RTN","ut1",8,0)
@@ -2520,13 +2545,13 @@ ISUTEST() ;
 "RTN","utcover")
 0^3^B52893402
 "RTN","utcover",1,0)
-%utcover ;JLI - generic coverage and unit test runner ;12/07/15  16:36
+%utcover ;JLI - generic coverage and unit test runner ;12/16/15  08:42
 "RTN","utcover",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utcover",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utcover",4,0)
- ; Original routine authored by Joel L. Ivey
+ ; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-12/15.
 "RTN","utcover",5,0)
  ;
 "RTN","utcover",6,0)
@@ -2940,15 +2965,15 @@ TRIMDATA(ROULIST,GLOB) ;
 "RTN","utt1")
 0^4^B39370749
 "RTN","utt1",1,0)
-%utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;12/07/15  17:00
+%utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;12/16/15  08:43
 "RTN","utt1",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt1",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt1",4,0)
- ; Original routine authored by Sam H. Habiel 07/2013?04/2014
+ ; Original routine authored by Sam H. Habiel 07/2013-04/2014
 "RTN","utt1",5,0)
- ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+ ; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 "RTN","utt1",6,0)
  ;
 "RTN","utt1",7,0)
@@ -3310,15 +3335,15 @@ XTROU ; Routines containing additional tests
 "RTN","utt2")
 0^5^B501728
 "RTN","utt2",1,0)
-%utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;09/14/15  09:38
+%utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;12/16/15  08:44
 "RTN","utt2",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt2",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt2",4,0)
  ; Original routine authored by Sam H. Habiel
 "RTN","utt2",5,0)
- ; Modifications made by Joel L. Ivey 05/2014-08/2015
+ ; Modifications made by Joel L. Ivey 05/2014-09/2015
 "RTN","utt2",6,0)
  ;
 "RTN","utt2",7,0)
@@ -3342,13 +3367,13 @@ XTENT ;
 "RTN","utt3")
 0^6^B1628564
 "RTN","utt3",1,0)
-%utt3 ; VEN/SMH-JLI - Unit Tests Coverage Tests;09/14/15  09:38
+%utt3 ; VEN/SMH-JLI - Unit Tests Coverage Tests;12/16/15  08:45
 "RTN","utt3",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt3",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt3",4,0)
- ; Original routine authored by Sam H. Habiel 07/2013?04/2014
+ ; Original routine authored by Sam H. Habiel 07/2013-04/2014
 "RTN","utt3",5,0)
  ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
 "RTN","utt3",6,0)
@@ -3438,13 +3463,13 @@ INTERNAL(A) ; Counts
 "RTN","utt4")
 0^7^B1568129
 "RTN","utt4",1,0)
-%utt4 ; VEN/SMH/JLI - Coverage Test Runner;12/06/15  19:05
+%utt4 ; VEN/SMH/JLI - Coverage Test Runner;12/16/15  08:45
 "RTN","utt4",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt4",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt4",4,0)
- ; Original routine authored by Sam H. Habiel 07/2013?04/2014
+ ; Original routine authored by Sam H. Habiel 07/2013-04/2014
 "RTN","utt4",5,0)
  ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
 "RTN","utt4",6,0)
@@ -3484,13 +3509,13 @@ MAIN ; @TEST - Test coverage calculations
 "RTN","utt5")
 0^8^B23054235
 "RTN","utt5",1,0)
-%utt5 ;JLI - test for aspects of MUnit functionality ;09/14/15  09:38
+%utt5 ;JLI - test for aspects of MUnit functionality ;12/16/15  08:47
 "RTN","utt5",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt5",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt5",4,0)
- ; Original routine authored by Joel L. Ivey
+ ; Original routine authored by Joel L. Ivey 05/2014-12/2015.
 "RTN","utt5",5,0)
  ;
 "RTN","utt5",6,0)
@@ -3762,13 +3787,13 @@ XTENT ;
 "RTN","utt6")
 0^9^B39118749
 "RTN","utt6",1,0)
-%utt6 ;JLI - Unit tests for MUnit functionality ;12/07/15  16:40
+%utt6 ;JLI - Unit tests for MUnit functionality ;12/16/15  08:47
 "RTN","utt6",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","utt6",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","utt6",4,0)
- ; Original routine authored by Joel L. Ivey 05/2014-08/2015
+ ; Original routine authored by Joel L. Ivey 05/2014-12/2015
 "RTN","utt6",5,0)
  ;
 "RTN","utt6",6,0)
@@ -4040,13 +4065,13 @@ XTENT ;
 "RTN","uttcovr")
 0^10^B186023122
 "RTN","uttcovr",1,0)
-%uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;12/07/15  16:46
+%uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;12/16/15  08:48
 "RTN","uttcovr",2,0)
- ;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 2
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 3
 "RTN","uttcovr",3,0)
- ; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 "RTN","uttcovr",4,0)
- ; Original routine authored by Joel L. Ivey
+ ; Original routine authored by Joel L. Ivey 05/2014-12/2015
 "RTN","uttcovr",5,0)
  ;
 "RTN","uttcovr",6,0)
@@ -4797,6 +4822,4 @@ M-UNIT TEST GROUP^17.9001
 "^DIC",17.9001,17.9001,0,"GL")
 ^%ut(17.9001,
 "^DIC",17.9001,"B","M-UNIT TEST GROUP",17.9001)
-$END KID MASH*0.3*0
-
-
+$END KID MASH*1.3*0

@@ -1,7 +1,7 @@
-%utt6	;JLI - Unit tests for MUnit functionality ;12/07/15  16:40
-	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Joel L. Ivey 05/2014-08/2015
+%utt6	;JLI - Unit tests for MUnit functionality ;12/16/15  08:47
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	;
 	;
 	; This routine uses ZZUTJLI2 as a test routine, it does not include the routine as an extension,

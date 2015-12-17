@@ -1,8 +1,8 @@
-%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;12/07/15  17:00
-	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Sam H. Habiel 07/2013?04/2014
-	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;12/16/15  08:43
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Sam H. Habiel 07/2013-04/2014
+	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 	;
 	; THIS ROUTINE IS THE UNIFIED UNIT TESTER FOR ALL OF M-UNIT.
 	;

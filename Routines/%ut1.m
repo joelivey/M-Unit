@@ -1,9 +1,9 @@
-%ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;12/07/15  15:34
-	;;0.3;MASH UTILITIES;;Dec 7, 2015;Build 1
-	; Submitted to OSEHRA Dec 07, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;12/16/15  08:38
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey as XTMUNIT1 while working for U.S. Department of Veterans Affairs 2003-2012
 	; Includes addition of original COV entry and code related coverage analysis as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
-	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 	;
 	D ^%utt6 ; runs unit tests from several perspectives
 	Q

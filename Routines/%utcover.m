@@ -1,7 +1,7 @@
-%utcover	;JLI - generic coverage and unit test runner ;12/07/15  16:36
-	;;0.2;MASH UTILITIES;;Sep 14, 2015
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Joel L. Ivey
+%utcover	;JLI - generic coverage and unit test runner ;12/16/15  08:42
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-12/15.
 	;
 	; Changes:  (Moved from %ut and %ut1)
 	; 130726 SMH - Moved test collection logic from %utUNIT to here (multiple places)
