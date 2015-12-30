@@ -1,7 +1,7 @@
-%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;11/21/15  19:35
-	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Joel L. Ivey
+%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;12/16/15  08:48
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	;
 	;
 	; ZEXCEPT: DTIME - if present the value is Kernel timeout for reads
@@ -60,8 +60,8 @@ RTNANAL	; @TEST - routine analysis
 	S GLB=$NA(^TMP("%uttcovr-rtnanal",$J)) K @GLB
 	D RTNANAL^%ut1(.ROUS,GLB)
 	D CHKTF($D(@GLB@("%utt4","MAIN"))>1,"Not enough 'MAIN' nodes found")
-	D CHKTF($G(@GLB@("%utt4","MAIN",2))["+$SY=47","Check for GT.M not found in expected line")
-	D CHKTF($G(@GLB@("%utt4","MAIN",8))=" QUIT","Final QUIT not on expected line")
+	D CHKTF($G(@GLB@("%utt4","MAIN",3))["D COV^%ut(""%utt3"",""D EN^%ut(""""%utt3"""",1)"",-1)","Incorrect data for line 2 in MAIN")
+	D CHKTF($G(@GLB@("%utt4","MAIN",9))=" QUIT","Final QUIT not on expected line")
 	K @GLB
 	Q
 	;
@@ -92,21 +92,6 @@ COVCOV	; @TEST - check COVCOV - remove seen lines
 	K @C,@R
 	Q
 	;
-COVRPTGL	; @TEST - coverage report returning global
-	N GL1,GL2,GL3,GL4
-	S GL1=$NA(^TMP("%utCOVCOHORTSAVx",$J)) K @GL1
-	S GL2=$NA(^TMP("%utCOVCOHORTx",$J)) K @GL2
-	S GL3=$NA(^TMP("%utCOVRESULTx",$J)) K @GL3
-	S GL4=$NA(^TMP("%utCOVREPORTx",$J)) K @GL4
-	D SETGLOBS(GL1,GL2)
-	D COVRPTGL^%ut1(GL1,GL2,GL3,GL4)
-	D CHKEQ($G(@GL4@("%ut1","ACTLINES")),"0/9","Wrong number of lines covered f>>or ACTLINES")
-	D CHKEQ($G(@GL4@("%ut1","ACTLINES",9))," QUIT CNT","Wrong result for last l>>ine not covered for ACTLINES")
-	D CHKEQ($G(@GL4@("%ut1","CHEKTEST")),"8/10","Wrong number of lines covered >>for CHEKTEST")
-	D CHKEQ($G(@GL4@("%ut1","CHEKTEST",39))," . Q","Wrong result for last line >>not covered for CHEKTEST")
-	K @GL1,@GL2,@GL3,@GL4
-	Q
-	;
 COVRPT	 ; @TEST
 	N GL1,GL2,GL3,GL4,VRBOSITY,GL5
 	S GL1=$NA(^TMP("%utCOVCOHORTSAVx",$J)) K @GL1
@@ -118,23 +103,22 @@ COVRPT	 ; @TEST
 	S VRBOSITY=1
 	D COVRPT^%ut1(GL1,GL2,GL3,VRBOSITY)
 	D CHKEQ("COVERAGE PERCENTAGE: 42.11",$G(@GL5@(5)),"Verbosity 1 - not expected percentage value")
-	D CHKEQ("  %ut1              42.11",$G(@GL5@(9)),"Verbosity 1 - not expected value for line 9")
+	D CHKEQ("  %ut1            42.11%  8 out of 19",$G(@GL5@(9)),"Verbosity 1 - not expected value for line 9")
 	D CHKTF('$D(@GL5@(10)),"Verbosity 1 - unexpected data in 10th line")
 	;
 	S VRBOSITY=2
 	D COVRPT^%ut1(GL1,GL2,GL3,VRBOSITY)
-	D CHKEQ("    ACTLINES               (0/9)   0.00%",$G(@GL5@(10)),"Verbosity 2 - not expected value for 10th line")
-	D CHKEQ("    CHEKTEST              (8/10)  80.00%",$G(@GL5@(11)),"Verbosity 2 - not expected value for 11th line")
+	D CHKEQ("    ACTLINES           0.00%  0 out of 9",$G(@GL5@(10)),"Verbosity 2 - not expected value for 10th line")
+	D CHKEQ("    CHEKTEST          80.00%  8 out of 10",$G(@GL5@(11)),"Verbosity 2 - not expected value for 11th line")
 	D CHKTF('$D(@GL5@(12)),"Verbosity 2 - unexpected data for 12th line")
 	;
 	S VRBOSITY=3
 	D COVRPT^%ut1(GL1,GL2,GL3,VRBOSITY)
-	D CHKEQ("    ACTLINES               (0/9)   0.00%",$G(@GL5@(10)),"Verbosity 3 - unexpected value for line 10")
+	D CHKEQ("    ACTLINES           0.00%  0 out of 9",$G(@GL5@(10)),"Verbosity 3 - unexpected value for line 10")
 	D CHKEQ("ACTLINES+9:  QUIT CNT",$G(@GL5@(19)),"Verbosity 3 - unexpected value for line 19")
-	D CHKEQ("    CHEKTEST              (8/10)  80.00%",$G(@GL5@(20)),"Verbosity 3 - unexpected value for line 20")
+	D CHKEQ("    CHEKTEST          80.00%  8 out of 10",$G(@GL5@(20)),"Verbosity 3 - unexpected value for line 20")
 	D CHKEQ("CHEKTEST+39:  . Q",$G(@GL5@(22)),"Verbosity 3 - unexpected value for line 22")
 	D CHKTF('$D(@GL5@(23)),"Verbosity 3 - unexpected line 23")
-	;
 	K @GL1,@GL2,@GL3,@GL4,@GL5
 	Q
 	;
@@ -148,22 +132,22 @@ COVRPTLS	; @TEST - coverage report returning text in global
 	S VRBOSITY=1
 	D COVRPTLS^%ut1(GL1,GL2,GL3,VRBOSITY,GL4)
 	D CHKEQ("COVERAGE PERCENTAGE: 42.11",$G(@GL4@(5)),"Verbosity 1 - not expected percentage value")
-	D CHKEQ("  %ut1              42.11",$G(@GL4@(9)),"Verbosity 1 - not expected value for line 9")
+	D CHKEQ("  %ut1            42.11%  8 out of 19",$G(@GL4@(9)),"Verbosity 1 - not expected value for line 9")
 	D CHKTF('$D(@GL4@(10)),"Verbosity 1 - unexpected data in 10th line")
 	K @GL4
 	;
 	S VRBOSITY=2
 	D COVRPTLS^%ut1(GL1,GL2,GL3,VRBOSITY,GL4)
-	D CHKEQ("    ACTLINES               (0/9)   0.00%",$G(@GL4@(10)),"Verbosity 2 - not expected value for 10th line")
-	D CHKEQ("    CHEKTEST              (8/10)  80.00%",$G(@GL4@(11)),"Verbosity 2 - not expected value for 11th line")
+	D CHKEQ("    ACTLINES           0.00%  0 out of 9",$G(@GL4@(10)),"Verbosity 2 - not expected value for 10th line")
+	D CHKEQ("    CHEKTEST          80.00%  8 out of 10",$G(@GL4@(11)),"Verbosity 2 - not expected value for 11th line")
 	D CHKTF('$D(@GL4@(12)),"Verbosity 2 - unexpected data for 12th line")
 	K @GL4
 	;
 	S VRBOSITY=3
 	D COVRPTLS^%ut1(GL1,GL2,GL3,VRBOSITY,GL4)
-	D CHKEQ("    ACTLINES               (0/9)   0.00%",$G(@GL4@(10)),"Verbosity 3 - unexpected value for line 10")
+	D CHKEQ("    ACTLINES           0.00%  0 out of 9",$G(@GL4@(10)),"Verbosity 3 - unexpected value for line 10")
 	D CHKEQ("ACTLINES+9:  QUIT CNT",$G(@GL4@(19)),"Verbosity 3 - unexpected value for line 19")
-	D CHKEQ("    CHEKTEST              (8/10)  80.00%",$G(@GL4@(20)),"Verbosity 3 - unexpected value for line 20")
+	D CHKEQ("    CHEKTEST          80.00%  8 out of 10",$G(@GL4@(20)),"Verbosity 3 - unexpected value for line 20")
 	D CHKEQ("CHEKTEST+39:  . Q",$G(@GL4@(22)),"Verbosity 3 - unexpected value for line 22")
 	D CHKTF('$D(@GL4@(23)),"Verbosity 3 - unexpected line 23")
 	;
@@ -199,21 +183,21 @@ LIST	; @TEST - LIST in %utcover
 	S @GL1@("%ut1","CHEKTEST")="10/10"
 	N XCLUD S XCLUD("%utt1")=""
 	D LIST^%utcover(.XCLUD,1,GLT,GL1)
-	D CHKEQ("Routine %ut1   89 out of 160 lines covered  (55%)",$G(@GLT@(3)),"Verbosity 1 - Unexpected text for line 3")
+	D CHKEQ("Routine %ut1      (55.63%)   89 out of 160 lines covered",$G(@GLT@(3)),"Verbosity 1 - Unexpected text for line 3")
 	D CHKEQ("Overall Analysis 89 out of 160 lines covered (55% coverage)",$G(@GLT@(6)),"Verbosity 1 - unexpected text for line 6")
 	D CHKTF('$D(@GLT@(7)),"Verbosity 1 - Unexpected line 7 present")
 	K @GLT
 	;
 	D LIST^%utcover(.XCLUD,2,GLT,GL1)
 	D CHKEQ("  - Summary",$G(@GLT@(4)),"Verbosity 2 - unexpected text at line 4")
-	D CHKEQ(" Tag ACTLINES^%ut1   0 out of 8 lines covered",$G(@GLT@(6)),"Verbosity 2 - unexpected text at line 6")
-	D CHKEQ(" Tag CHEKTEST^%ut1   10 out of 10 lines covered",$G(@GLT@(8)),"Verbosity 2 - unexpected text at line 8")
+	D CHKEQ(" Tag ACTLINES^%ut1          (0.00%)   0 out of 8 lines covered",$G(@GLT@(6)),"Verbosity 2 - unexpected text at line 6")
+	D CHKEQ(" Tag CHEKTEST^%ut1        (100.00%)   10 out of 10 lines covered",$G(@GLT@(8)),"Verbosity 2 - unexpected text at line 8")
 	D CHKTF($D(@GLT@(14)),"Verbosity 2 - expected line at line 14")
 	D CHKTF('$D(@GLT@(15)),"Verbosity 2 - unexpected line at line 15")
 	K @GLT
 	;
 	D LIST^%utcover(.XCLUD,3,GLT,GL1)
-	D CHKEQ(" Tag %ut1^%ut1   2 out of 2 lines covered",$G(@GLT@(5)),"Verbosity 3 - Incorrect text at line 5")
+	D CHKEQ(" Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered",$G(@GLT@(5)),"Verbosity 3 - Incorrect text at line 5")
 	D CHKEQ("     ACTLINES+9   QUIT CNT",$G(@GLT@(15)),"Verbosity 3 - incorrect line 15")
 	D CHKTF($D(@GLT@(31)),"Verbosity 3 - expected data in line 31")
 	D CHKTF('$D(@GLT@(32)),"Verbosity 3 - did not expect a line 32")
@@ -300,7 +284,7 @@ LINEDATA	; @TEST - convert code line to based on tags and offset, and identify a
 	Q
 	;
 TOTAGS	;@TEST - convert from lines of code by line number to lines ordered by tag, line from tag, and only not covered
-	N GLOB,GLOBT,X1,X0
+	N ACTIVE,GLOB,GLOBT,X1,X0
 	S GLOB=$NA(^TMP("%uttcovr",$J)),GLOBT=$NA(@GLOB@("TEST1")) K @GLOB
 	S @GLOBT@(1,0)="LINE1 ; CODE1 LINE1+0 NOT ACTIVE"
 	S @GLOBT@(2,0)=" CODE2 LINE+1 SEEN"
@@ -313,7 +297,8 @@ TOTAGS	;@TEST - convert from lines of code by line number to lines ordered by ta
 	S @GLOBT@(6,"C")=2
 	S @GLOBT@(7,0)="LINE7 CODE7 LINE7+0 NOT COVERED"
 	S @GLOBT@(8,0)=" CODE8 LINE7+1 NOT COVERED"
-	D TOTAGS^%ut1(GLOB)
+	S ACTIVE=1
+	D TOTAGS^%ut1(GLOB,ACTIVE)
 	D CHKEQ(1,($D(@GLOBT@("LINE1"))#2),"LINE1 TAG NOT IDENTIFIED")
 	D CHKEQ(1,($D(@GLOBT@("LINE4"))#2),"LINE4 TAG NOT IDENTIFIED")
 	D CHKEQ(1,($D(@GLOBT@("LINE7"))#2),"LINE7 TAG NOT IDENTIFIED")

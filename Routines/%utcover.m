@@ -1,7 +1,62 @@
-%utcover	;JLI - generic coverage and unit test runner ;09/14/15  09:37
-	;;0.2;MASH UTILITIES;;Sep 14, 2015
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Joel L. Ivey
+%utcover	;JLI - generic coverage and unit test runner ;12/16/15  08:42
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-12/15.
+	;
+	; Changes:  (Moved from %ut and %ut1)
+	; 130726 SMH - Moved test collection logic from %utUNIT to here (multiple places)
+	; 131218 SMH - dependence on XLFSTR removed
+	; 131218 SMH - CHEKTEST refactored to use $TEXT instead of ^%ZOSF("LOAD")
+	; 131218 SMH - CATCHERR now nulls out $ZS if on GT.M
+	;
+	; ------- COMMENTS moved from %ut due to space requirements
+	;
+	; 100622 JLI - corrected typo in comments where %utINPT was listed as %utINP
+	; 100622 JLI - removed a comment which indicated data could potentially be returned from the called routine
+	;              in the %utINPT array.
+	; 100622 JLI - added code to handle STARTUP and SHUTDOWN from GUI app
+	; 110719 JLI - modified separators in GUI handling from ^ to ~~^~~
+	;              in the variable XTGUISEP if using a newer version of the
+	;              GUI app (otherwise, it is simply set to ^) since results
+	;              with a series of ^ embedded disturbed the output reported
+	; 130726 SMH - Fixed SETUP and TEARDOWN so that they run before/after each
+	;              test rather than once. General refactoring.
+	; 130726 SMH - SETUT initialized IO in case it's not there to $P. Inits vars
+	;              using DT^DICRW.
+	; 131217 SMH - Change call in SETUP to S U="^" instead of DT^DICRW
+	; 131218 SMH - Any checks to $ZE will also check $ZS for GT.M.
+	; 131218 SMH - Remove calls to %ZISUTL to manage devices to prevent dependence on VISTA.
+	;              Use %utNIT("DEV","OLD") for old devices
+	; 140109 SMH - Add parameter %utBREAK - Break upon error
+	; 1402   SMH - Break will cause the break to happen even on failed tests.
+	; 140401 SMH - Added Succeed entry point for take it into your hands tester.
+	; 140401 SMH - Reformatted the output of M-Unit so that the test's name
+	;              will print BEFORE the execution of the test. This has been
+	;              really confusing for beginning users of M-Unit, so this was
+	;              necessary.
+	; 140401 SMH - OK message gets printed at the end of --- as [OK].
+	; 140401 SMH - FAIL message now prints. Previously, OK failed to be printed.
+	;              Unfortunately, that's rather passive aggressive. Now it
+	;              explicitly says that a test failed.
+	; 140503 SMH - Fixed IO issues all over the routine. Much simpler now.
+	; 140731 JLI - Combined routine changes between JLI and SMH
+	;              Moved routines from %utNIT and %utNIT1 to %ut and %ut1
+	;              Updated unit test routines (%utt1 to %utt6)
+	;              Created M-UNIT TEST GROUP file at 17.9001 based on the 17.9001 file
+	; 141030 JLI - Removed tag TESTCOVR and code under it, not necessary
+	;              since %uttcovr can handle all of the calling needed
+	;              Added call to run routine %utt6 if run from the top,
+	;              since this will run the full range of unit tests
+	;              Modified STARTUP and SHUTDOWN commands to handle in
+	;              each routine where they are available, since only
+	;              running one STARTUP and SHUTDOWN (the first seen by
+	;              the program) restricted their use in suites of multiple
+	;              tests.
+	; 150101 JLI - Added COV entry to %ut (in addition to current in %ut1) so it is easier
+	;              to remember how to use it.
+	; 150621 JLI - Added a global location to pick up summary data for a unit test call, so
+	;              programs running multiple calls can generate a summary if desired.
+	;
 	;
 	D EN^%ut("%uttcovr") ; unit tests
 	Q
@@ -66,21 +121,27 @@ COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)	; run coverage analysis for multipl
 	;                     3  -  Full analysis for each tag, and lists out those lines which were
 	;                           not executed during the analysis
 	;
-	N I,ROU,TYPE,VAL,XCLUDE
+	N I,ROU,TYPE,XCLUDE
 	S RESLTLVL=$G(RESLTLVL,1)
 	I (RESLTLVL<1) S RESLTLVL=1
 	I (RESLTLVL>3) S RESLTLVL=3
 	M ^TMP("%utcover",$J,"TESTROUS")=TESTROUS ;
 	D COV^%ut1(ROUNMSP,"D COVENTRY^%utcover",-1)
 	K ^TMP("%utcover",$J,"TESTROUS")
-	S ROU="" F  S ROU=$O(XCLDROUS(ROU)) Q:ROU=""  D
-	. I ROU'=+ROU S XCLUDE(ROU)=""
-	. F I=1:1 S VAL=$P(XCLDROUS(ROU),",",I) Q:VAL=""  S XCLUDE(VAL)=""
-	. Q
+	S ROU="" F  S ROU=$O(XCLDROUS(ROU)) Q:ROU=""  D SETROUS(.XCLUDE,.XCLDROUS,ROU)
 	N TEXTGLOB S TEXTGLOB=$NA(^TMP("%utcover-text",$J)) K @TEXTGLOB
 	D LIST(.XCLUDE,RESLTLVL,TEXTGLOB)
 	F I=1:1 Q:'$D(@TEXTGLOB@(I))  W !,@TEXTGLOB@(I)
 	K @TEXTGLOB
+	Q
+	;
+SETROUS(XCLUDE,XCLDROUS,ROU)	;
+	; XCLUDE   - passed by reference - on return contains array with indices as routines to exclude from analysis
+	; XCLDROUS - passed by referenc - array may contain a comma-delimited list of routines to exclude from analysis
+	; ROU      - input - if non-numberic is name of routine to exclude from analysis
+	N I,VAL
+	I ROU'=+ROU S XCLUDE(ROU)=""
+	F I=1:1 S VAL=$P(XCLDROUS(ROU),",",I) Q:VAL=""  S XCLUDE(VAL)=""
 	Q
 	;
 LIST(XCLDROUS,TYPE,TEXTGLOB,GLOB,LINNUM)	;
@@ -103,17 +164,21 @@ LIST(XCLDROUS,TYPE,TEXTGLOB,GLOB,LINNUM)	;
 	I '$D(GLOB) N GLOB S GLOB=$NA(^TMP("%utCOVREPORT",$J))
 	D TRIMDATA(.XCLDROUS,GLOB) ; remove undesired routines from data
 	;
-	N JOB,NAME,BASE
+	N JOB,NAME,BASE,TEXT,VAL
 	S TOTCOV=0,TOTLIN=0
 	; F NAME="%utCOVREPORT","%utCOVRESULT","%utCOVCOHORT","%utCOVCOHORTSAV" D
 	I TYPE>1 S ROUNAME="" F  S ROUNAME=$O(@GLOB@(ROUNAME)) Q:ROUNAME=""  S XVAL=^(ROUNAME) D
 	. S CURRCOV=$P(XVAL,"/"),CURRLIN=$P(XVAL,"/",2)
 	. S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="",LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)=""
-	. S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="Routine "_ROUNAME_"   "_CURRCOV_" out of "_CURRLIN_" lines covered"_$S(CURRLIN>0:"  ("_$P((100*CURRCOV)/CURRLIN,".")_"%)",1:"")
+	. S TEXT="Routine "_ROUNAME_"              ",TEXT=$E(TEXT,1,20)
+	. I CURRLIN>0 S VAL="     ("_$J((100*CURRCOV)/CURRLIN,"",2),VAL=$E(VAL,$L(VAL)-6,$L(VAL))
+	. S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)=TEXT_"   "_$S(CURRLIN>0:VAL_"%)",1:"  ------ ")_"   "_CURRCOV_" out of "_CURRLIN_" lines covered"
 	. I TYPE>1 S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="  - "_$S(TYPE=2:"Summary",1:"Detailed Breakdown")
 	. S TAG="" F  S TAG=$O(@GLOB@(ROUNAME,TAG)) Q:TAG=""  S XVAL=^(TAG) D
 	. . S LINCOV=$P(XVAL,"/"),LINTOT=$P(XVAL,"/",2)
-	. . S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)=" Tag "_TAG_"^"_ROUNAME_"   "_LINCOV_" out of "_LINTOT_" lines covered"
+	. . S TEXT=" Tag "_TAG_"^"_ROUNAME_"                ",TEXT=$E(TEXT,1,26)
+	. . I LINTOT>0 S VAL="     ("_$J((100*LINCOV)/LINTOT,"",2),VAL=$E(VAL,$L(VAL)-6,$L(VAL))
+	. . S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)=TEXT_$S(LINTOT>0:VAL_"%)",1:"  ------ ")_"   "_LINCOV_" out of "_LINTOT_" lines covered"
 	. . I TYPE=2 Q
 	. . I LINCOV=LINTOT Q
 	. . S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="   the following is a list of the lines **NOT** covered"
@@ -131,8 +196,8 @@ LIST(XCLDROUS,TYPE,TEXTGLOB,GLOB,LINNUM)	;
 	S ROUNAME="" F  S ROUNAME=$O(@GLOB@(ROUNAME)) Q:ROUNAME=""  S XVAL=^(ROUNAME) D
 	. S CURRCOV=$P(XVAL,"/"),CURRLIN=$P(XVAL,"/",2)
 	. S TOTCOV=TOTCOV+CURRCOV,TOTLIN=TOTLIN+CURRLIN
-	. S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="Routine "_ROUNAME_"   "_CURRCOV_" out of "_CURRLIN_" lines covered"_$S(CURRLIN>0:"  ("_$P((100*CURRCOV)/CURRLIN,".")_"%)",1:"")
-	. Q
+	. I CURRLIN>0 S VAL="     ("_$J((100*CURRCOV)/CURRLIN,"",2),VAL=$E(VAL,$L(VAL)-6,$L(VAL))
+	. S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="Routine "_ROUNAME_"     "_$S(CURRLIN>0:VAL_"%)",1:"  ------ ")_"   "_CURRCOV_" out of "_CURRLIN_" lines covered"
 	S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="",LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)=""
 	S LINNUM=LINNUM+1,@TEXTGLOB@(LINNUM)="Overall Analysis "_TOTCOV_" out of "_TOTLIN_" lines covered"_$S(TOTLIN>0:" ("_$P((100*TOTCOV)/TOTLIN,".")_"% coverage)",1:"")
 	Q

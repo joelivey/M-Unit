@@ -1,8 +1,8 @@
-%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;09/14/15  09:38
-	;;0.2;MASH UTILITIES;;Sep 14, 2015;Build 7
-	; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Sam H. Habiel 07/2013?04/2014
-	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
+%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;12/16/15  08:43
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	; Original routine authored by Sam H. Habiel 07/2013-04/2014
+	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 	;
 	; THIS ROUTINE IS THE UNIFIED UNIT TESTER FOR ALL OF M-UNIT.
 	;
@@ -139,9 +139,24 @@ T8	; If IO starts with another device, write to that device as if it's the prici
 	I +$SY=0 C D:"D"
 	I +$SY=47 C D:(delete)
 	;D CHKTF(Y["MAIN") ; JLI 140829 commented out, gui doesn't run verbose
-	D CHKTF((Y["MAIN")!(Z["Ran 1 Routine"),"Write to system during test didn't work")
+	D CHKTF((Y["MAIN")!(Z["T2 - Test 2"),"Write to system during test didn't work")
 	S IO=$P
 	QUIT
+	;
+COVRPTGL	;
+	N GL1,GL2,GL3,GL4
+	S GL1=$NA(^TMP("%utCOVCOHORTSAVx",$J)) K @GL1
+	S GL2=$NA(^TMP("%utCOVCOHORTx",$J)) K @GL2
+	S GL3=$NA(^TMP("%utCOVRESULTx",$J)) K @GL3
+	S GL4=$NA(^TMP("%utCOVREPORTx",$J)) K @GL4
+	D SETGLOBS^%uttcovr(GL1,GL2)
+	D COVRPTGL^%ut1(GL1,GL2,GL3,GL4)
+	D CHKEQ($G(@GL4@("%ut1","ACTLINES")),"0/9","Wrong number of lines covered f>>or ACTLINES")
+	D CHKEQ($G(@GL4@("%ut1","ACTLINES",9))," QUIT CNT","Wrong result for last l>>ine not covered for ACTLINES")
+	D CHKEQ($G(@GL4@("%ut1","CHEKTEST")),"8/10","Wrong number of lines covered >>for CHEKTEST")
+	D CHKEQ($G(@GL4@("%ut1","CHEKTEST",39))," . Q","Wrong result for last line >>not covered for CHEKTEST")
+	K @GL1,@GL2,@GL3,@GL4
+	Q
 	;
 LO(X)	Q $TR(X,"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz")
 	; Shortcut methods for M-Unit
@@ -159,6 +174,7 @@ XTENT	; Entry points
 	;;T6;Succeed Entry Point
 	;;T7;Make sure we write to principal even though we are on another device
 	;;T8;If IO starts with another device, write to that device as if it's the pricipal device
+	;;COVRPTGL;coverage report returning global
 	;
 XTROU	; Routines containing additional tests
 	;;%utt2; old %utNITU
