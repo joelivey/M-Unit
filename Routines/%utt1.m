@@ -1,5 +1,5 @@
-%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;12/16/15  08:43
-	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;2015-12-31  10:33 PM
+	;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 4
 	; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013-04/2014
 	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
@@ -16,6 +16,10 @@
 	; Sam H
 	;
 	D EN^%ut($T(+0),1) ; Run tests here, be verbose.
+        N % S $P(%,"-",80)="-"
+        W !!,%,!,%,!,%,!,%,!!
+        K %
+	D EN^%ut($T(+0),2) ; Run tests here, be verbose with timings for each piece of code.
 	QUIT
 	;
 STARTUP	; M-Unit Start-Up - This runs before anything else.
