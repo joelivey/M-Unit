@@ -1,8 +1,9 @@
-%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;09/14/15  09:38
- ;;0.2;MASH UTILITIES;;;Build 7
- ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;2015-12-31  10:46 PM
+ ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+ ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
- ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
+ ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013-04/2014
+ ; Additional work by Joel L. Ivey 05/14-12/15
  ;
  ; This routine and its companion, %ut1, provide the basic functionality for
  ; running unit tests on parts of M programs either at the command line level
@@ -101,17 +102,17 @@ EN1(%utROU,%utLIST) ;
  . . S %ut("ENT")=%utETRY(%utI)_"^"_%utROU(%ut("CURR"))
  . . I %utVERB,'$D(%utGUI) D VERBOSE1(.%utETRY,%utI) ; Say what we executed.
  . . ;
- . . I %utVERB=2 N %utStart D  ; User Time Start
- . . . I +$SY=0  S %utStart=$P($SYSTEM.Process.GetCPUTime(),",",2)
+ . . I %utVERB=2 N %utStart D  ; Time Start
+ . . . I +$SY=0  S %utStart=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
  . . . I +$SY=47 S %utStart=$ZGETJPI("","CPUTIM")*10
  . . ;
  . . ; Run the test!
  . . D @%ut("ENT")
  . . ;
- . . I %utVERB=2 N %utEnd,%utElapsed D  ; User Time End
- . . . I +$SY=0  S %utEnd=$P($SYSTEM.Process.GetCPUTime(),",",2)
+ . . I %utVERB=2 N %utEnd,%utElapsed D  ; Time End
+ . . . I +$SY=0  S %utEnd=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
  . . . I +$SY=47 S %utEnd=$ZGETJPI("","CPUTIM")*10
- . . . S %utElapsed=%utEnd-%utStart_"ms"     
+ . . . S %utElapsed=%utEnd-%utStart_"ms"
  . . ;
  . . ; Run Teardown Code (only if present)
  . . S %ut("ENT")=$G(%ut("TEARDOWN"))
@@ -159,13 +160,44 @@ VERBOSE1(%utETRY,%utI) ; Print out the entry point info
  Q
  ;
 CHKTF(XTSTVAL,XTERMSG) ; Entry point for checking True or False values
+ ; ZEXCEPT: %utERRL,%utGUI - CREATED IN SETUP, KILLED IN END
+ ; ZEXCEPT: %ut - NEWED IN EN
+ ; ZEXCEPT: XTGUISEP - newed in GUINEXT
  I '$D(XTSTVAL) D NVLDARG^%ut1("CHKTF") Q
- D CHKTF^%ut1(XTSTVAL,$G(XTERMSG))
+ I $G(XTERMSG)="" S XTERMSG="no failure message provided"
+ S %ut("CHK")=$G(%ut("CHK"))+1
+ I '$D(%utGUI) D
+ . D SETIO^%ut1
+ . I 'XTSTVAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " D
+ . . W XTERMSG,! S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+ . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+ . . Q
+ . I XTSTVAL W "."
+ . D RESETIO^%ut1
+ . Q
+ I $D(%utGUI),'XTSTVAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
  Q
  ;
 CHKEQ(XTEXPECT,XTACTUAL,XTERMSG) ; Entry point for checking values to see if they are EQUAL
+ N FAILMSG
+ ; ZEXCEPT: %utERRL,%utGUI -CREATED IN SETUP, KILLED IN END
+ ; ZEXCEPT: %ut  -- NEWED IN EN
+ ; ZEXCEPT: XTGUISEP - newed in GUINEXT
  I '$D(XTEXPECT)!'$D(XTACTUAL) D NVLDARG^%ut1("CHKEQ") Q
- D CHKEQ^%ut1(XTEXPECT,XTACTUAL,$G(XTERMSG))
+ S XTACTUAL=$G(XTACTUAL),XTEXPECT=$G(XTEXPECT)
+ I $G(XTERMSG)="" S XTERMSG="no failure message provided"
+ S %ut("CHK")=%ut("CHK")+1
+ I XTEXPECT'=XTACTUAL S FAILMSG="<"_XTEXPECT_"> vs <"_XTACTUAL_"> - "
+ I '$D(%utGUI) D
+ . D SETIO^%ut1
+ . I XTEXPECT'=XTACTUAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W FAILMSG,XTERMSG,! D
+ . . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+     . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+ . . Q
+ . E  W "."
+ . D RESETIO^%ut1
+ . Q
+ I $D(%utGUI),XTEXPECT'=XTACTUAL S %ut("CNT")=%ut("CNT")+1,@%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"FAILURE"_XTGUISEP_FAILMSG_XTERMSG,%ut("FAIL")=%ut("FAIL")+1
  Q
  ;
 FAIL(XTERMSG) ; Entry point for generating a failure message
@@ -254,7 +286,8 @@ ISUTEST() ; .SUPPORTED API TO DETERMINE IF CURRENTLY IN UNIT TEST
  Q $G(%ut)=1
  ;
 PICKSET ; .OPT Interactive selection of MUnit Test Group
- N DIC,Y,%utROU,%utLIST,DIR S DIC=17.9001,DIC(0)="AEQM" D ^DIC Q:Y'>0  W ! D GETSET(+Y,.%utROU,.%utLIST) N DIC,Y,%ut D SETUT D EN1(.%utROU,%utLIST) S DIR(0)="EA",DIR("A")="Enter RETURN to continue:" D ^DIR K DIR
+ N DIC,Y,%utROU,%utLIST,DIR
+ I '$$ISUTEST^%ut() S DIC=17.9001,DIC(0)="AEQM" D ^DIC Q:Y'>0  W ! D GETSET(+Y,.%utROU,.%utLIST) N DIC,Y,%ut D SETUT D EN1(.%utROU,%utLIST) S DIR(0)="EA",DIR("A")="Enter RETURN to continue:" D ^DIR K DIR
  Q
  ;
 RUNSET(SETNAME,VERBOSE) ; .SR Run with Specified Selection of MUnit Test Group
