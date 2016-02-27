@@ -1,5 +1,5 @@
 %utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;09/14/15  12:39
- ;;0.2;MASH UTILITIES;;;Build 7
+ ;;1.4;MASH;;Feb 27, 2016;Build 7
  ; Submitted to OSEHRA Sep 14, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Sam H. Habiel 07/2013-04/2014
  ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
@@ -111,5 +111,13 @@ TEST ; @TEST - TESTING TESTING
  I FIRSTDIR'="/abc/def" S $EC=",U1,"
  ;
  WRITE "All tests have run successfully!",!
+ QUIT
+ ;
+PREKIDS ; Ready for KIDS - Move % routines to non-percent version
+ N %S,%D ; Source, destination
+ S U="^"
+ S %D="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^uttcovr"
+ S %S="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%uttcovr"
+ D MOVE
  QUIT
  ;
