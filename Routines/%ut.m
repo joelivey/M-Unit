@@ -1,5 +1,5 @@
 %ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;2015-12-31  10:46 PM
- ;;1.3;MASH UTILITIES;;Dec 16, 2015;Build 1
+ ;;1.4;MASH UTILITIES;;Feb 25, 2016;Build 1
  ; Submitted to OSEHRA Dec 16, 2015 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
  ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013-04/2014
@@ -16,9 +16,11 @@
  D ^%utt6 ; runs unit tests on all of it
  Q
  ;
-EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name, optional 1 for verbose output
+EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name
+ ; %utRNAM: (Required) Routine name that contians the tags with @TEST in them or the tag XTROU
+ ; %utVERB: (optional) 1 for verbose output or 2 for verbose and timing info.
+ ; %utBREAK:(optional) bool - Break upon error or upon failure
  N %utLIST,%utROU,%ut
- I '+$G(%utVERB) S %utVERB=0
  S %utLIST=1,%utROU(%utLIST)=%utRNAM
  K ^TMP("%ut",$J,"UTVALS")
  D SETUT
@@ -44,6 +46,7 @@ EN1(%utROU,%utLIST) ;
  ; SETUP and TEARDOWN not happening at the right time
  N %utERRL,%utK,%utI,%utJ,%utSTRT
  ; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
+ I '+$G(%utVERB) S %utVERB=0
  ; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
  ; ZEXCEPT: %ut  -- NEWED IN EN
  ;
