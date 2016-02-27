@@ -6,6 +6,7 @@
  ;
  N X,I
  D RENAME
+ QUIT
  ;
 RENAME ;
  N %S,%D ; Source, destination
