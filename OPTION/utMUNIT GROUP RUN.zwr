@@ -1,0 +1,7 @@
+^XTMP("K2VC","EXPORT","KRN",19,IEN,-1)="0^3"
+^XTMP("K2VC","EXPORT","KRN",19,IEN,0)="utMUNIT GROUP RUN^Run M-Unit Tests From Test Groups^^R^^^^^^^^TOOLKIT"
+^XTMP("K2VC","EXPORT","KRN",19,IEN,1,0)="^^2^2^3031030^"
+^XTMP("K2VC","EXPORT","KRN",19,IEN,1,1,0)="Provides a means of initiating a unit test run from the menu system based"
+^XTMP("K2VC","EXPORT","KRN",19,IEN,1,2,0)="on entries in the M-UNIT TEST GROUP file (#17.9001)."
+^XTMP("K2VC","EXPORT","KRN",19,IEN,25)="PICKSET^%ut"
+^XTMP("K2VC","EXPORT","KRN",19,IEN,"U")="RUN M-UNIT TESTS FROM TEST GRO"
