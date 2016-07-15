@@ -6,18 +6,16 @@
 	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
 	; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
 	;
-	; comments moved to %utcover due to space requirements
+	; older comments moved to %utcover due to space requirements
+	;
+	; 160701 Christopher Edwards (CE) to remove VistA dependence in CACHECOV+12 replaced ^%ZOSF("LOAD") with its code
+	;
 	D ^%utt6 ; runs unit tests from several perspectives
 	Q
 	;
 	;following is original header from XTMUNIT1 in unreleased patch XT*7.3*81 VA code
 	;XTMUNIT1    ;JLI/FO-OAK-CONTINUATION OF UNIT TEST ROUTINE ;2014-04-17  5:26 PM
 	;;7.3;TOOLKIT;**81**;APR 25 1995;Build 24
-	;
-	;
-	; Original by Dr. Joel Ivey
-	; Major contributions by Dr. Sam Habiel
-	;
 	;
 CHEKTEST(%utROU,%ut,%utUETRY)	; Collect Test list.
 	; %utROU - input - Name of routine to check for tags with @TEST attribute
@@ -236,7 +234,7 @@ CACHECOV(GLOBSAV,GLOB)	;
 	. I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(I)
 	. ; get routine loaded into location
 	. S DIF=$NA(@GLOBSAV@(ROUNAME)),DIF=$E(DIF,1,$L(DIF)-1)_",",XCNP=0,X=ROUNAME
-	. X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%"""
+	. X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; see 160701 change in header
 	. M @GLOB@(ROUNAME)=@GLOBSAV@(ROUNAME)
 	. Q
 	;

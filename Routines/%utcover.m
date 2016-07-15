@@ -57,6 +57,9 @@
 	; 150621 JLI - Added a global location to pick up summary data for a unit test call, so
 	;              programs running multiple calls can generate a summary if desired.
 	;
+	; comments for this routine %utcover
+	; 160701 Christopher Edwards (CE) in COVENTRY to remove VistA dependence add U as NEWed variable and set U to '^'
+	; 160713 JLI - changed reference to JUSTTEST to MULTAPIS in description of TESTROUS variable for tag COVERAGE
 	;
 	D EN^%ut("%uttcovr") ; unit tests
 	Q
@@ -88,8 +91,8 @@ MULTAPIS(TESTROUS)	; RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
 	;
 COVENTRY	; setup of COVERAGE NEWs most variables, so TESTROUS passed by global
 	;
-	N I,ROU,VAL,VALS,UTDATA,TESTS,TESTROUS,U
-	S U="^"
+	N I,ROU,VAL,VALS,UTDATA,TESTS,TESTROUS,U ; CE 160701 add U as newed variable to remove VistA dependence
+	S U="^" ; CE 160701 set U to remove VistA dependence
 	M TESTROUS=^TMP("%utcover",$J,"TESTROUS")
 	S ROU="" F  S ROU=$O(TESTROUS(ROU)) Q:ROU=""  D
 	. I ROU'=+ROU S TESTS(ROU)=""
@@ -109,7 +112,7 @@ COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)	; run coverage analysis for multipl
 	; input ROUNMSP - Namespace for routine(s) to be analyzed
 	;                 ROUNAME will result in only the routine ROUNAME being analyzed
 	;                 ROUN* will result in all routines beginning with ROUN being analyzed
-	; input TESTROUS - passed by reference - see TESTROUS description for JUSTTEST
+	; input TESTROUS - passed by reference - see TESTROUS description for MULTAPIS ; 160713 JUSTTEST changed to MULTAPIS
 	; input XCLDROUS - passed by reference - routines passed in a manner similar to TESTROUS,
 	;                  but only the routine names, whether as arguments or a comma separated
 	;                  list of routines, will be excluded from the analysis of coverage.  These

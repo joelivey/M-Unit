@@ -11,7 +11,9 @@
 	;
 	; Original by Dr. Joel Ivey
 	; Contributions by Dr. Sam Habiel
-	;   comments moved to %utcover due to space requirements
+	;   older comments moved to %utcover due to space requirements
+	;
+	; 160713 JLI in ERROR1 moved actual BREAK on error, if BREAK option is specified from first executable line so actual error is listed before BREAK occurs
 	;
 	D ^%utt6 ; runs unit tests on all of it
 	Q
@@ -275,7 +277,6 @@ ERROR	; record errors
 	Q
 	;
 ERROR1	;
-	I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
 	; ZEXCEPT: %utERRL -CREATED IN SETUP, KILLED IN END
 	; ZEXCEPT: %ut  -- NEWED ON ENTRY
 	D SETIO^%ut1
@@ -283,6 +284,8 @@ ERROR1	;
 	. S %ut("ERRN")=%ut("ERRN")+1,%utERRL(%ut("ERRN"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=$S(+$SY=47:$ZS,1:$ZE),%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
 	. Q
 	D RESETIO^%ut1
+	; JLI 160713 moved following line from first executable line so actual error is listed before breaking
+	I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
 	Q
 	;
 ISUTEST()	; .SUPPORTED API TO DETERMINE IF CURRENTLY IN UNIT TEST
