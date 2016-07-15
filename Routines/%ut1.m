@@ -236,7 +236,7 @@ CACHECOV(GLOBSAV,GLOB)	;
 	. I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(I)
 	. ; get routine loaded into location
 	. S DIF=$NA(@GLOBSAV@(ROUNAME)),DIF=$E(DIF,1,$L(DIF)-1)_",",XCNP=0,X=ROUNAME
-	. X ^%ZOSF("LOAD")
+	. X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%"""
 	. M @GLOB@(ROUNAME)=@GLOBSAV@(ROUNAME)
 	. Q
 	;
