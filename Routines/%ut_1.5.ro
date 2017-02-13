@@ -1,29 +1,29 @@
-Cache for Windows^INT^%ut* routines and ZZUTPRE and ZZUTPOST^~Format=Cache.S~^RAW
-%RO on 14 Jul 2016   5:56 PM
-%ut^INT^1^64113,64086^0
-%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;07/14/16  17:48
- ;;1.4;MASH UTILITIES;;APR 11, 2016;
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+Cache for Windows^INT^M-Unit routines version 1.5^~Format=Cache.S~^RAW
+%RO on 12 Feb 2017   3:43 PM
+%ut^INT^1^64326,52408^0
+%ut ;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;02/11/17  11:07
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
  ; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013-04/2014
- ; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
+ ; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 2013-02/2017 ;
  ;
  ; This routine and its companion, %ut1, provide the basic functionality for
  ; running unit tests on parts of M programs either at the command line level
  ; or via the M-Unit GUI application for windows operating systems.
  ;
- ; Original by Dr. Joel Ivey
- ; Contributions by Dr. Sam Habiel
+ ; Original by Dr. Joel Ivey (JLI)
+ ; Contributions by Dr. Sam Habiel (SMH)
  ;   older comments moved to %utcover due to space requirements
  ;
- ; 160713 JLI in ERROR1 moved actual BREAK on error, if BREAK option is specified from first executable line so actual error is listed before BREAK occurs
+ ; For a list of changes in this version in this routine see tag %ut in routine %utt2
  ;
  D ^%utt6 ; runs unit tests on all of it
  Q
  ;
 EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name
  ; %utRNAM: (Required) Routine name that contians the tags with @TEST in them or the tag XTROU
- ; %utVERB: (optional) 1 for verbose output or 2 for verbose and timing info.
+ ; %utVERB: (optional) 1 for verbose output or for verbose and timing info 2 (milliseconds) or 3 (microseconds).
  ; %utBREAK:(optional) bool - Break upon error or upon failure
  N %utLIST,%utROU,%ut
  S %utLIST=1,%utROU(%utLIST)=%utRNAM
@@ -31,6 +31,12 @@ EN(%utRNAM,%utVERB,%utBREAK) ; .SR Entry point with primary test routine name
  D SETUT
  D EN1(.%utROU,%utLIST)
  Q
+ ;
+GETSYS() ;.EF - returns numeric indicator of system value
+ N VALUE
+ ; Cache uses name of system, and has no second comma piece (unless it is part of system name), so set value to zero if no second comma piece is present in case system name begins with a number
+ S VALUE=$S($P($SY,",",2)'="":+$SY,1:0)
+ Q VALUE
  ;
 SETUT ;
  ; VEN/SMH 26JUL2013
@@ -47,14 +53,12 @@ SETUT ;
  Q
  ;
 EN1(%utROU,%utLIST) ;
- ; VEN/SMH 26JUL2013 - This block is refactored to fix problems with
- ; SETUP and TEARDOWN not happening at the right time
+ ; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
+ ; ZEXCEPT: %ut  -- NEWED IN EN
+ ; ZEXCEPT: GetCPUTime,Process -- parts of Cache method names
  N %utERRL,%utK,%utI,%utJ,%utSTRT
  ; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
  I '+$G(%utVERB) S %utVERB=0
- ; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
- ; ZEXCEPT: %ut  -- NEWED IN EN
- ; ZEXCEPT: GetCPUTime,Process -- part of Cache method names
  ;
  ; Structure map for %ut
  ; -- CURR = Counter for routine number. Used as sub in %utROU
@@ -73,27 +77,30 @@ EN1(%utROU,%utLIST) ;
  N CURRROU
  S %ut("CURR")=0
  F  S %ut("CURR")=%ut("CURR")+1 Q:'$D(%utROU(%ut("CURR")))  S CURRROU=%utROU(%ut("CURR")) D  I $T(@("SHUTDOWN^"_CURRROU))'="" D @("SHUTDOWN^"_CURRROU)
- . ; 141018 - add ability to run STARTUP and SHUTDOWN in each routine JLI
- . I $T(@("STARTUP^"_CURRROU))'="" D @("STARTUP^"_CURRROU) ; 141018
+ . I $T(@("STARTUP^"_CURRROU))'="" D @("STARTUP^"_CURRROU)
  . N %utETRY ; Test list to run
+ . ;
+ . I %utVERB D  ; JLI 161113 - if verbose, list routine name as header for following tags
+ . . N LINEMARK,LENGTH
+ . . S LENGTH=$S(($L(CURRROU)#2):($L(CURRROU)+3),1:($L(CURRROU)+2))
+ . . S $P(LINEMARK,"-",(78-LENGTH)/2)="-"
+ . . W !!,LINEMARK," ",CURRROU," ",LINEMARK
+ . . Q
  . ;
  . ; Collect Test list.
  . D CHEKTEST^%ut1(%utROU(%ut("CURR")),.%ut,.%utETRY)
  . ;
  . ; if a SETUP entry point exists, save it off in %ut
- . S %ut("SETUP")="" ; 141018 need to clear any previous values JLI
+ . S %ut("SETUP")=""
  . N %utSETUP S %utSETUP="SETUP^"_%utROU(%ut("CURR"))
  . S %ut("LINE")=$T(@%utSETUP) I %ut("LINE")'="" S %ut("SETUP")=%utSETUP
- . K %utSETUP ; we're done!
+ . K %utSETUP
  . ;
  . ; if a TEARDOWN entry point exists, ditto
- . S %ut("TEARDOWN")="" ; 141018 need to clear any previous values JLI
+ . S %ut("TEARDOWN")=""
  . N %utTEARDOWN S %utTEARDOWN="TEARDOWN^"_%utROU(%ut("CURR"))
  . S %ut("LINE")=$T(@%utTEARDOWN) I %ut("LINE")'="" S %ut("TEARDOWN")=%utTEARDOWN
- . K %utTEARDOWN ; done here.
- . ;
- . ; VEN/SMH 26JUL2013 - this block changed to correct running of setup and teardown
- . ; run each of the specified entry points
+ . K %utTEARDOWN
  . ;
  . ; == THIS FOR/DO BLOCK IS THE CENTRAL TEST RUNNER ==
  . S %utI=0
@@ -109,19 +116,28 @@ EN1(%utROU,%utLIST) ;
  . . S %ut("ECNT")=%ut("ECNT")+1
  . . S %ut("NAME")=%utETRY(%utI,"NAME")
  . . S %ut("ENT")=%utETRY(%utI)_"^"_%utROU(%ut("CURR"))
- . . I %utVERB,'$D(%utGUI) D VERBOSE1(.%utETRY,%utI) ; Say what we executed.
+ . . I %utVERB,'$D(%utGUI) D VERBOSE1(.%utETRY,%utI)
  . . ;
+ . . I $$GETSYS()=47,%utVERB=3,'($$GTMVER()>6.2) S %utVERB=2 ; give ms instead of zeros if not supported
  . . I %utVERB=2 N %utStart D  ; Time Start
- . . . I +$SY=0  S %utStart=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
- . . . I +$SY=47 S %utStart=$ZGETJPI("","CPUTIM")*10
+ . . . I $$GETSYS()=0  S %utStart=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
+ . . . I $$GETSYS()=47 S %utStart=$ZGETJPI("","CPUTIM")*10
+ . . ;
+ . . I %utVERB=3 N %utStart D  ; Time Start
+ . . . I $$GETSYS()=0 S %utStart=$P($NOW(),",",2)
+ . . . I $$GETSYS()=47 N V S V=$$GTMVER(0),%utStart=$s(V>6.2:$ZH,1:0)
  . . ;
  . . ; Run the test!
  . . D @%ut("ENT")
  . . ;
  . . I %utVERB=2 N %utEnd,%utElapsed D  ; Time End
- . . . I +$SY=0  S %utEnd=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
- . . . I +$SY=47 S %utEnd=$ZGETJPI("","CPUTIM")*10
+ . . . I $$GETSYS()=0  S %utEnd=$P($SYSTEM.Process.GetCPUTime(),",")+$P($SYSTEM.Process.GetCPUTime(),",",2)
+ . . . I $$GETSYS()=47 S %utEnd=$ZGETJPI("","CPUTIM")*10
  . . . S %utElapsed=%utEnd-%utStart_"ms"
+ . . ;
+ . . I %utVERB=3 N %utEnd,%utElapsed D  ; Time End
+ . . . I $$GETSYS()=0 S %utEnd=$P($NOW(),",",2) S %utElapsed=(%utEnd-%utStart)*1000,%utElapsed=%utElapsed_"ms"
+ . . . I $$GETSYS()=47 N V S V=$$GTMVER(0),%utEnd=$s(V>6.2:$ZH,1:0) S %utElapsed=$$ZHDIF(%utStart,%utEnd)
  . . ;
  . . ; Run Teardown Code (only if present)
  . . S %ut("ENT")=$G(%ut("TEARDOWN"))
@@ -148,16 +164,16 @@ EN1(%utROU,%utLIST) ;
  D RESETIO^%ut1
  Q
  ; -- end EN1
-VERBOSE(%utETRY,SUCCESS,%utVERB,%utElapsed) ;Internal only - Say whether we succeeded or failed.
+VERBOSE(%utETRY,SUCCESS,%utVERB,%utElapsed) ; Say whether we succeeded or failed.
  ; ZEXCEPT: %ut - NEWED IN EN
  D SETIO^%ut1
  N RM S RM=73 ; Right Margin
- I %utVERB=2,$G(%utElapsed)]"" S RM=RM-$L(%utElapsed)-1
+ I 23[%utVERB,$G(%utElapsed)]"" S RM=RM-$L(%utElapsed)-1
  N I F I=$X+3:1:RM W "-"
  W ?RM
  I $G(SUCCESS) W "[OK]"
  E  W "[FAIL]"
- I %utVERB=2,$G(%utElapsed)]"" W " ",%utElapsed ; add timing
+ I 23[%utVERB,$G(%utElapsed)]"" W " ",%utElapsed
  D RESETIO^%ut1
  Q
  ;
@@ -179,7 +195,8 @@ CHKTF(XTSTVAL,XTERMSG) ; Entry point for checking True or False values
  . D SETIO^%ut1
  . I 'XTSTVAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " D
  . . W XTERMSG,! S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
- . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+ . . I $G(%ut("BREAK")) W !,"Breaking on False value"
+ . . I $G(%ut("BREAK")) BREAK  ; Break upon False value
  . . Q
  . I XTSTVAL W "."
  . D RESETIO^%ut1
@@ -188,10 +205,10 @@ CHKTF(XTSTVAL,XTERMSG) ; Entry point for checking True or False values
  Q
  ;
 CHKEQ(XTEXPECT,XTACTUAL,XTERMSG) ; Entry point for checking values to see if they are EQUAL
- N FAILMSG
  ; ZEXCEPT: %utERRL,%utGUI -CREATED IN SETUP, KILLED IN END
  ; ZEXCEPT: %ut  -- NEWED IN EN
  ; ZEXCEPT: XTGUISEP - newed in GUINEXT
+ N FAILMSG
  I '$D(XTEXPECT)!'$D(XTACTUAL) D NVLDARG^%ut1("CHKEQ") Q
  S XTACTUAL=$G(XTACTUAL),XTEXPECT=$G(XTEXPECT)
  I $G(XTERMSG)="" S XTERMSG="no failure message provided"
@@ -201,7 +218,8 @@ CHKEQ(XTEXPECT,XTACTUAL,XTERMSG) ; Entry point for checking values to see if the
  . D SETIO^%ut1
  . I XTEXPECT'=XTACTUAL W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W FAILMSG,XTERMSG,! D
  . . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
-     . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+ . . I $D(%ut("BREAK")) W !,"Breaking on non-equal values"
+ . . I $D(%ut("BREAK")) BREAK  ; Break upon non-equal values
  . . Q
  . E  W "."
  . D RESETIO^%ut1
@@ -227,42 +245,8 @@ SUCCEED ; Entry point for forcing a success (Thx David Whitten)
  QUIT
  ;
 CHKLEAKS(%utCODE,%utLOC,%utINPT) ; functionality to check for variable leaks on executing a section of code
- ; %utCODE - A string that specifies the code that is to be XECUTED and checked for leaks.
- ;            this should be a complete piece of code (e.g., "S X=$$NOW^XLFDT()" or "D EN^%ut(""ROUNAME"")")
- ; %utLOC  - A string that is used to indicate the code tested for variable leaks
- ; %utINPT - An optional variable which may be passed by reference.  This may
- ;           be used to pass any variable values, etc. into the code to be
- ;           XECUTED.  In this case, set the subscript to the variable name and the
- ;           value of the subscripted variable to the desired value of the subscript.
- ;              e.g., (using NAME as my current namespace)
- ;                   S CODE="S %utINPT=$$ENTRY^ROUTINE(ZZVALUE1,ZZVALUE2)"
- ;                   S NAMELOC="ENTRY^ROUTINE leak test"   (or simply "ENTRY^ROUTINE")
- ;                   S NAMEINPT("ZZVALUE1")=ZZVALUE1
- ;                   S NAMEINPT("ZZVALUE2")=ZZVALUE2
- ;                   D CHKLEAKS^%ut(CODE,NAMELOC,.NAMEINPT)
- ;
- ;           If part of a unit test, any leaked variables in ENTRY^ROUTINE which result
- ;           from running the code with the variables indicated will be shown as FAILUREs.
- ;
- ;           If called outside of a unit test, any leaked variables will be printed to the
- ;           current device.
- ;
- N (%utCODE,%utLOC,%utINPT,DUZ,IO,U,%utERRL,%ut,%utGUI,%utERR,%utI,%utJ,%utK,%utLIST,%utROU,%utSTRT,XTGUISEP)
- ; ZEXCEPT: %ut - part of exclusive NEW TESTS FOR EXISTENCE ONLY
- ; ZEXCEPT: %utVAR - handled by exclusive NEW
- ;
- ; ACTIVATE ANY VARIABLES PASSED AS SUBSCRIPTS TO %utINPT TO THEIR VALUES
- S %utVAR=" " F  S %utVAR=$O(%utINPT(%utVAR)) Q:%utVAR=""  S (@%utVAR)=%utINPT(%utVAR)
- X %utCODE
- N ZZUTVAR S ZZUTVAR="%"
- I $G(%ut)=1 D
- . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
- . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
- . Q
- I '($G(%ut)=1) D
- . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
- . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
- . Q
+ ; see CHKLEAKS^%utcover for description of arguments
+ D CHKLEAKS^%utcover(%utCODE,%utLOC,.%utINPT)
  Q
  ;
 ERROR ; record errors
@@ -274,21 +258,22 @@ ERROR ; record errors
  I $D(%utGUI) D
  . S %ut("CNT")=%ut("CNT")+1
  . S %utERR=%utERR+1
- . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISEP_$S(+$SY=47:$ZS,1:$ZE)
+ . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISEP_$S($$GETSYS()=47:$ZS,1:$ZE)
  . Q
- S @($S(+$SY=47:"$ZS",1:"$ZE")_"="_""""""),$EC=""
+ S @($S($$GETSYS()=47:"$ZS",1:"$ZE")_"="_""""""),$EC=""
  Q
  ;
 ERROR1 ;
  ; ZEXCEPT: %utERRL -CREATED IN SETUP, KILLED IN END
  ; ZEXCEPT: %ut  -- NEWED ON ENTRY
+ I $G(%ut("BREAK")) W !,"Breaking on ERROR recorded: ",$S($$GETSYS()=47:$ZS,1:$ZE)
+ I $G(%ut("BREAK")) S @($S($$GETSYS()=47:"$ZS",1:"$ZE")_"="_""""""),$EC="" ; output for break added JLI 161020
+ I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
  D SETIO^%ut1
- W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - Error: " W $S(+$SY=47:$ZS,1:$ZE),! D
- . S %ut("ERRN")=%ut("ERRN")+1,%utERRL(%ut("ERRN"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=$S(+$SY=47:$ZS,1:$ZE),%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
+ W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - Error: " W $S($$GETSYS()=47:$ZS,1:$ZE),! D
+ . S %ut("ERRN")=%ut("ERRN")+1,%utERRL(%ut("ERRN"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=$S($$GETSYS()=47:$ZS,1:$ZE),%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
  . Q
  D RESETIO^%ut1
- ; JLI 160713 moved following line from first executable line so actual error is listed before breaking
- I $G(%ut("BREAK")) BREAK  ; if we are asked to break upon error, please do so!
  Q
  ;
 ISUTEST() ; .SUPPORTED API TO DETERMINE IF CURRENTLY IN UNIT TEST
@@ -325,12 +310,13 @@ DOSET(IEN,%utVERB) ; 140731 JLI added %utVERB as a second argument
  ;
 GETSET(IEN,%utROU,%utLIST) ;  JLI 140731 - called from PICKSET, RUNSET, DOSET, GUISET
  N IENS,%utROOT
+ ;I $T(+1^DIQ)="" QUIT  ; not in a VA KERNEL or VA FILEMAN environment
  S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
  S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
  Q
  ;
 COV(NMSP,COVCODE,VERBOSITY) ; simply make it callable from %ut1 as well (along with other APIs) JLI 150101
- D COV^%ut1(NMSP,COVCODE,+$G(VERBOSITY)) ; see COV^%ut1 for description of arguments
+ D COV^%ut1(.NMSP,COVCODE,+$G(VERBOSITY)) ; see COV^%ut1 for description of arguments
  Q
  ;
 MULTAPIS(TESTROUS) ; .SR - RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
@@ -340,12 +326,12 @@ MULTAPIS(TESTROUS) ; .SR - RUN TESTS FOR SPECIFIED ROUTINES AND ENTRY POINTS
  Q
  ;
 COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)    ;.SR - run coverage analysis for multiple routines and entry points
- ; input ROUNMSP
+ ; input ROUNMSP - may be passed by reference
  ; input TESTROUS - passed by reference
  ; input XCLDROUS - passed by reference
  ; input RESLTLVL
  ; see COVERAGE in routine %utcover for full description of arguments
- D COVERAGE^%utcover(ROUNMSP,.TESTROUS,.XCLDROUS,+$G(RESLTLVL))
+ D COVERAGE^%utcover(.ROUNMSP,.TESTROUS,.XCLDROUS,+$G(RESLTLVL))
  Q
  ;
 GETUTVAL(UTDATA) ; .SR - returns totals for current unit test data in cumulative totals
@@ -387,7 +373,7 @@ GUILOAD(%utRSLT,%utROUN) ; Entry point for GUI start with %utROUN containing pri
  S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
  S %utROU(1)=%utROUN
  D GETLIST(.%utROU,1,%ut("RSLT"))
- S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new version
+ S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1"
  S %utRSLT=%ut("RSLT")
  Q
  ;
@@ -401,22 +387,18 @@ GETLIST(%utROU,%utLIST,%utRSLT) ; called from GUISET, GUILOAD
  M @%utRSLT=@XTVALUE
  K @%utRSLT@("SHUTDOWN")
  K @%utRSLT@("STARTUP")
- S @XTVALUE@("LASTROU")="" ; Use this to keep track of place in routines
+ S @XTVALUE@("LASTROU")=""
  Q
  ;
  ; generate list of unit test routines, entry points and comments on test for entry point
 LOAD(%utROUN,%utNCNT,XTVALUE,XTCOMNT,%utROUL) ; called from GETLIST, and recursively from LOAD
  I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
  S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
- ;N %utI,XTX1,XTX2,LINE
  N %utI,XTX1,XTX2,LINE,LIST,I
- ; 100622 JLI added code to identify STARTUP and TEARDOWN
  I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVALUE@("STARTUP")="STARTUP^"_%utROUN
  I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTVALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
- ; JLI 140731 handle @TEST identified test tags
  D NEWSTYLE^%ut1(.LIST,%utROUN)
  F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST(I)
- ; JLI 140731 end of @TEST addition
  F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_XTX1_U_XTX2
  F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)="" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
  Q
@@ -438,8 +420,6 @@ GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - calle
  S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVALUE@("LASTROU"))
  S %utGUI=1
  S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
- ; I %utROUT'=XTOLROU D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ;140731 JLI - commented out
- ;D  I %utROUT="" S @%utRSLT@(1)="" K @XTVALUE Q  ; 140731 JLI - replaced previous line - moves check for SHUTDOWN at end of processing
  D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to leave XTVALUE intact, in case they simply run again for STARTUP, etc.
  . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
  . . S %ut("LOC")=@XTVALUE@("STARTUP")
@@ -472,19 +452,37 @@ GUINEXT(%utRSLT,%utLOC,XTGUISEP) ; Entry point for GUI execute next test - calle
  K ^TMP("%ut",$J,"UTVALS")
  Q
  ;
+GTMVER(X) ;return OS version, X=1 - return OS
+ Q $S($G(X):$P($ZV," ",3,99),1:$P($P($ZV," V",2)," "))
+ ;
+ZHDIF(%ZH0,%ZH1) ;Display dif of two $ZH's
+ N SC0 S SC0=$P(%ZH0,",",2)
+ N SC1 S SC1=$P(%ZH1,",",2)
+ N DC0 S DC0=$P(%ZH0,",")*86400
+ N DC1 S DC1=$P(%ZH1,",")*86400
+ N MCS0 S MCS0=$P(%ZH0,",",3)/1000000
+ N MCS1 S MCS1=$P(%ZH1,",",3)/1000000
+ ;
+ N T0 S T0=SC0+DC0+MCS0
+ N T1 S T1=SC1+DC1+MCS1
+ ;
+ N %ZH2 S %ZH2=T1-T0*1000
+ QUIT %ZH2_"ms"
 
-%ut1^INT^1^64113,63875^0
-%ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;07/14/16  17:44
- ;;1.4;MASH UTILITIES;;APR 11, 2016;
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%ut1^INT^1^64326,52408^0
+%ut1 ;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;02/11/17  09:37
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey as XTMUNIT1 while working for U.S. Department of Veterans Affairs 2003-2012
  ; Includes addition of original COV entry and code related coverage analysis as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
+ ; Original by Dr. Joel Ivey
+ ; Major contributions by Dr. Sam Habiel
  ; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
- ; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
+ ; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 12/2015-02/2017
  ;
  ; older comments moved to %utcover due to space requirements
  ;
- ; 160701 Christopher Edwards (CE) to remove VistA dependence in CACHECOV+12 replaced ^%ZOSF("LOAD") with its code
+ ; For a list of changes in this version in this routine see tag %ut1 in routine %utt2
  ;
  D ^%utt6 ; runs unit tests from several perspectives
  Q
@@ -505,7 +503,6 @@ CHEKTEST(%utROU,%ut,%utUETRY) ; Collect Test list.
  S %ut("ENTN")=0 ; Number of test, sub to %utUETRY.
  ;
  ; This stanza and everything below is for collecting @TEST.
- ; VEN/SMH - block refactored to use $TEXT instead of ^%ZOSF("LOAD")
  N I,LIST
  S I=$L($T(@(U_%utROU))) I I<0 Q "-1^Invalid Routine Name"
  D NEWSTYLE(.LIST,%utROU)
@@ -518,7 +515,6 @@ CHEKTEST(%utROU,%ut,%utUETRY) ; Collect Test list.
  ;
  QUIT
  ;
- ; VEN/SMH 26JUL2013 - Moved GETTREE here.
 GETTREE(%utROU,%utULIST) ;
  ; first get any other routines this one references for running subsequently
  ; then any that they refer to as well
@@ -566,7 +562,8 @@ FAIL(XTERMSG) ; Entry point for generating a failure message
  . D SETIO
  . W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W XTERMSG,! D
  . . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
- . . I $D(%ut("BREAK")) BREAK  ; Break upon failure
+ . . ; I $D(%ut("BREAK")) BREAK  ; Break upon failure ; output comment added JLI 161020
+ . . I $D(%ut("BREAK")) W !,"Breaking on Failure" BREAK  ;
  . . Q
  . D RESETIO
  . Q
@@ -603,8 +600,9 @@ RESETIO ; Reset $IO back to the original device if we changed it.
 UP(X) ;
  Q $TR(X,"abcdefghijklmnopqrstuvwxyz","ABCDEFGHIJKLMNOPQRSTUVWXYZ")
  ;
-COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculations
- ; NMSP: Namespace of the routines to analyze. End with * to include all routines.
+ ; COV modified to support handling more than one namespace for analyzing coverage in one run
+COV(NMSPS,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculations
+ ; [.]NMSPS: Namespace of the routines to analyze. End with * to include all routines.
  ;       Not using * will only include the routine with NMSP name.
  ;       e.g. PSOM* will include all routines starting with PSOM
  ;            PSOM will only include PSOM.
@@ -619,27 +617,31 @@ COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
  ; ZEXCEPT: %utcovxx - SET and KILLED in this code at top level
  ; ZEXCEPT: %Monitor,%apiOBJ,DecomposeStatus,LineByLine,Start,Stop,System,class - not variables parts of classes
  N COVER,COVERSAV,I,NMSP1,RTN,RTNS,ERR,STATUS
- I (+$SY=47) D  ; GT.M only!
- . N %ZR ; GT.M specific
- . D SILENT^%RSEL(NMSP,"SRC") ; GT.M specific. On Cache use $O(^$R(RTN)).
- . N RN S RN=""
- . W !,"Loading routines to test coverage...",!
- . F  S RN=$O(%ZR(RN)) Q:RN=""  W RN," " D
- . . N L2 S L2=$T(+2^@RN)
- . . ;S L2=$TR(L2,$C(9,32)) ; Translate spaces and tabs out ; JLI 160316 commented out
- . . S L2=$TR(L2,$C(9)," ") ; change tabs to spaces ; JLI 160316 inserted to replace above
- . . ;I $E(L2,1,2)'=";;" K %ZR(RN)  ; Not a human produced routine JLI 160316 commented out
- . . ; routine doesn't follow the standards and second line start with ;; ; JLI 160316
- . . I $E($P(L2," ",2),1,2)'=";;" K %ZR(RN) W !,"Routine "_RN_" removed from analysis, since it doesn't have the standard second line" ; JLI 160316 inserted to replace above
- . ;
- . M RTNS=%ZR
- . K %ZR
+ W !,"Loading routines to test coverage...",!
+ I ($$GETSYS^%ut()=47) D  ; GT.M only!
+ . N NMSP S NMSP=$G(NMSPS)
+ . D:NMSP]""  S NMSP="" F  S NMSP=$O(NMSPS(NMSP)) Q:NMSP=""  D
+ .. N %ZR ; GT.M specific
+ .. D SILENT^%RSEL(NMSP,"SRC") ; GT.M specific. On Cache use $O(^$R(RTN)).
+ .. N RN S RN=""
+ .. F  S RN=$O(%ZR(RN)) Q:RN=""  W RN," " D
+ ... N L2 S L2=$T(+2^@RN)
+ . . . ;S L2=$TR(L2,$C(9,32)) ; Translate spaces and tabs out ; JLI 160316 commented out
+ . . . S L2=$TR(L2,$C(9)," ") ; change tabs to spaces ; JLI 160316 inserted to replace above
+ . . . ;I $E(L2,1,2)'=";;" K %ZR(RN)  ; Not a human produced routine JLI 160316 commented out
+ . . . ; routine doesn't follow the standards and second line start with ;; ; JLI 160316
+ . . . I $E($P(L2," ",2),1,2)'=";;" K %ZR(RN) W !,"Routine "_RN_" removed from analysis, since it doesn't have the standard second line",! ; JLI 160316 inserted to replace above
+ .. M RTNS=%ZR
+ .. K %ZR
  . Q
  ;
- I (+$SY=0) D  ; CACHE SPECIFIC
- . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
- . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
- . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S RTNS(RTN)=""
+ I ($$GETSYS^%ut()=0) D  ; CACHE SPECIFIC
+ . N NMSP S NMSP=$G(NMSPS)
+ . D:NMSP]""  S NMSP="" F  S NMSP=$O(NMSPS(NMSP)) Q:NMSP=""  D
+ . . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
+ . . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
+ . . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S RTNS(RTN)=""
+ . . Q
  . Q
  ;
  ; ZEXCEPT: CTRAP - not really a variable
@@ -656,9 +658,11 @@ COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
  . K ^TMP("%utCOVRESULT",$J)
  . S ^TMP("%utcovrunning",$J)=1,%utcovxx=1
  . ;
- . I (+$SY=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J))  ; GT.M START PROFILING
+ . I ($$GETSYS^%ut()=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J))  ; GT.M START PROFILING
  . ;
- . I (+$SY=0) D  ; CACHE CODE TO START PROFILING
+ . I ($$GETSYS^%ut()=0) D  ; CACHE CODE TO START PROFILING
+ . . N NMSP,NMSPV S NMSP="",NMSPV="" F  S NMSPV=$O(RTNS(NMSPV)) Q:NMSPV=""  S NMSP=NMSP_NMSPV_","
+ . . S NMSP=$E(NMSP,1,$L(NMSP)-1)
  . . S STATUS=##class(%Monitor.System.LineByLine).Start($lb(NMSP),$lb("RtnLine"),$lb($j))
  . . I +STATUS'=1 D DecomposeStatus^%apiOBJ(STATUS,.ERR,"-d") F I=1:1:ERR W ERR(I),!
  . . I +STATUS'=1 K ERR S EXIT=1
@@ -666,7 +670,7 @@ COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
  . Q
  DO  ; Run the code, but keep our variables to ourselves.
  . NEW $ETRAP,$ESTACK
- . I (+$SY=47) D  ; GT.M SPECIFIC
+ . I ($$GETSYS^%ut()=47) D  ; GT.M SPECIFIC
  . . SET $ETRAP="Q:($ES&$Q) -9 Q:$ES  W ""CTRL-C ENTERED"""
  . . USE $PRINCIPAL:(CTRAP=$C(3))
  . . Q
@@ -675,13 +679,13 @@ COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
  . Q
  ; GT.M STOP PROFILING if this is the original level that started it
  I $D(^TMP("%utcovrunning",$J)),$D(%utcovxx) D
- . I (+$SY=47) VIEW "TRACE":0:$NA(^TMP("%utCOVRESULT",$J)) ; GT.M SPECIFIC
- . I (+$SY=0) ; CACHE SPECIFIC
+ . I ($$GETSYS^%ut()=47) VIEW "TRACE":0:$NA(^TMP("%utCOVRESULT",$J)) ; GT.M SPECIFIC
+ . I ($$GETSYS^%ut()=0) ; CACHE SPECIFIC
  . K %utcovxx,^TMP("%utcovrunning",$J)
  . Q
  ;
  I '$D(^TMP("%utcovrunning",$J)) D
- . I (+$SY=0) D  ; CACHE SPECIFIC CODE
+ . I ($$GETSYS^%ut()=0) D  ; CACHE SPECIFIC CODE
  . . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
  . . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
  . . D CACHECOV(COVERSAV,COVER)
@@ -692,7 +696,7 @@ COV(NMSP,COVCODE,VERBOSITY) ; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculation
  . ; Report
  . I VERBOSITY=-1 D
  . . K ^TMP("%utCOVREPORT",$J)
- . . D COVRPTGL($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+ . . D COVRPTGL^%utcover($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
  . . Q
  . E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
  . Q
@@ -710,7 +714,13 @@ CACHECOV(GLOBSAV,GLOB) ;
  . I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(I)
  . ; get routine loaded into location
  . S DIF=$NA(@GLOBSAV@(ROUNAME)),DIF=$E(DIF,1,$L(DIF)-1)_",",XCNP=0,X=ROUNAME
- . X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; see 160701 change in header
+ . ;X ^%ZOSF("LOAD") ; JLI 160912 see 160701 note in comments at top
+ . I $$GETSYS^%ut()=0 D
+ . . X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; JLI see 160701 note in comments at top
+ . . Q
+ . I $$GETSYS^%ut()=47 D
+ . . N % S %N=0 F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N^@X) Q:$L(%)=0  S @(DIF_XCNP_",0)")=%
+ . . Q
  . M @GLOB@(ROUNAME)=@GLOBSAV@(ROUNAME)
  . Q
  ;
@@ -727,7 +737,7 @@ GETVALS(ROUNUM,GLOB,MTRICNUM) ; get data on number of times a line seen (set int
  F LINE=1:1 S MORE=RSET.Next() Q:'MORE  D
  . S X=RSET.GetData(1)
  . S VAL=$LI(X,MTRICNUM)
- . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, otherwise positive number
+ . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, otherwises positive number
  . Q
  D RSET.Close()
  Q
@@ -765,24 +775,18 @@ RTNANAL(RTNS,GL) ; [Private] - Routine Analysis
  ; Create a global similar to the trace global produced by GT.M in GL
  ; Only non-comment lines are stored.
  ; A tag is always stored. Tag,0 is stored only if there is code on the tag line (format list or actual code).
- ; tags by themselves don't count toward the total.
+ ; tags with no code don't count toward the total.
  ;
  N RTN S RTN=""
  F  S RTN=$O(RTNS(RTN)) Q:RTN=""  D                       ; for each routine
  . N TAG,LN,T
- . ; S TAG=RTN                                              ; start the tags at the first ; JLI 160316 commented out
  . S LN=$T(+1^@RTN)
  . S TAG=$$GETTAG(.T,LN) ; JLI 160316 - don't assume first line tag is routine name
  . N I F I=2:1 S LN=$T(@TAG+I^@RTN) Q:LN=""  D         ; for each line, starting with the 3rd line (2 off the first tag)
  . . I $E(LN)?1A D  QUIT                                  ; formal line
- . . . ;N T                                                ; Terminator
- . . . ;N J F J=1:1:$L(LN) S T=$E(LN,J) Q:T'?1AN           ; Loop to...
- . . . ;S TAG=$E(LN,1,J-1)                                 ; Get tag
- . . . S TAG=$$GETTAG(.T,LN) ; JLI 160316 - replace above commented out lines
+ . . . S TAG=$$GETTAG(.T,LN)
  . . . S @GL@(RTN,TAG)=TAG                                ; store line
- . . . ;I T="(" S @GL@(RTN,TAG,0)=LN                      ; formal list
  . . . I T="(" D                                          ; formal list
- . . . . ;N PCNT,STR,CHR S PCNT=0,STR=$E(LN,J+1,$L(LN))
  . . . . N PCNT,STR,CHR S PCNT=0,STR=$P(LN,"(",2,99)
  . . . . F  S CHR=$E(STR),STR=$E(STR,2,$L(STR)) Q:(PCNT=0)&(CHR=")")  D
  . . . . . I CHR="(" S PCNT=PCNT+1
@@ -881,35 +885,14 @@ COVRPTLS(C,S,R,V,X) ;
  . Q
  QUIT
  ;
-COVRPTGL(C,S,R,OUT) ; [Private] - Coverage Global for silent invokers
- ; C = COHORT    - Global name
- ; S = SURVIVORS - Global name
- ; R = RESULT    - Global name
- ; OUT = OUTPUT  - Global name
- ;
- N O S O=$$ACTLINES(C)
- N L S L=$$ACTLINES(S)
- S @OUT=(O-L)_"/"_O
- N RTN,TAG,LN S (RTN,TAG,LN)=""
- F  S RTN=$O(@C@(RTN)) Q:RTN=""  D
- . N O S O=$$ACTLINES($NA(@C@(RTN)))
- . N L S L=$$ACTLINES($NA(@S@(RTN)))
- . S @OUT@(RTN)=(O-L)_"/"_O
- . F  S TAG=$O(@C@(RTN,TAG)) Q:TAG=""  D
- . . N O S O=$$ACTLINES($NA(@C@(RTN,TAG)))
- . . N L S L=$$ACTLINES($NA(@S@(RTN,TAG)))
- . . S @OUT@(RTN,TAG)=(O-L)_"/"_O
- . . F  S LN=$O(@S@(RTN,TAG,LN)) Q:LN=""  S @OUT@(RTN,TAG,LN)=@S@(RTN,TAG,LN)
- QUIT
- ;
 ISUTEST() ;
  Q $$ISUTEST^%ut()
 
-%utcover^INT^1^64113,63465^0
-%utcover ;JLI - generic coverage and unit test runner ;07/14/16  17:37
- ;;1.4;MASH UTILITIES;;APR 11, 2016;
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
- ; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-04/16.
+%utcover^INT^1^64326,52408^0
+%utcover ;JLI - generic coverage and unit test runner ;02/06/17  13:51
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-02/17.
  ;
  ; Changes:  (Moved from %ut and %ut1)
  ; 130726 SMH - Moved test collection logic from %utUNIT to here (multiple places)
@@ -968,6 +951,7 @@ ISUTEST() ;
  ; comments for this routine %utcover
  ; 160701 Christopher Edwards (CE) in COVENTRY to remove VistA dependence add U as NEWed variable and set U to '^'
  ; 160713 JLI - changed reference to JUSTTEST to MULTAPIS in description of TESTROUS variable for tag COVERAGE
+ ; 170130 JLI - modified to permit COVERAGE to be called with ROUNMSP passed by reference to be able to use multiple namespaces (or to specify expicity those to be tested, so XCLDROUS can be null)
  ;
  D EN^%ut("%uttcovr") ; unit tests
  Q
@@ -1016,10 +1000,15 @@ COVENTRY ; setup of COVERAGE NEWs most variables, so TESTROUS passed by global
  Q
  ;
 COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL) ; run coverage analysis for multiple routines and entry points
- ; can be run from %ut using D COVERAGE^%ut(ROUNMSP,.TESTROUS,.XCLDROUS,RESLTLVL)
+ ; can be run from %ut using D COVERAGE^%ut(.ROUNMSP,.TESTROUS,.XCLDROUS,RESLTLVL)
  ; input ROUNMSP - Namespace for routine(s) to be analyzed
  ;                 ROUNAME will result in only the routine ROUNAME being analyzed
  ;                 ROUN* will result in all routines beginning with ROUN being analyzed
+ ;     updated --  May be passed by reference, e.g. .NMSPCS
+ ;                   where:
+ ;                      NMSPCS="AAAA*"    could be the only input and include all routines beginning AAAA
+ ;                      NMSPCS("BBBC")=""      would include only routine BBBC
+ ;                      NMSPCS("BBBD*")=""     would include all routines beginning BBBD
  ; input TESTROUS - passed by reference - see TESTROUS description for MULTAPIS ; 160713 JUSTTEST changed to MULTAPIS
  ; input XCLDROUS - passed by reference - routines passed in a manner similar to TESTROUS,
  ;                  but only the routine names, whether as arguments or a comma separated
@@ -1038,7 +1027,7 @@ COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL) ; run coverage analysis for multipl
  I (RESLTLVL<1) S RESLTLVL=1
  I (RESLTLVL>3) S RESLTLVL=3
  M ^TMP("%utcover",$J,"TESTROUS")=TESTROUS ;
- D COV^%ut1(ROUNMSP,"D COVENTRY^%utcover",-1)
+ D COV^%ut1(.ROUNMSP,"D COVENTRY^%utcover",-1)
  K ^TMP("%utcover",$J,"TESTROUS")
  S ROU="" F  S ROU=$O(XCLDROUS(ROU)) Q:ROU=""  D SETROUS(.XCLUDE,.XCLDROUS,ROU)
  N TEXTGLOB S TEXTGLOB=$NA(^TMP("%utcover-text",$J)) K @TEXTGLOB
@@ -1058,7 +1047,7 @@ SETROUS(XCLUDE,XCLDROUS,ROU) ;
  ;
 LIST(XCLDROUS,TYPE,TEXTGLOB,GLOB,LINNUM) ;
  ; ZEXCEPT: TYPE1  - NEWed and set below for recursion
- ; input - ROULIST - a comma separated list of routine names that will
+ ; input - XCLDROUS - a comma separated list of routine names that will
  ;       be used to identify desired routines.  Any name
  ;       that begins with one of the specified values will
  ;       be included
@@ -1119,11 +1108,72 @@ TRIMDATA(ROULIST,GLOB) ;
  S ROUNAME="" F  S ROUNAME=$O(ROULIST(ROUNAME)) Q:ROUNAME=""  K @GLOB@(ROUNAME)
  Q
  ;
+CHKLEAKS(%utCODE,%utLOC,%utINPT) ; functionality to check for variable leaks on executing a section of code
+ ; %utCODE - A string that specifies the code that is to be XECUTED and checked for leaks.
+ ;            this should be a complete piece of code (e.g., "S X=$$NOW^XLFDT()" or "D EN^%ut(""ROUNAME"")")
+ ; %utLOC  - A string that is used to indicate the code tested for variable leaks
+ ; %utINPT - An optional variable which may be passed by reference.  This may
+ ;           be used to pass any variable values, etc. into the code to be
+ ;           XECUTED.  In this case, set the subscript to the variable name and the
+ ;           value of the subscripted variable to the desired value of the subscript.
+ ;              e.g., (using NAME as my current namespace)
+ ;                   S CODE="S %utINPT=$$ENTRY^ROUTINE(ZZVALUE1,ZZVALUE2)"
+ ;                   S NAMELOC="ENTRY^ROUTINE leak test"   (or simply "ENTRY^ROUTINE")
+ ;                   S NAMEINPT("ZZVALUE1")=ZZVALUE1
+ ;                   S NAMEINPT("ZZVALUE2")=ZZVALUE2
+ ;                   D CHKLEAKS^%ut(CODE,NAMELOC,.NAMEINPT)
+ ;
+ ;           If part of a unit test, any leaked variables in ENTRY^ROUTINE which result
+ ;           from running the code with the variables indicated will be shown as FAILUREs.
+ ;
+ ;           If called outside of a unit test, any leaked variables will be printed to the
+ ;           current device.
+ ;
+ N (%utCODE,%utLOC,%utINPT,DUZ,IO,U,%utERRL,%ut,%utGUI,%utERR,%utI,%utJ,%utK,%utLIST,%utROU,%utSTRT,XTGUISEP)
+ ; ZEXCEPT: %ut - part of exclusive NEW TESTS FOR EXISTENCE ONLY
+ ; ZEXCEPT: %utVAR - handled by exclusive NEW
+ ;
+ ; ACTIVATE ANY VARIABLES PASSED AS SUBSCRIPTS TO %utINPT TO THEIR VALUES
+ S %utVAR=" " F  S %utVAR=$O(%utINPT(%utVAR)) Q:%utVAR=""  S (@%utVAR)=%utINPT(%utVAR)
+ X %utCODE
+ N ZZUTVAR S ZZUTVAR="%"
+ I $G(%ut)=1 D
+ . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
+ . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") D FAIL^%ut(%utLOC_" VARIABLE LEAK: "_ZZUTVAR)
+ . Q
+ I '($G(%ut)=1) D
+ . I $D(@ZZUTVAR),'$D(%utINPT(ZZUTVAR)) W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
+ . F  S ZZUTVAR=$O(@ZZUTVAR) Q:ZZUTVAR=""  I $E(ZZUTVAR,1,3)'="%ut",'$D(%utINPT(ZZUTVAR)),",DUZ,IO,U,DTIME,ZZUTVAR,DT,%ut,XTGUISEP,"'[(","_ZZUTVAR_",") W !,%utLOC_" VARIABLE LEAK: "_ZZUTVAR
+ . Q
+ Q
+ ;
+ ; MOVED FROM %ut1 due to size requirements
+COVRPTGL(C,S,R,OUT) ; [Private] - Coverage Global for silent invokers
+ ; C = COHORT    - Global name
+ ; S = SURVIVORS - Global name
+ ; R = RESULT    - Global name
+ ; OUT = OUTPUT  - Global name
+ ;
+ N O S O=$$ACTLINES^%ut1(C)
+ N L S L=$$ACTLINES^%ut1(S)
+ S @OUT=(O-L)_"/"_O
+ N RTN,TAG,LN S (RTN,TAG,LN)=""
+ F  S RTN=$O(@C@(RTN)) Q:RTN=""  D
+ . N O S O=$$ACTLINES^%ut1($NA(@C@(RTN)))
+ . N L S L=$$ACTLINES^%ut1($NA(@S@(RTN)))
+ . S @OUT@(RTN)=(O-L)_"/"_O
+ . F  S TAG=$O(@C@(RTN,TAG)) Q:TAG=""  D
+ . . N O S O=$$ACTLINES^%ut1($NA(@C@(RTN,TAG)))
+ . . N L S L=$$ACTLINES^%ut1($NA(@S@(RTN,TAG)))
+ . . S @OUT@(RTN,TAG)=(O-L)_"/"_O
+ . . F  S LN=$O(@S@(RTN,TAG,LN)) Q:LN=""  S @OUT@(RTN,TAG,LN)=@S@(RTN,TAG,LN)
+ QUIT
+ ;
 
-%utt1^INT^1^64017,53220^0
-%utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;04/08/16  20:38
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt1^INT^1^64326,52408^0
+%utt1 ; VEN/SMH-JLI - Testing routines for M-Unit;02/06/17  13:47
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Sam H. Habiel 07/2013-04/2014
  ; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
  ; Modifications made by Sam H. Habiel 02/2016
@@ -1139,11 +1189,15 @@ TRIMDATA(ROULIST,GLOB) ;
  ;
  ; Sam H
  ;
- D EN^%ut($T(+0),1) ; Run tests here, be verbose.
- N % S $P(%,"-",80)="-"
- W !!,%,!,%,!,%,!,%,!!
- K %
- D EN^%ut($T(+0),2) ; Run tests here, be verbose with timings for each piece of code.
+ W !,"Running tests in NON-VERBOSE mode",!,"For Verbose mode use DO VERBOSE^%utt1(ARG) where ARG is an integer 1 to 3"
+ N X R !,"ENTER RETURN TO CONTINUE: ",X:3
+ D EN^%ut($T(+0)) ; Run tests here, be non-verbose.
+ Q
+ ;
+VERBOSE(VERBSITY) ;
+ I ($G(VERBSITY)<0)!($G(VERBSITY)>3) N VERBSITY S VERBSITY=3
+ W !!,"Running tests in VERBOSE mode with "_$S(VERBSITY=1:"no timing",VERBSITY=2:"whole millisecond timing",3:"fractional millisecond timing"),!
+ D EN^%ut($T(+0),VERBSITY) ; Run tests here, be verbose.
  QUIT
  ;
 STARTUP ; M-Unit Start-Up - This runs before anything else.
@@ -1215,12 +1269,12 @@ T7 ; Make sure we write to principal even though we are on another device
  ; This is a rather difficult test to carry out for GT.M and Cache...
  ; ZEXCEPT: GetEnviron,Util,delete,newversion,readonly - not really variables
  N D
- I +$SY=47 S D="/tmp/test.txt" ; All GT.M ; VMS not supported.
- I +$SY=0 D  ; All Cache
+ I $$GETSYS^%ut()=47 S D="/tmp/test.txt" ; All GT.M ; VMS not supported.
+ I $$GETSYS^%ut()=0 D  ; All Cache
  . I $ZVERSION(1)=2 S D=$SYSTEM.Util.GetEnviron("temp")_"\test.txt" I 1 ; Windows
  . E  S D="/tmp/test.txt" ; not windows; VMS not supported.
- I +$SY=0 O D:"NWS" ; Cache new file
- I +$SY=47 O D:(newversion) ; GT.M new file
+ I $$GETSYS^%ut()=0 O D:"NWS" ; Cache new file
+ I $$GETSYS^%ut()=47 O D:(newversion) ; GT.M new file
  U D
  WRITE "HELLO",!
  WRITE "HELLO",!
@@ -1229,14 +1283,14 @@ T7 ; Make sure we write to principal even though we are on another device
  ; Now open back the file, and read the hello, but open in read only so
  ; M-Unit will error out if it will write something out there.
  ;
- I +$SY=0 O D:"R"
- I +$SY=47 O D:(readonly)
+ I $$GETSYS^%ut()=0 O D:"R"
+ I $$GETSYS^%ut()=47 O D:(readonly)
  U D
  N X READ X:1
  D CHKTF(X="HELLO")  ; This should write to the screen the dot not to the file.
  D CHKTF(($$LO($IO)=$$LO(D)),"IO device didn't get reset back")       ; $$LO is b/c of a bug in Cache/Windows. $IO is not the same cas D.
- I +$SY=0 C D:"D"
- I +$SY=47 C D:(delete)
+ I $$GETSYS^%ut()=0 C D:"D"
+ I $$GETSYS^%ut()=47 C D:(delete)
  U $P
  S IO=$IO
  QUIT
@@ -1249,26 +1303,27 @@ T7 ; Make sure we write to principal even though we are on another device
  ;
 T8 ; If IO starts with another device, write to that device as if it's the pricipal device
  ; ZEXCEPT: GetEnviron,Util,delete,newversion,readonly - not really variables
+ ; ZEXCEPT: %utGUI - if present, defined and killed elsewhere
+ I $D(%utGUI) Q  ; GUI doesn't run verbose
  N D
- I +$SY=47 S D="/tmp/test.txt" ; All GT.M ; VMS not supported.
- I +$SY=0 D  ; All Cache
+ I $$GETSYS^%ut()=47 S D="/tmp/test.txt" ; All GT.M ; VMS not supported.
+ I $$GETSYS^%ut()=0 D  ; All Cache
  . I $ZVERSION(1)=2 S D=$SYSTEM.Util.GetEnviron("temp")_"\test.txt" I 1 ; Windows
  . E  S D="/tmp/test.txt" ; not windows; VMS not supported.
- I +$SY=0 O D:"NWS" ; Cache new file
- I +$SY=47 O D:(newversion) ; GT.M new file
+ I $$GETSYS^%ut()=0 O D:"NWS" ; Cache new file
+ I $$GETSYS^%ut()=47 O D:(newversion) ; GT.M new file
  S IO=D
  U D
  D ^%utt4 ; Run some Unit Tests
  C D
- I +$SY=0 O D:"R" ; Cache read only
- I +$SY=47 O D:(readonly) ; GT.M read only
+ I $$GETSYS^%ut()=0 O D:"R" ; Cache read only
+ I $$GETSYS^%ut()=47 O D:(readonly) ; GT.M read only
  U D
- N X,Y,Z R X:1,Y:1,Z:1
- I +$SY=0 C D:"D"
- I +$SY=47 C D:(delete)
- ;D CHKTF(Y["MAIN") ; JLI 140829 commented out, gui doesn't run verbose
- D CHKTF((Y["MAIN")!(Z["T2 - Test 2"),"Write to system during test didn't work")
- S IO=$P
+ N X,Y,Z,Z1,Z2,Z3,Z4 R X:1,Y:1,Z:1,Z1:1,Z2:1,Z3:1,Z4:1
+ I $$GETSYS^%ut()=0 C D:"D"
+ I $$GETSYS^%ut()=47 C D:(delete)
+ D CHKTF(Z1["MAIN","Write to system during test didn't work")
+ S IO=$P,IO(0)=IO
  QUIT
  ;
 COVRPTGL ;
@@ -1278,7 +1333,7 @@ COVRPTGL ;
  S GL3=$NA(^TMP("%utCOVRESULTx",$J)) K @GL3
  S GL4=$NA(^TMP("%utCOVREPORTx",$J)) K @GL4
  D SETGLOBS^%uttcovr(GL1,GL2)
- D COVRPTGL^%ut1(GL1,GL2,GL3,GL4)
+ D COVRPTGL^%utcover(GL1,GL2,GL3,GL4)
  D CHKEQ($G(@GL4@("%ut1","ACTLINES")),"0/9","Wrong number of lines covered f>>or ACTLINES")
  D CHKEQ($G(@GL4@("%ut1","ACTLINES",9))," QUIT CNT","Wrong result for last l>>ine not covered for ACTLINES")
  D CHKEQ($G(@GL4@("%ut1","CHEKTEST")),"8/10","Wrong number of lines covered >>for CHEKTEST")
@@ -1311,13 +1366,29 @@ XTROU ; Routines containing additional tests
  ;;%utt6;
  ;;%uttcovr;coverage related tests
 
-%utt2^INT^1^64017,53220^0
-%utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;04/08/16  20:38
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt2^INT^1^64326,52408^0
+%utt2 ; VEN/SMH - Bad Ass Continuation of Unit Tests;02/06/17  13:48
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Sam H. Habiel
  ; Modifications made by Joel L. Ivey 05/2014-09/2015
  ;
+%ut ;  List of changes in routine %ut in version 1.5
+ ; 160713 JLI in ERROR1 moved actual BREAK on error, if BREAK option is specified from first executable line so actual error is listed before BREAK occurs
+ ; 161020 JLI when BREAKing due to use of BREAK option, added code to indicate breaking on a false or nonequal value, or if breaking on an error the type of error causing the break
+ ; 161113 JLI in EN1 added code to insert routine names before list of tags executed in verbose mode
+ ; 161204 SMH added verbosity options for executions timing for tests to verbose output vaue 2 gives milliseconds or 3 gives microseconds expressed as fractional milliseconds
+ ; 161204 SMH added tags GTMVER and ZHDIF related to execution timing
+ ; 161206 JLI added tag GETSYS to handle cases where in Cache Windows systems with a computer name beginning with a digit are not correctly identified - originally reported by Steve Graham
+ ; 161206 JLI changed all references to +$SY to calls to $$GETSYS in this routine
+ ; 170111 JLI added code to work with SMH changes to %ut1 to permit single or multiple namespaces be passed for coverage analysis
+ ;
+%ut1 ; List of changes made in routine %ut1 in version 1.5
+ ; 160316 JLI Modified checks that prevented some routines from being included in tests (e.g., name on line 1 doesn't match) or excluding, but notifying user if a routine looks like computer generated (no ;; 2nd line)
+ ; 160701 Christopher Edwards (CE) suggested removing VistA dependence in CACHECOV+12 replaced ^%ZOSF("LOAD") with its code
+ ; 161020 JLI on FAIL if BREAK was active added message indicating breaking on failure before actual BREAK
+ ; 161206 JLI changed all references to +$SY to calls to $$GETSYS in %ut
+ ; 161226 SMH added code to permit single or multiple namespaces be passed for coverage analysis
  ;
 T11 ; @TEST An @TEST Entry point in Another Routine invoked through XTROU offsets
  D CHKTF^%ut(1)
@@ -1328,10 +1399,10 @@ T12 ;
 XTENT ;
  ;;T12;An XTENT offset entry point in Another Routine invoked through XTROU offsets
 
-%utt3^INT^1^64017,53220^0
+%utt3^INT^1^64326,52408^0
 %utt3 ; VEN/SMH-JLI - Unit Tests Coverage Tests;04/08/16  20:38
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Sam H. Habiel 07/2013-04/2014
  ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
  ;
@@ -1377,10 +1448,10 @@ INTERNAL(A) ; Counts
  S Y=2      ; Dead code
  QUIT       ; Dead code
 
-%utt4^INT^1^64017,53220^0
-%utt4 ; VEN/SMH/JLI - Coverage Test Runner;04/08/16  20:38
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt4^INT^1^64326,52408^0
+%utt4 ; VEN/SMH/JLI - Coverage Test Runner;01/30/17  11:46
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Sam H. Habiel 07/2013-04/2014
  ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
  ;
@@ -1388,10 +1459,12 @@ XTMUNITW ; VEN/SMH - Coverage Test Runner;2014-04-17  3:30 PM
  ;;7.3;KERNEL TOOLKIT;;
  ;
  ; This tests code in XTMUNITV for coverage
- D EN^%ut($T(+0),1) QUIT
+ D EN^%ut($T(+0),1)
+ QUIT
  ;
 MAIN ; @TEST - Test coverage calculations
  Q:$D(^TMP("%uttcovr",$J))  ; already running coverage analysis from %uttcovr
+ Q:$D(^TMP("%utCOVREPORT",$J))  ; another coverage already running
  S ^TMP("%utt4val",$J)=1
  D COV^%ut("%utt3","D EN^%ut(""%utt3"",1)",-1)  ; Only produce output global.
  D CHKEQ^%ut("14/19",^TMP("%utCOVREPORT",$J))
@@ -1400,11 +1473,35 @@ MAIN ; @TEST - Test coverage calculations
  D CHKEQ^%ut("1/1",^TMP("%utCOVREPORT",$J,"%utt3","SETUP"))
  K ^TMP("%utt4val",$J)
  QUIT
+ ;
+ ; The following code was copied from the routine XLFDT so that unit tests for LEAKSOK
+ ; and LEAKSBAD in %utt5 could be independent of VA KERNEL code'
+ ;
+HTFM(%H,%F) ;$H to FM, %F=1 for date only
+ N X,%,%T,%Y,%M,%D S:'$D(%F) %F=0
+ I $$HR(%H) Q -1 ;Check Range
+ I '%F,%H[",0" S %H=(%H-1)_",86400"
+ D YMD S:%T&('%F) X=X_%T
+ Q X
+ ;
+YMD ;21608 = 28 feb 1900, 94657 = 28 feb 2100, 141 $H base year
+ S %=(%H>21608)+(%H>94657)+%H-.1,%Y=%\365.25+141,%=%#365.25\1
+ S %D=%+306#(%Y#4=0+365)#153#61#31+1,%M=%-%D\29+1
+ S X=%Y_"00"+%M_"00"+%D,%=$P(%H,",",2)
+ S %T=%#60/100+(%#3600\60)/100+(%\3600)/100 S:'%T %T=".0"
+ Q
+ ;
+NOW() ;Current Date/time in FM.
+ Q $$HTFM($H)
+ ;
+HR(%V) ;Check $H in valid range
+ Q (%V<2)!(%V>99999)
+ ;
 
-%utt5^INT^1^64017,53220^0
-%utt5 ;JLI - test for aspects of MUnit functionality ;04/08/16  20:38
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt5^INT^1^64326,52408^0
+%utt5 ;JLI - test for aspects of MUnit functionality ;01/30/17  11:46
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey 05/2014-12/2015.
  ;
  Q
@@ -1464,13 +1561,15 @@ CALLFAIL ;
  ;
 LEAKSOK ;
  N CODE,LOCATN,MYVALS,X
- S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSOK TEST",MYVALS("X")=""
+ ;S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSOK TEST",MYVALS("X")="" ; JLI 160912 replaced by code in next line so it is independent of VA KERNEL
+ S CODE="S X=$$NOW^%utt4()",LOCATN="LEAKSOK TEST",MYVALS("X")=""  ; JLI 160912 replaced call to XLFDT with same code in %utt4 so it is independent of VA KERNEL
  D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find no leaks
  Q
  ;
 LEAKSBAD ;
  N CODE,LOCATN,MYVALS,X
- S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"
+ ;S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED" ; JLI 160912 replaced by code in next line so it is independent of VA KERNEL
+ S CODE="S X=$$NOW^%utt4()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"  ; JLI 160912 replaced call to XLFDT with same code in %utt4 so it is independent of VA KERNEL
  D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find X since it isn't indicated
  Q
  ;
@@ -1541,10 +1640,10 @@ XTENT ;
  ;;NVLDARG1;check invalid arg in CHKEQ
  ;;ISUTEST;check ISUTEST inside unit test
 
-%utt6^INT^1^64017,53220^0
-%utt6 ;JLI - Unit tests for MUnit functionality ;04/08/16  20:49
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt6^INT^1^64326,52408^0
+%utt6 ;JLI - Unit tests for MUnit functionality ;02/01/17  09:44
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey 05/2014-12/2015
  ;
  ;
@@ -1555,9 +1654,37 @@ XTENT ;
  ; run unit tests by command line
  N VERBOSE
  S VERBOSE=0
+ D VERBOSE
+ Q
+ ;
+VERBOSE3 ;
+ N VERBOSE
+ S VERBOSE=3
+ D VERBOSE
+ Q
+ ;
+VERBOSE2 ;
+ N VERBOSE
+ S VERBOSE=2
+ D VERBOSE
+ Q
+ ;
 VERBOSE ;
  I '$D(VERBOSE) N VERBOSE S VERBOSE=1
  N ZZUTCNT,UTTCNT,UTTEXPCT,UTTI,UTTX,ZZUTRSLT,%utt5,%utt6,%utt6var
+ I $T(+1^DIC)'="" D CMNDLINE
+ W !!,"NOW RUNNING UNIT TESTS FOR %uttcovr",!!
+ D EN^%ut("%uttcovr",VERBOSE)
+ ;
+ ; now run the unit tests in this routine
+ W !!,"NOW RUNNING UNIT TESTS FOR %utt6",!!
+ D EN^%ut("%utt6",VERBOSE)
+ K ^TMP("%utt5",$J),^TMP("%utt5_C",$J),^TMP("%utt5_G",$J),^TMP("%utt6",$J),^TMP("%utt6_GUISET",$J)
+ ; clean up after GUI calls as well
+ K ^TMP("GUI-MUNIT",$J),^TMP("GUINEXT",$J),^TMP("MUNIT-%utRSLT",$J)
+ Q
+ ;
+CMNDLINE ;
  W !!,"RUNNING COMMAND LINE TESTS VIA DOSET^%ut",!
  D DOSET^%ut(1,VERBOSE) ; run `1 in M-UNIT TEST GROUP file
  ;
@@ -1590,18 +1717,7 @@ VERBOSE ;
  D GUINEXT^%ut(.ZZUTRSLT,"")
  K ^TMP("%utt5_G",$J) M ^TMP("%utt5_G",$J)=^TMP("%utt5",$J)
  S UTTEXPCT=2+(3*UTTCNT) ; number of lines that should be in the global nodes for command line and GUI
- ;
- W !!,"NOW RUNNING UNIT TESTS FOR %uttcovr",!!
- D EN^%ut("%uttcovr",VERBOSE)
- ;
- ; now run the unit tests in this routine
- W !!,"NOW RUNNING UNIT TESTS FOR %utt6",!!
- D EN^%ut("%utt6",VERBOSE)
- K ^TMP("%utt5",$J),^TMP("%utt5_C",$J),^TMP("%utt5_G",$J),^TMP("%utt6",$J),^TMP("%utt6_GUISET",$J)
- ; clean up after GUI calls as well
- K ^TMP("GUI-MUNIT",$J),^TMP("GUINEXT",$J),^TMP("MUNIT-%utRSLT",$J)
  Q
- ;
  ;
  ;           WARNING     --      WARNING     --      WARNING
  ; If the number of NEW STYLE tests in %utt5 is increased (it is currently 1), then the following
@@ -1668,10 +1784,10 @@ XTENT ;
  ;;CKGUISET;check list of tests returned by GUISET
  ;;NEWSTYLE;test return of valid new style or @TEST indicators
 
-%uttcovr^INT^1^64017,53220^0
-%uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;04/08/16  20:49
- ;;1.4;MASH UTILITIES;;APR 11, 2016;Build 2
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%uttcovr^INT^1^64326,52408^0
+%uttcovr ;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;02/01/17  11:03
+ ;;1.5;MASH UTILITIES;;Feb 8, 2017;Build 6
+ ; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
  ; Original routine authored by Joel L. Ivey 05/2014-12/2015
  ; Modified by Joel L. Ivey 02/2016-03/2016
  ;
@@ -1680,7 +1796,7 @@ XTENT ;
  N RUNCODE,XCLUDE
  ;
  ; Have it run the following entry points or, if no ^, call EN^%ut with routine name
- S RUNCODE(1)="^%utt1,%utt1,^%utt6,VERBOSE^%utt6,%uttcovr,^%ut,^%ut1,^%utcover"
+ S RUNCODE(1)="^%utt1,^%utt1,VERBOSE^%utt1(3),^%utt6,VERBOSE^%utt6,VERBOSE3^%utt6,VERBOSE2^%utt6,%uttcovr,^%ut,^%ut1,^%utcover"
  S RUNCODE("ENTRY^%uttcovr")=""
  ; Have the analysis EXCLUDE the following routines from coverage - unit test routines
  S XCLUDE(1)="%utt1,%utt2,%utt3,%utt4,%utt5,%utt6,%uttcovr"
@@ -1697,11 +1813,11 @@ ENTRY ;
  ; they need data set, so they are called in here
  ; LEAKSOK ;
  N CODE,LOCATN,MYVALS,X,I
- S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSOK TEST",MYVALS("X")=""
+ S CODE="S X=4",LOCATN="LEAKSOK TEST",MYVALS("X")=""
  D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find no leaks
  ; LEAKSBAD ;
  N CODE,LOCATN,MYVALS,X
- S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"
+ S CODE="S X=4",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"
  D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find X since it isn't indicated
  ; try to run coverage
  W !,"xxxxxxxxxxxxxxxxxxxx GOING TO COV^%ut FOR %utt5 at 3",!!!
@@ -1732,8 +1848,8 @@ RTNANAL ; @TEST - routine analysis
  S GLB=$NA(^TMP("%uttcovr-rtnanal",$J)) K @GLB
  D RTNANAL^%ut1(.ROUS,GLB)
  D CHKTF($D(@GLB@("%utt4","MAIN"))>1,"Not enough 'MAIN' nodes found")
- D CHKTF($G(@GLB@("%utt4","MAIN",3))["D COV^%ut(""%utt3"",""D EN^%ut(""""%utt3"""",1)"",-1)","Incorrect data for line 2 in MAIN")
- D CHKTF($G(@GLB@("%utt4","MAIN",9))=" QUIT","Final QUIT not on expected line")
+ D CHKTF($G(@GLB@("%utt4","MAIN",4))["D COV^%ut(""%utt3"",""D EN^%ut(""""%utt3"""",1)"",-1)","Incorrect data for line 2 in MAIN")
+ D CHKTF($G(@GLB@("%utt4","MAIN",10))=" QUIT","Final QUIT not on expected line")
  K @GLB
  Q
  ;
@@ -1918,6 +2034,7 @@ SETGLOBS(GL1,GL2) ;
 CACHECOV ;@TEST - set up routine for analysis in globals
  N GLOB,GLOBT
  S GLOB=$NA(^TMP("%uttcovr1",$J)),GLOBT=$NA(@GLOB@("uttcovr2",$J)) K @GLOB,@GLOBT
+ K ^TMP("%utt4val",$J)
  D CACHECOV^%ut1(GLOB,GLOBT)
  D CHKEQ($T(+1^%ut),@GLOB@("%ut",1,0),"BAD FIRST LINE LOADED FOR %ut")
  D CHKEQ($T(+14^%ut),@GLOBT@("%ut",14,0),"Bad 14th line loaded for %ut")
@@ -1992,219 +2109,6 @@ CHKEQ(EXPECTED,SEEN,COMMENT) ;
 CHKTF(VALUE,COMMENT) ;
  D CHKTF^%ut(VALUE,$G(COMMENT))
  Q
-
-ZZUTPOST^INT^1^64016,75116^0
-%utPOST ;VEN-SMH/JLI - post install for M-Unit Test software ;04/08/16  20:51
- ;;1.4;MASH UTILITIES;;APR 11, 2016;
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
- ; Original routine authored by Sam H. Habiel 07/2013-04/2014
- ; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
- ; Additions and Modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
- ;
- N X,I
- D RENAME
- QUIT
- ;
-RENAME ;
- N %S,%D ; Source, destination
- S U="^"
- S %S="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^uttcovr"
- S %D="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%uttcovr"
- ;
-MOVE ; rename % routines
- N %,X,Y,M
- F %=1:1:$L(%D,"^") D  D MES(M) I +$SY=47 D MES(" ")
- . S M="",X=$P(%S,U,%) ; from
- . S Y=$P(%D,U,%) ; to
- . Q:X=""
- . S M="Routine: "_$J(X,8)
- . Q:Y=""  I $T(^@X)=""  S M=M_"  Missing" Q
- . S M=M_" Loaded, "
- . D COPY(X,Y)
- . S M=M_"Saved as "_$J(Y,8)
- ;
- QUIT  ; END
- ;
-COPY(FROM,TO) ;
- N XVAL
- I +$SYSTEM=0 S XVAL="ZL @FROM ZS @TO" X XVAL QUIT
- I +$SYSTEM=47 DO  QUIT
- . S FROM=$$PATH(FROM)
- . S TO=$$PATH(TO,"WRITE")
- . N CMD S CMD="cp "_FROM_" "_TO
- . O "cp":(shell="/bin/sh":command=CMD:WRITEONLY)::"PIPE"
- . U "cp" C "cp"
- QUIT
- ;
-PATH(ROUTINE,MODE) ; for GT.M return source file with path for a routine
- ;input: ROUTINE=Name of routine
- ;       MODE="READ" or "WRITE" defaults to READ
- ;output: Full filename
- ;
- S MODE=$G(MODE,"READ") ;set MODE to default value
- N FILE S FILE=$TR(ROUTINE,"%","_")_".m" ;convert rtn name to filename
- N ZRO S ZRO=$ZRO
- ;
- ; Get source routine
- N %ZR
- I MODE="READ" D SILENT^%RSEL(ROUTINE,"SRC") Q %ZR(ROUTINE)_FILE
- ;
- ; We are writing. Parse directories and get 1st routine directory
- N DIRS
- D PARSEZRO(.DIRS,ZRO)
- N PATH S PATH=$$ZRO1ST(.DIRS)
- ;
- QUIT PATH_FILE ;end of PATH return directory and filename
- ;
- ;
-PARSEZRO(DIRS,ZRO) ; Parse $zroutines properly into an array
- N PIECE
- N I
- F I=1:1:$L(ZRO," ") S PIECE(I)=$P(ZRO," ",I)
- N CNT S CNT=1
- F I=0:0 S I=$O(PIECE(I)) Q:'I  D
- . S DIRS(CNT)=$G(DIRS(CNT))_PIECE(I)
- . I DIRS(CNT)["("&(DIRS(CNT)[")") S CNT=CNT+1 QUIT
- . I DIRS(CNT)'["("&(DIRS(CNT)'[")") S CNT=CNT+1 QUIT
- . S DIRS(CNT)=DIRS(CNT)_" " ; prep for next piece
- QUIT
- ;
-ZRO1ST(DIRS) ; $$ Get first routine directory
- N OUT ; $$ return
- N %1 S %1=DIRS(1) ; 1st directory
- ; Parse with (...)
- I %1["(" DO
- . S OUT=$P(%1,"(",2)
- . I OUT[" " S OUT=$P(OUT," ")
- . E  S OUT=$P(OUT,")")
- ; no parens
- E  S OUT=%1
- ;
- ; Add trailing slash
- I $E(OUT,$L(OUT))'="/" S OUT=OUT_"/"
- QUIT OUT
- ;
-MES(T,B) ;Write message.
- S B=$G(B)
- I $L($T(BMES^XPDUTL)) D BMES^XPDUTL(T):B,MES^XPDUTL(T):'B Q
- W:B ! W !,T
- Q
- ;
-TEST ; @TEST - TESTING TESTING
- ;
- N FAIL S FAIL=0
- N ZR S ZR="o(p r) /var/abc(/var/abc/r/) /abc/def $gtm_dist/libgtmutl.so vista.so"
- N DIRS D PARSEZRO(.DIRS,ZR)
- N FIRSTDIR S FIRSTDIR=$$ZRO1ST(.DIRS)
- I FIRSTDIR'="p/" W !,"TEST 1 Expected 'p/', got '"_FIRSTDIR_"'" S FAIL=FAIL+1 ;S $EC=",U1,"
- ;
- N ZR S ZR="/var/abc(/var/abc/r/) o(p r) /abc/def $gtm_dist/libgtmutl.so vista.so"
- N DIRS D PARSEZRO(.DIRS,ZR)
- N FIRSTDIR S FIRSTDIR=$$ZRO1ST(.DIRS)
- I FIRSTDIR'="/var/abc/r/" W !,"TEST 2 Expected '/var/abc/r/', got '"_FIRSTDIR_"'" S FAIL=FAIL+1 ;S $EC=",U1,"
- ;
- N ZR S ZR="/abc/def /var/abc(/var/abc/r/) o(p r) $gtm_dist/libgtmutl.so vista.so"
- N DIRS D PARSEZRO(.DIRS,ZR)
- N FIRSTDIR S FIRSTDIR=$$ZRO1ST(.DIRS)
- I FIRSTDIR'="/abc/def/" W !,"TEST 3 expected '/abc/def/', got '"_FIRSTDIR_"'" S FAIL=FAIL+1 ;S $EC=",U1,"
- ;
- I FAIL=0 WRITE "All tests have run successfully!",!
- I FAIL>0 WRITE !,"***** Failed "_FAIL_" tests out of 3 *****",!
- QUIT
- ;
-PREKIDS ; Ready for KIDS - Move % routines to non-percent version
- N %S,%D ; Source, destination
- S U="^"
- S %D="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^uttcovr"
- S %S="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%uttcovr"
- D MOVE
- QUIT
- ;
-
-ZZUTPRE^INT^1^64016,75080^0
-%utPRE ;VEN/SMH/JLI - pre installation routine to set up MASH UTILITIES package and assign %ut routines and globals ;04/08/16  20:51
- ;;1.4;MASH UTILITIES;;APR 11, 2016;
- ; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
- ; Original routine authored by Sam H. Habiel 07/2013-04/2014
- ; Modified by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
- ;
- ; The following is used to create, if it does not exist, the MASH UTILITIES
- ; package, and to assign the %u namespace to this package.  This special
- ; processing is necessary, since the input transform currently will not accept a
- ; % or lower case character in the namespace.
- ; JLI 160406 - following modified to update PACKAGE entry including current version and version subfile
- N Y
- S Y=+$O(^DIC(9.4,"B","MASH UTILITIES",""))
- I 'Y N DIC,X S DIC="^DIC(9.4,",DIC(0)="",X="MASH UTILITIES",DIC("DR")="1////%u;2///Utilities associated with the M Advanced Shell" D FILE^DICN
- I Y>0 D
- . N YVAL S YVAL=+Y
- . N VERSION S VERSION=$P($T(+2),";",3)
- . N DIE,DA,DR S DIE="^DIC(9.4,",DA=+Y,DR="13///"_VERSION D ^DIE
- . N DIC,X,DA S DA(1)=YVAL,DIC="^DIC(9.4,"_DA(1)_",22,",DIC(0)="",X=1.4,DIC("DR")="2///"_DT D FILE^DICN
- . Q
- ; end of modification
- ; and if necessary, as in CACHE, map %ut routine and namespace in the current account.
- I +$SY=0 D CACHEMAP ; This routine is CACHE specific
- Q
- ; The following code was provided by Sam Habiel to map %
-CACHEMAP ; Map %ut* Globals and Routines away from %SYS in Cache
- ; ZEXCEPT: AddGlobalMapping,Class,Config,Configuration,Create,Get,GetErrorText,GetGlobalMapping,MapRoutines,MapGlobals,Namespaces,Status,class - these are all part of Cache class names
- ; Get current namespace
- N NMSP
- I $P($P($ZV,") ",2),"(")<2012 S NMSP=$ZU(5)
- I $P($P($ZV,") ",2),"(")>2011 S NMSP=$NAMESPACE
- ;
- N $ET S $ET="ZN NMSP D ^%ZTER S $EC="""""
- ;
- ZN "%SYS" ; Go to SYS
- ;
- ; Props
- N PROP
- N % S %=##Class(Config.Namespaces).Get(NMSP,.PROP) ; Get all namespace properties
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
- ;
- N DBG S DBG=PROP("Globals")  ; get the database globals location
- N DBR S DBR=PROP("Routines") ; get the database routines location
- ; the following is needed for the call to MapGlobals.Create below, is not set in above call
- S PROP("Database")=NMSP
- ;
- ; Map %ut globals away from %SYS
- N %
- ; JLI 160406 - the following was modified to try the new method, and if it is not there
- ;              (or another error), it then tries the method replacing the original one
- ; try recommended replacement for deprecated method
- TRY {  ; try new style
-   S %=##class(Config.Configuration).GetGlobalMapping(NMSP,"%ut*","",DBG,DBG)
- }
- CATCH {
-   S %=0
- }
- ; if it didn't work, use the deprecated method
- I '% S %=##Class(Config.MapGlobals).Get(NMSP,"%ut*",.PROP) ; go back to original
- ;
- ; if not previously set, set new global mapping entry - try recommended replacement
- ; for deprecated method for adding a global mapping
- TRY { ; try new style to add global mapping
-   I '% S %=##class(Config.Configuration).AddGlobalMapping(NMSP,"%ut*","",DBG,DBG)
- }
- CATCH {
-   S %=0
- }
- ; again, if it didn't work use the original (now deprecated) method
- S PROP("Database")=NMSP ; needed for call to MapGlobals.Create below
- I '% S %=##Class(Config.MapGlobals).Create(NMSP,"%ut",.PROP) ; doesn't work with "%ut*"
- ;
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
- ; end of modification
- ; Map %ut routines away from %SYS
- N PROPRTN S PROPRTN("Database")=DBR
- N %
- S %=##Class(Config.MapRoutines).Get(NMSP,"%ut*",.PROPRTN)
- S PROPRTN("Database")=DBR  ; Cache seems to like deleting this
- I '% S %=##Class(Config.MapRoutines).Create(NMSP,"%ut*",.PROPRTN)
- I '% W !,"Error="_$SYSTEM.Status.GetErrorText(%) S $EC=",U-CONFIG-FAIL," QUIT
- ZN NMSP ; Go back
- QUIT
 
 
 

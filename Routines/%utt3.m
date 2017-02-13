@@ -1,6 +1,6 @@
 %utt3	; VEN/SMH-JLI - Unit Tests Coverage Tests;04/08/16  20:38
-	;;1.4;MASH UTILITIES;;APR 11, 2016;
-	; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+	;;1.5;MASH UTILITIES;;Feb 8, 2017;
+	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013-04/2014
 	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
 	;

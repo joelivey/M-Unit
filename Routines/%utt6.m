@@ -1,6 +1,6 @@
-%utt6	;JLI - Unit tests for MUnit functionality ;04/08/16  20:49
-	;;1.4;MASH UTILITIES;;APR 11, 2016;
-	; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt6	;JLI - Unit tests for MUnit functionality ;02/01/17  09:44
+	;;1.5;MASH UTILITIES;;Feb 8, 2017;
+	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	;
 	;
@@ -11,9 +11,37 @@
 	; run unit tests by command line
 	N VERBOSE
 	S VERBOSE=0
+	D VERBOSE
+	Q
+	;
+VERBOSE3	;
+	N VERBOSE
+	S VERBOSE=3
+	D VERBOSE
+	Q
+	;
+VERBOSE2	;
+	N VERBOSE
+	S VERBOSE=2
+	D VERBOSE
+	Q
+	;
 VERBOSE	;
 	I '$D(VERBOSE) N VERBOSE S VERBOSE=1
 	N ZZUTCNT,UTTCNT,UTTEXPCT,UTTI,UTTX,ZZUTRSLT,%utt5,%utt6,%utt6var
+	I $T(+1^DIC)'="" D CMNDLINE
+	W !!,"NOW RUNNING UNIT TESTS FOR %uttcovr",!!
+	D EN^%ut("%uttcovr",VERBOSE)
+	;
+	; now run the unit tests in this routine
+	W !!,"NOW RUNNING UNIT TESTS FOR %utt6",!!
+	D EN^%ut("%utt6",VERBOSE)
+	K ^TMP("%utt5",$J),^TMP("%utt5_C",$J),^TMP("%utt5_G",$J),^TMP("%utt6",$J),^TMP("%utt6_GUISET",$J)
+	; clean up after GUI calls as well
+	K ^TMP("GUI-MUNIT",$J),^TMP("GUINEXT",$J),^TMP("MUNIT-%utRSLT",$J)
+	Q
+	;
+CMNDLINE	;
 	W !!,"RUNNING COMMAND LINE TESTS VIA DOSET^%ut",!
 	D DOSET^%ut(1,VERBOSE) ; run `1 in M-UNIT TEST GROUP file
 	;
@@ -46,18 +74,7 @@ VERBOSE	;
 	D GUINEXT^%ut(.ZZUTRSLT,"")
 	K ^TMP("%utt5_G",$J) M ^TMP("%utt5_G",$J)=^TMP("%utt5",$J)
 	S UTTEXPCT=2+(3*UTTCNT) ; number of lines that should be in the global nodes for command line and GUI
-	;
-	W !!,"NOW RUNNING UNIT TESTS FOR %uttcovr",!!
-	D EN^%ut("%uttcovr",VERBOSE)
-	;
-	; now run the unit tests in this routine
-	W !!,"NOW RUNNING UNIT TESTS FOR %utt6",!!
-	D EN^%ut("%utt6",VERBOSE)
-	K ^TMP("%utt5",$J),^TMP("%utt5_C",$J),^TMP("%utt5_G",$J),^TMP("%utt6",$J),^TMP("%utt6_GUISET",$J)
-	; clean up after GUI calls as well
-	K ^TMP("GUI-MUNIT",$J),^TMP("GUINEXT",$J),^TMP("MUNIT-%utRSLT",$J)
 	Q
-	;
 	;
 	;           WARNING     --      WARNING     --      WARNING
 	; If the number of NEW STYLE tests in %utt5 is increased (it is currently 1), then the following

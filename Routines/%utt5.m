@@ -1,6 +1,6 @@
-%utt5	;JLI - test for aspects of MUnit functionality ;04/08/16  20:38
-	;;1.4;MASH UTILITIES;;APR 11, 2016;
-	; Submitted to OSEHRA Apr 11, 2016 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt5	;JLI - test for aspects of MUnit functionality ;01/30/17  11:46
+	;;1.5;MASH UTILITIES;;Feb 8, 2017;
+	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-12/2015.
 	;
 	Q
@@ -60,13 +60,15 @@ CALLFAIL	;
 	;
 LEAKSOK	;
 	N CODE,LOCATN,MYVALS,X
-	S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSOK TEST",MYVALS("X")=""
+	;S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSOK TEST",MYVALS("X")="" ; JLI 160912 replaced by code in next line so it is independent of VA KERNEL
+	S CODE="S X=$$NOW^%utt4()",LOCATN="LEAKSOK TEST",MYVALS("X")=""  ; JLI 160912 replaced call to XLFDT with same code in %utt4 so it is independent of VA KERNEL
 	D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find no leaks
 	Q
 	;
 LEAKSBAD	;
 	N CODE,LOCATN,MYVALS,X
-	S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"
+	;S CODE="S X=$$NOW^XLFDT()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED" ; JLI 160912 replaced by code in next line so it is independent of VA KERNEL
+	S CODE="S X=$$NOW^%utt4()",LOCATN="LEAKSBAD TEST - X NOT SPECIFIED"  ; JLI 160912 replaced call to XLFDT with same code in %utt4 so it is independent of VA KERNEL
 	D CHKLEAKS^%ut(CODE,LOCATN,.MYVALS) ; should find X since it isn't indicated
 	Q
 	;

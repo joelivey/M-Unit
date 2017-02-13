@@ -1,0 +1,1644 @@
+The following screen capture shows the use of the M-Unit program in a GT.M 
+system (version 6.3000A) with VistA not installed.  The routines were copied 
+into the GT.M system, the percent ('%') character at the start of the names 
+changed to an underscore ('_') character, and the routines converted to the 
+unix line terminators with the dos2unix command.  Following this, the unit 
+tests for the package and coverage analysis were performed twice.  In GT.M when 
+a routine is first run, any apparent problems are identified and listed as the 
+routine is running.  These are the result of sections of code for Intersystems 
+Cache being present which is not attempted to be run in a GT.M system.  The 
+second capture which does not include this excess material is presented here.
+
+The commands used are:
+   D ^%utt1  - this runs the unit tests in non-verbose mode, showing periods 
+               for each passing test.  Note that due to simply showing a '.' 
+               for successful tests instead of listing every test run, the 
+               non-verbose listing is much more compact and highlights any 
+               problems that are encountered.
+
+   D EN^%ut("%utt1",3) - runs unit tests with VERBOSITY	set to 3, this 
+               causes each test to be listed with its result and at level 
+               3 it lists execution time for each test in fractional 
+               milliseconds
+               
+   D ^%uttcovr - runs detailed coverage analysis for the unit test routines 
+                 with level set to 3, which lists coverage by routine, 
+                 coverage by tag within routines, and within each routine lists 
+                 by tag lines that were NOT covered.  The routine %uttcovr runs 
+                 the tests and routines in multiple ways to cover all of the 
+                 different ways that the tests can be run and to cover as well 
+                 as possible all of the paths in the code being tested.
+
+Since there was no VistA environment, code related to providing support for 
+commands based on Options or GUI running of tests in the routine %ut is not
+covered and decreases the coverage of this one routine.
+
+
+GTM>D ^%utt1
+
+Running tests in NON-VERBOSE mode
+For Verbose mode use DO VERBOSE^%utt1(ARG) where ARG is an integer 1 to 3
+ENTER RETURN TO CONTINUE: ....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.................
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 6 Routines, 37 Entry Tags
+Checked 109 tests, with 7 failures and encountered 1 error.
+GTM>
+
+GTM>
+
+GTM>d EN^%ut("%utt1",3)
+
+
+----------------------------------- %utt1 -----------------------------------
+T1 - - Make sure Start-up Ran.------------------------------------  [OK] .1ms
+T2 - - Make sure Set-up runs.-----------------------------------  [OK] .045ms
+T3 - - Make sure Teardown runs.---------------------------------  [OK] .113ms
+T4 - Entry point using XTMENT.----------------------------------  [OK] .075ms
+T5 - Error count check
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.---------------------------------------------------------------  [FAIL] .186ms
+T6 - Succeed Entry Point...-------------------------------------  [OK] .128ms
+T7 - Make sure we write to principal even though we are on another device..[OK] 
+6.161ms
+T8 - If IO starts with another device, write to that device as if it's the prici
+pal device.----------------------------------------------------  [OK] 2.341ms
+COVRPTGL - coverage report returning global....----------------  [OK] 7.542ms
+
+----------------------------------- %utt2 -----------------------------------
+T11 - An @TEST Entry point in Another Routine invoked through XTROU offsets.[OK]
+ .063ms
+T12 - An XTENT offset entry point in Another Routine invoked through XTROU offse
+ts.-------------------------------------------------------------  [OK] .038ms
+
+----------------------------------- %utt4 -----------------------------------
+MAIN - - Test coverage calculations-----------------------------  [OK] .106ms
+
+----------------------------------- %utt5 -----------------------------------
+NEWSTYLE - identify new style test indicator functionality.-----  [OK] .127ms
+OLDSTYLE -  identify old style test indicator functionality..----  [OK] .05ms
+OLDSTYL1 -  identify old style test indicator 2.----------------  [OK] .054ms
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+----------------------------------------------------------------  [FAIL] .085ms
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+----------------------------------------------------------------  [FAIL] .068ms
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+---------------------------------------------------------------  [FAIL] 6.139ms
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+----------------------------------------------------------------  [FAIL] .152ms
+LEAKSOK - check leaks should be ok------------------------------  [OK] .473ms
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+----------------------------------------------------------------  [FAIL] .177ms
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+----------------------------------------------------------------  [FAIL] .072ms
+ISUTEST - check ISUTEST inside unit test.-----------------------  [OK] .043ms
+
+----------------------------------- %utt6 -----------------------------------
+SETROUS - - generate array with indices of routines to exclude......[OK] .13ms
+CHKCMDLN - check command line processing of %utt5---------------  [OK] .035ms
+CHKGUI - check GUI processing of %utt5---------------------------  [OK] .03ms
+CKGUISET - check list of tests returned by GUISET---------------  [OK] .029ms
+NEWSTYLE - test return of valid new style or @TEST indicators... [OK] 2.394ms
+
+---------------------------------- %uttcovr ----------------------------------
+RTNANAL - - routine analysis...--------------------------------  [OK] 2.032ms
+COVCOV - - check COVCOV - remove seen lines......--------------  [OK] 1.596ms
+COVRPT...........----------------------------------------------  [OK] 9.957ms
+COVRPTLS - - coverage report returning text in global........... [OK] 8.061ms
+TRIMDATA - - TRIMDATA in %utcover..-----------------------------  [OK] .333ms
+LIST - - LIST in %utcover............--------------------------  [OK] 2.484ms
+CACHECOV - - set up routine for analysis in globals..---------  [OK] 28.048ms
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............------------------------------------------  [OK] .283ms
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........-------------------  [OK] 2.825ms
+
+Ran 6 Routines, 37 Entry Tags
+Checked 109 tests, with 7 failures and encountered 1 error.
+
+GTM>
+
+GTM>d ^%uttcovr
+
+Loading routines to test coverage...
+%ut %ut1 %utcover %utf2hex 
+Routine %utf2hex removed from analysis, since it doesn't have the standard secon
+d line
+%utt1 %utt2 %utt3 %utt4 %utt5 %utt6 %uttcovr 
+
+------------------- RUNNING %uttcovr -------------------
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ENTRY^%uttcovr -------------------
+
+LEAKSBAD TEST - X NOT SPECIFIED VARIABLE LEAK: X
+xxxxxxxxxxxxxxxxxxxx GOING TO COV^%ut FOR %utt5 at 3
+
+
+
+Loading routines to test coverage...
+%ut1 ....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+xxxxxxxxxxxxxxxxxxxx GOING TO COV^%ut FOR %utt5 at -1
+
+
+
+Loading routines to test coverage...
+%ut1 ....
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+.
+
+Ran 1 Routine, 11 Entry Tags
+Checked 10 tests, with 5 failures and encountered 1 error.
+xxxxxxxxxxxxxxxxxxxx GOING TO MULTAPIS for %utt4 and %ut
+
+
+
+
+------------------- RUNNING ^%ut -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utt4 -------------------
+
+
+----------------------------------- %utt4 -----------------------------------
+MAIN - - Test coverage calculations------------------------------------  [OK]
+
+Ran 1 Routine, 1 Entry Tag
+Checked 0 test, with 0 failures and encountered 0 errors.
+
+
+------------ SUMMARY ------------
+Ran 2 Routines, 6 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+xxxxxxxxxxxxxxxxxxxx GOING TO COVERAGE for %utt4 and %ut at 3
+
+
+
+Loading routines to test coverage...
+%ut %ut1 %utcover %utf2hex 
+Routine %utf2hex removed from analysis, since it doesn't have the standard secon
+d line
+%utt1 %utt2 %utt3 %utt4 %utt5 %utt6 %uttcovr 
+
+------------------- RUNNING ^%ut -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utt4 -------------------
+
+
+----------------------------------- %utt4 -----------------------------------
+MAIN - - Test coverage calculations------------------------------------  [OK]
+
+Ran 1 Routine, 1 Entry Tag
+Checked 0 test, with 0 failures and encountered 0 errors.
+
+
+------------ SUMMARY ------------
+Ran 2 Routines, 6 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Detailed Breakdown
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+   the following is a list of the lines **NOT** covered
+     DOSET+4   N %utROU,%utLIST
+     DOSET+5   I '$D(%utVERB) S %utVERB=0
+     DOSET+6   S %utLIST=0
+     DOSET+7   D GETSET($G(IEN),.%utROU,.%utLIST)
+     DOSET+8   I %utLIST>0  N IEN,%ut D SETUT,EN1(.%utROU,%utLIST)
+     DOSET+9   Q
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     ERROR+7   . S %ut("CNT")=%ut("CNT")+1
+     ERROR+8   . S %utERR=%utERR+1
+     ERROR+9   . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISE
+P_$S($$GETSYS()=47:$ZS,1:$ZE)
+     ERROR+10   . Q
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETLIST+1   N I,%utROUL,%utROUN,%ut,XTCOMNT,XTVALUE,%utCNT
+     GETLIST+2   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J)) K @XTVALUE
+     GETLIST+3   S %utCNT=0,XTCOMNT=""
+     GETLIST+4   D GETTREE^%ut1(.%utROU,%utLIST)
+     GETLIST+5   F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
+     GETLIST+6   S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D 
+LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
+     GETLIST+7   M @%utRSLT=@XTVALUE
+     GETLIST+8   K @%utRSLT@("SHUTDOWN")
+     GETLIST+9   K @%utRSLT@("STARTUP")
+     GETLIST+10   S @XTVALUE@("LASTROU")=""
+     GETLIST+11   Q
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+   the following is a list of the lines **NOT** covered
+     GETSET+1   N IENS,%utROOT
+     GETSET+3   S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
+     GETSET+4   S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=
+""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
+     GETSET+5   Q
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUILOAD+1   N %utROU,%ut
+     GUILOAD+2   D SETUT
+     GUILOAD+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUILOAD+4   S %utROU(1)=%utROUN
+     GUILOAD+5   D GETLIST(.%utROU,1,%ut("RSLT"))
+     GUILOAD+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1"
+     GUILOAD+7   S %utRSLT=%ut("RSLT")
+     GUILOAD+8   Q
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+   the following is a list of the lines **NOT** covered
+     GUINEXT+5   N %utETRY,%utROUT,XTOLROU,XTVALUE,%utERR,%utGUI
+     GUINEXT+6   N %ut
+     GUINEXT+7   I $G(XTGUISEP)="" S XTGUISEP="^"
+     GUINEXT+8   D SETUT
+     GUINEXT+9   S %ut("LOC")=%utLOC
+     GUINEXT+10   S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("
+NENT")=0,%ut("ERRN")=0
+     GUINEXT+11   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J))
+     GUINEXT+12   S %ut("RSLT")=$NA(^TMP("GUINEXT",$J)) K @%ut("RSLT")
+     GUINEXT+13   S %utRSLT=%ut("RSLT")
+     GUINEXT+14   S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVA
+LUE@("LASTROU"))
+     GUINEXT+15   S %utGUI=1
+     GUINEXT+16   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+17   D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to le
+ave XTVALUE intact, in case they simply run again for STARTUP, etc.
+     GUINEXT+18   . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
+     GUINEXT+19   . . S %ut("LOC")=@XTVALUE@("STARTUP")
+     GUINEXT+20   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+21   . . D @(@XTVALUE@("STARTUP"))
+     GUINEXT+22   . . Q
+     GUINEXT+23   . S @XTVALUE@("LASTROU")=%utROUT I %utROUT'="",$T(@("SETUP^"_%
+utROUT))'="" D
+     GUINEXT+24   . . S %ut("LOC")="SETUP^"_%utROUT
+     GUINEXT+25   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+26   . . D @("SETUP^"_%utROUT)
+     GUINEXT+27   . . Q
+     GUINEXT+28   . I %utROUT="",$D(@XTVALUE@("SHUTDOWN")) D
+     GUINEXT+29   . . S %ut("LOC")=@XTVALUE@("SHUTDOWN")
+     GUINEXT+30   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+31   . . D @(@XTVALUE@("SHUTDOWN"))
+     GUINEXT+32   . . Q
+     GUINEXT+33   . Q
+     GUINEXT+34   S %ut("LOC")=%utLOC
+     GUINEXT+35   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+36   D  ; to limit range of error trap so we continue through other
+ tests
+     GUINEXT+37   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+38   . D @%ut("LOC")
+     GUINEXT+39   . Q
+     GUINEXT+40   I $T(@("TEARDOWN^"_%utROUT))'="" D
+     GUINEXT+41   . S %ut("LOC")="TEARDOWN^"_%utROUT
+     GUINEXT+42   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+43   . D @("TEARDOWN^"_%utROUT)
+     GUINEXT+44   . Q
+     GUINEXT+45   S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_X
+TGUISEP_%utERR
+     GUINEXT+46   K ^TMP("%ut",$J,"UTVALS")
+     GUINEXT+47   Q
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUISET+1   N %utROU,%utLIST,%ut
+     GUISET+2   D SETUT
+     GUISET+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUISET+4   D GETSET(XTSET,.%utROU,.%utLIST)
+     GUISET+5   D GETLIST(.%utROU,%utLIST,%ut("RSLT"))
+     GUISET+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new 
+version
+     GUISET+7   S %utRSLT=%ut("RSLT")
+     GUISET+8   Q
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+   the following is a list of the lines **NOT** covered
+     LOAD+1   I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
+     LOAD+2   S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
+     LOAD+3   N %utI,XTX1,XTX2,LINE,LIST,I
+     LOAD+4   I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVAL
+UE@("STARTUP")="STARTUP^"_%utROUN
+     LOAD+5   I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTV
+ALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
+     LOAD+6   D NEWSTYLE^%ut1(.LIST,%utROUN)
+     LOAD+7   F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST
+(I)
+     LOAD+8   F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_U_XTX1_U_XTX2
+     LOAD+9   F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)=
+"" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
+     LOAD+10   Q
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     RUNSET+1   N Y,%utROU,%utLIST,%utVERB
+     RUNSET+2   Q:$G(SETNAME)=""
+     RUNSET+3   S %utVERB=$G(VERBOSE,0)
+     RUNSET+4   S Y=+$$FIND1^DIC(17.9001,"","X",SETNAME) Q:Y'>0
+     RUNSET+5   D GETSET(Y,.%utROU,.%utLIST)
+     RUNSET+6   N Y,SETNAME,%ut
+     RUNSET+7   D SETUT
+     RUNSET+8   D EN1(.%utROU,%utLIST)
+     RUNSET+9   Q
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Detailed Breakdown
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+   the following is a list of the lines **NOT** covered
+     CACHECOV+14   . . X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T
+(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; JLI see 160701 note in comment
+s at top
+     CACHECOV+15   . . Q
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+   the following is a list of the lines **NOT** covered
+     COV+35   . N NMSP S NMSP=$G(NMSPS)
+     COV+36   . D:NMSP]""  S NMSP="" F  S NMSP=$O(NMSPS(NMSP)) Q:NMSP=""  D
+     COV+37   . . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
+     COV+38   . . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
+     COV+39   . . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S R
+TNS(RTN)=""
+     COV+40   . . Q
+     COV+41   . Q
+     COV+52   . K ^TMP("%utCOVCOHORTSAV",$J)
+     COV+53   . M ^TMP("%utCOVCOHORTSAV",$J)=^TMP("%utCOVCOHORT",$J)
+     COV+54   . K ^TMP("%utCOVRESULT",$J)
+     COV+55   . S ^TMP("%utcovrunning",$J)=1,%utcovxx=1
+     COV+57   . I ($$GETSYS^%ut()=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J)
+)  ; GT.M START PROFILING
+     COV+60   . . N NMSP,NMSPV S NMSP="",NMSPV="" F  S NMSPV=$O(RTNS(NMSPV)) Q:N
+MSPV=""  S NMSP=NMSP_NMSPV_","
+     COV+61   . . S NMSP=$E(NMSP,1,$L(NMSP)-1)
+     COV+62   . . S STATUS=##class(%Monitor.System.LineByLine).Start($lb(NMSP),$
+lb("RtnLine"),$lb($j))
+     COV+63   . . I +STATUS'=1 D DecomposeStatus^%apiOBJ(STATUS,.ERR,"-d") F I=1
+:1:ERR W ERR(I),!
+     COV+64   . . I +STATUS'=1 K ERR S EXIT=1
+     COV+65   . . Q
+     COV+79   . I ($$GETSYS^%ut()=0) ; CACHE SPECIFIC
+     COV+80   . K %utcovxx,^TMP("%utcovrunning",$J)
+     COV+81   . Q
+     COV+84   . I ($$GETSYS^%ut()=0) D  ; CACHE SPECIFIC CODE
+     COV+85   . . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
+     COV+86   . . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
+     COV+87   . . D CACHECOV(COVERSAV,COVER)
+     COV+88   . . D TOTAGS(COVERSAV,0),TOTAGS(COVER,1)
+     COV+89   . . D ##class(%Monitor.System.LineByLine).Stop()
+     COV+90   . . Q
+     COV+91   . D COVCOV($NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J
+))) ; Venn diagram matching between globals
+     COV+93   . I VERBOSITY=-1 D
+     COV+94   . . K ^TMP("%utCOVREPORT",$J)
+     COV+95   . . D COVRPTGL^%utcover($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("
+%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+     COV+96   . . Q
+     COV+97   . E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHO
+RT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+     COV+98   . Q
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETVALS+2   N LINE,MORE,ROUNAME,RSET,VAL,X
+     GETVALS+4   S RSET=##class(%ResultSet).%New("%Monitor.System.LineByLine:Res
+ult")
+     GETVALS+5   S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(RO
+UNUM)
+     GETVALS+6   S LINE=RSET.Execute(ROUNAME)
+     GETVALS+7   F LINE=1:1 S MORE=RSET.Next() Q:'MORE  D
+     GETVALS+8   . S X=RSET.GetData(1)
+     GETVALS+9   . S VAL=$LI(X,MTRICNUM)
+     GETVALS+10   . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, 
+otherwises positive number
+     GETVALS+11   . Q
+     GETVALS+12   D RSET.Close()
+     GETVALS+13   Q
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Detailed Breakdown
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Summary
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Summary
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Summary
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut      (63.99%)   183 out of 286 lines covered
+Routine %ut1      (82.16%)   221 out of 269 lines covered
+Routine %utcover     (100.00%)   107 out of 107 lines covered
+
+
+Overall Analysis 511 out of 662 lines covered (77% coverage)
+xxxxxxxxxxxxxxxxxxxx LISTING DATA VIA LIST
+
+
+
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Detailed Breakdown
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+   the following is a list of the lines **NOT** covered
+     DOSET+4   N %utROU,%utLIST
+     DOSET+5   I '$dotd021117ltD(%utVERB) S %utVERB=0
+     DOSET+6   S %utLIST=0
+     DOSET+7   D GETSET($G(IEN),.%utROU,.%utLIST)
+     DOSET+8   I %utLIST>0  N IEN,%ut D SETUT,EN1(.%utROU,%utLIST)
+     DOSET+9   Q
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     ERROR+7   . S %ut("CNT")=%ut("CNT")+1
+     ERROR+8   . S %utERR=%utERR+1
+     ERROR+9   . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISE
+P_$S($$GETSYS()=47:$ZS,1:$ZE)
+     ERROR+10   . Q
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETLIST+1   N I,%utROUL,%utROUN,%ut,XTCOMNT,XTVALUE,%utCNT
+     GETLIST+2   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J)) K @XTVALUE
+     GETLIST+3   S %utCNT=0,XTCOMNT=""
+     GETLIST+4   D GETTREE^%ut1(.%utROU,%utLIST)
+     GETLIST+5   F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
+     GETLIST+6   S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D 
+LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
+     GETLIST+7   M @%utRSLT=@XTVALUE
+     GETLIST+8   K @%utRSLT@("SHUTDOWN")
+     GETLIST+9   K @%utRSLT@("STARTUP")
+     GETLIST+10   S @XTVALUE@("LASTROU")=""
+     GETLIST+11   Q
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+   the following is a list of the lines **NOT** covered
+     GETSET+1   N IENS,%utROOT
+     GETSET+3   S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
+     GETSET+4   S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=
+""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
+     GETSET+5   Q
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUILOAD+1   N %utROU,%ut
+     GUILOAD+2   D SETUT
+     GUILOAD+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUILOAD+4   S %utROU(1)=%utROUN
+     GUILOAD+5   D GETLIST(.%utROU,1,%ut("RSLT"))
+     GUILOAD+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1"
+     GUILOAD+7   S %utRSLT=%ut("RSLT")
+     GUILOAD+8   Q
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+   the following is a list of the lines **NOT** covered
+     GUINEXT+5   N %utETRY,%utROUT,XTOLROU,XTVALUE,%utERR,%utGUI
+     GUINEXT+6   N %ut
+     GUINEXT+7   I $G(XTGUISEP)="" S XTGUISEP="^"
+     GUINEXT+8   D SETUT
+     GUINEXT+9   S %ut("LOC")=%utLOC
+     GUINEXT+10   S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("
+NENT")=0,%ut("ERRN")=0
+     GUINEXT+11   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J))
+     GUINEXT+12   S %ut("RSLT")=$NA(^TMP("GUINEXT",$J)) K @%ut("RSLT")
+     GUINEXT+13   S %utRSLT=%ut("RSLT")
+     GUINEXT+14   S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVA
+LUE@("LASTROU"))
+     GUINEXT+15   S %utGUI=1
+     GUINEXT+16   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+17   D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to le
+ave XTVALUE intact, in case they simply run again for STARTUP, etc.
+     GUINEXT+18   . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
+     GUINEXT+19   . . S %ut("LOC")=@XTVALUE@("STARTUP")
+     GUINEXT+20   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+21   . . D @(@XTVALUE@("STARTUP"))
+     GUINEXT+22   . . Q
+     GUINEXT+23   . S @XTVALUE@("LASTROU")=%utROUT I %utROUT'="",$T(@("SETUP^"_%
+utROUT))'="" D
+     GUINEXT+24   . . S %ut("LOC")="SETUP^"_%utROUT
+     GUINEXT+25   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+26   . . D @("SETUP^"_%utROUT)
+     GUINEXT+27   . . Q
+     GUINEXT+28   . I %utROUT="",$D(@XTVALUE@("SHUTDOWN")) D
+     GUINEXT+29   . . S %ut("LOC")=@XTVALUE@("SHUTDOWN")
+     GUINEXT+30   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+31   . . D @(@XTVALUE@("SHUTDOWN"))
+     GUINEXT+32   . . Q
+     GUINEXT+33   . Q
+     GUINEXT+34   S %ut("LOC")=%utLOC
+     GUINEXT+35   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+36   D  ; to limit range of error trap so we continue through other
+ tests
+     GUINEXT+37   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+38   . D @%ut("LOC")
+     GUINEXT+39   . Q
+     GUINEXT+40   I $T(@("TEARDOWN^"_%utROUT))'="" D
+     GUINEXT+41   . S %ut("LOC")="TEARDOWN^"_%utROUT
+     GUINEXT+42   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+43   . D @("TEARDOWN^"_%utROUT)
+     GUINEXT+44   . Q
+     GUINEXT+45   S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_X
+TGUISEP_%utERR
+     GUINEXT+46   K ^TMP("%ut",$J,"UTVALS")
+     GUINEXT+47   Q
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUISET+1   N %utROU,%utLIST,%ut
+     GUISET+2   D SETUT
+     GUISET+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUISET+4   D GETSET(XTSET,.%utROU,.%utLIST)
+     GUISET+5   D GETLIST(.%utROU,%utLIST,%ut("RSLT"))
+     GUISET+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new 
+version
+     GUISET+7   S %utRSLT=%ut("RSLT")
+     GUISET+8   Q
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+   the following is a list of the lines **NOT** covered
+     LOAD+1   I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
+     LOAD+2   S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
+     LOAD+3   N %utI,XTX1,XTX2,LINE,LIST,I
+     LOAD+4   I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVAL
+UE@("STARTUP")="STARTUP^"_%utROUN
+     LOAD+5   I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTV
+ALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
+     LOAD+6   D NEWSTYLE^%ut1(.LIST,%utROUN)
+     LOAD+7   F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST
+(I)
+     LOAD+8   F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_U_XTX1_U_XTX2
+     LOAD+9   F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)=
+"" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
+     LOAD+10   Q
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     RUNSET+1   N Y,%utROU,%utLIST,%utVERB
+     RUNSET+2   Q:$G(SETNAME)=""
+     RUNSET+3   S %utVERB=$G(VERBOSE,0)
+     RUNSET+4   S Y=+$$FIND1^DIC(17.9001,"","X",SETNAME) Q:Y'>0
+     RUNSET+5   D GETSET(Y,.%utROU,.%utLIST)
+     RUNSET+6   N Y,SETNAME,%ut
+     RUNSET+7   D SETUT
+     RUNSET+8   D EN1(.%utROU,%utLIST)
+     RUNSET+9   Q
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Detailed Breakdown
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+   the following is a list of the lines **NOT** covered
+     CACHECOV+14   . . X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T
+(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; JLI see 160701 note in comment
+s at top
+     CACHECOV+15   . . Q
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+   the following is a list of the lines **NOT** covered
+     COV+35   . N NMSP S NMSP=$G(NMSPS)
+     COV+36   . D:NMSP]""  S NMSP="" F  S NMSP=$O(NMSPS(NMSP)) Q:NMSP=""  D
+     COV+37   . . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
+     COV+38   . . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
+     COV+39   . . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S R
+TNS(RTN)=""
+     COV+40   . . Q
+     COV+41   . Q
+     COV+52   . K ^TMP("%utCOVCOHORTSAV",$J)
+     COV+53   . M ^TMP("%utCOVCOHORTSAV",$J)=^TMP("%utCOVCOHORT",$J)
+     COV+54   . K ^TMP("%utCOVRESULT",$J)
+     COV+55   . S ^TMP("%utcovrunning",$J)=1,%utcovxx=1
+     COV+57   . I ($$GETSYS^%ut()=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J)
+)  ; GT.M START PROFILING
+     COV+60   . . N NMSP,NMSPV S NMSP="",NMSPV="" F  S NMSPV=$O(RTNS(NMSPV)) Q:N
+MSPV=""  S NMSP=NMSP_NMSPV_","
+     COV+61   . . S NMSP=$E(NMSP,1,$L(NMSP)-1)
+     COV+62   . . S STATUS=##class(%Monitor.System.LineByLine).Start($lb(NMSP),$
+lb("RtnLine"),$lb($j))
+     COV+63   . . I +STATUS'=1 D DecomposeStatus^%apiOBJ(STATUS,.ERR,"-d") F I=1
+:1:ERR W ERR(I),!
+     COV+64   . . I +STATUS'=1 K ERR S EXIT=1
+     COV+65   . . Q
+     COV+79   . I ($$GETSYS^%ut()=0) ; CACHE SPECIFIC
+     COV+80   . K %utcovxx,^TMP("%utcovrunning",$J)
+     COV+81   . Q
+     COV+84   . I ($$GETSYS^%ut()=0) D  ; CACHE SPECIFIC CODE
+     COV+85   . . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
+     COV+86   . . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
+     COV+87   . . D CACHECOV(COVERSAV,COVER)
+     COV+88   . . D TOTAGS(COVERSAV,0),TOTAGS(COVER,1)
+     COV+89   . . D ##class(%Monitor.System.LineByLine).Stop()
+     COV+90   . . Q
+     COV+91   . D COVCOV($NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J
+))) ; Venn diagram matching between globals
+     COV+93   . I VERBOSITY=-1 D
+     COV+94   . . K ^TMP("%utCOVREPORT",$J)
+     COV+95   . . D COVRPTGL^%utcover($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("
+%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+     COV+96   . . Q
+     COV+97   . E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHO
+RT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+     COV+98   . Q
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETVALS+2   N LINE,MORE,ROUNAME,RSET,VAL,X
+     GETVALS+4   S RSET=##class(%ResultSet).%New("%Monitor.System.LineByLine:Res
+ult")
+     GETVALS+5   S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(RO
+UNUM)
+     GETVALS+6   S LINE=RSET.Execute(ROUNAME)
+     GETVALS+7   F LINE=1:1 S MORE=RSET.Next() Q:'MORE  D
+     GETVALS+8   . S X=RSET.GetData(1)
+     GETVALS+9   . S VAL=$LI(X,MTRICNUM)
+     GETVALS+10   . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, 
+otherwises positive number
+     GETVALS+11   . Q
+     GETVALS+12   D RSET.Close()
+     GETVALS+13   Q
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Detailed Breakdown
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Summary
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Summary
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Summary
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut      (63.99%)   183 out of 286 lines covered
+Routine %ut1      (82.16%)   221 out of 269 lines covered
+Routine %utcover     (100.00%)   107 out of 107 lines covered
+
+
+Overall Analysis 511 out of 662 lines covered (77% coverage)
+xxxxxxxxxxxxxxxxxxxx Finished in ENTRY^%uttcovr
+
+
+
+
+------------------- RUNNING VERBOSE2^%utt6 -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+
+
+---------------------------------- %uttcovr ----------------------------------
+RTNANAL - - routine analysis...-----------------------------------  [OK] 10ms
+COVCOV - - check COVCOV - remove seen lines......------------------  [OK] 0ms
+COVRPT...........-------------------------------------------------  [OK] 20ms
+COVRPTLS - - coverage report returning text in global...........--  [OK] 20ms
+TRIMDATA - - TRIMDATA in %utcover..--------------------------------  [OK] 0ms
+LIST - - LIST in %utcover............------------------------------  [OK] 0ms
+CACHECOV - - set up routine for analysis in globals..-------------  [OK] 30ms
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............---------------------------------------------  [OK] 0ms
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........----------------------  [OK] 10ms
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+
+
+----------------------------------- %utt6 -----------------------------------
+SETROUS - - generate array with indices of routines to exclude...... [OK] 0ms
+CHKCMDLN - check command line processing of %utt5------------------  [OK] 0ms
+CHKGUI - check GUI processing of %utt5-----------------------------  [OK] 0ms
+CKGUISET - check list of tests returned by GUISET------------------  [OK] 0ms
+NEWSTYLE - test return of valid new style or @TEST indicators...--  [OK] 10ms
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING VERBOSE3^%utt6 -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+
+
+---------------------------------- %uttcovr ----------------------------------
+RTNANAL - - routine analysis...--------------------------------  [OK] 3.009ms
+COVCOV - - check COVCOV - remove seen lines......---------------  [OK] 1.89ms
+COVRPT...........---------------------------------------------  [OK] 15.144ms
+COVRPTLS - - coverage report returning text in global...........[OK] 12.998ms
+TRIMDATA - - TRIMDATA in %utcover..-----------------------------  [OK] .548ms
+LIST - - LIST in %utcover............--------------------------  [OK] 3.973ms
+CACHECOV - - set up routine for analysis in globals..---------  [OK] 32.095ms
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-----------------------------------------  [OK] 1.217ms
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........--------------------  [OK] 2.78ms
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+
+
+----------------------------------- %utt6 -----------------------------------
+SETROUS - - generate array with indices of routines to exclude......[OK] .592ms
+CHKCMDLN - check command line processing of %utt5---------------  [OK] .098ms
+CHKGUI - check GUI processing of %utt5--------------------------  [OK] .094ms
+CKGUISET - check list of tests returned by GUISET---------------  [OK] .097ms
+NEWSTYLE - test return of valid new style or @TEST indicators... [OK] 4.925ms
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING VERBOSE^%utt1(3) -------------------
+
+
+Running tests in VERBOSE mode with fractional millisecond timing
+
+
+----------------------------------- %utt1 -----------------------------------
+T1 - - Make sure Start-up Ran.----------------------------------  [OK] .218ms
+T2 - - Make sure Set-up runs.-----------------------------------  [OK] .233ms
+T3 - - Make sure Teardown runs.---------------------------------  [OK] .248ms
+T4 - Entry point using XTMENT.----------------------------------  [OK] .179ms
+T5 - Error count check
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.----------------------------------------------------------------  [FAIL] .45ms
+T6 - Succeed Entry Point...--------------------------------------  [OK] .26ms
+T7 - Make sure we write to principal even though we are on another device..[OK] 
+11.656ms
+T8 - If IO starts with another device, write to that device as if it's the prici
+pal device.----------------------------------------------------  [OK] 3.699ms
+COVRPTGL - coverage report returning global....----------------  [OK] 8.436ms
+
+----------------------------------- %utt2 -----------------------------------
+T11 - An @TEST Entry point in Another Routine invoked through XTROU offsets.[OK]
+ .219ms
+T12 - An XTENT offset entry point in Another Routine invoked through XTROU offse
+ts.-------------------------------------------------------------  [OK] .142ms
+
+----------------------------------- %utt4 -----------------------------------
+MAIN - - Test coverage calculations-----------------------------  [OK] .122ms
+
+----------------------------------- %utt5 -----------------------------------
+NEWSTYLE - identify new style test indicator functionality.-----  [OK] .176ms
+OLDSTYLE -  identify old style test indicator functionality..----  [OK] .36ms
+OLDSTYL1 -  identify old style test indicator 2.----------------  [OK] .205ms
+BADCHKEQ -  CHKEQ should fail on unequal value
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+----------------------------------------------------------------  [FAIL] .257ms
+BADCHKTF -  CHKTF should fail on false value
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+----------------------------------------------------------------  [FAIL] .187ms
+BADERROR -  throws an error on purpose
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+---------------------------------------------------------------  [FAIL] 6.834ms
+CALLFAIL -  called FAIL to test it
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+----------------------------------------------------------------  [FAIL] .248ms
+LEAKSOK - check leaks should be ok------------------------------  [OK] .684ms
+LEAKSBAD - check leaks with leak
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+----------------------------------------------------------------  [FAIL] .714ms
+NVLDARG1 - check invalid arg in CHKEQ
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+----------------------------------------------------------------  [FAIL] .178ms
+ISUTEST - check ISUTEST inside unit test.-----------------------  [OK] .511ms
+
+----------------------------------- %utt6 -----------------------------------
+SETROUS - - generate array with indices of routines to exclude......[OK] .586ms
+CHKCMDLN - check command line processing of %utt5---------------  [OK] .096ms
+CHKGUI - check GUI processing of %utt5--------------------------  [OK] .105ms
+CKGUISET - check list of tests returned by GUISET---------------  [OK] .126ms
+NEWSTYLE - test return of valid new style or @TEST indicators... [OK] 9.789ms
+
+---------------------------------- %uttcovr ----------------------------------
+RTNANAL - - routine analysis...--------------------------------  [OK] 3.721ms
+COVCOV - - check COVCOV - remove seen lines......--------------  [OK] 2.196ms
+COVRPT...........---------------------------------------------  [OK] 13.132ms
+COVRPTLS - - coverage report returning text in global...........[OK] 15.645ms
+TRIMDATA - - TRIMDATA in %utcover..-----------------------------  [OK] .553ms
+LIST - - LIST in %utcover............--------------------------  [OK] 3.638ms
+CACHECOV - - set up routine for analysis in globals..---------  [OK] 28.912ms
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-----------------------------------------  [OK] 1.178ms
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........--------------------  [OK] 2.64ms
+
+Ran 6 Routines, 37 Entry Tags
+Checked 109 tests, with 7 failures and encountered 1 error.
+
+------------------- RUNNING VERBOSE^%utt6 -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+
+
+---------------------------------- %uttcovr ----------------------------------
+RTNANAL - - routine analysis...----------------------------------------  [OK]
+COVCOV - - check COVCOV - remove seen lines......----------------------  [OK]
+COVRPT...........------------------------------------------------------  [OK]
+COVRPTLS - - coverage report returning text in global...........-------  [OK]
+TRIMDATA - - TRIMDATA in %utcover..------------------------------------  [OK]
+LIST - - LIST in %utcover............----------------------------------  [OK]
+CACHECOV - - set up routine for analysis in globals..------------------  [OK]
+LINEDATA - - convert code line to based on tags and offset, and identify active 
+code lines............-------------------------------------------------  [OK]
+TOTAGS - - convert from lines of code by line number to lines ordered by tag, li
+ne from tag, and only not covered...........---------------------------  [OK]
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+
+
+----------------------------------- %utt6 -----------------------------------
+SETROUS - - generate array with indices of routines to exclude......---  [OK]
+CHKCMDLN - check command line processing of %utt5----------------------  [OK]
+CHKGUI - check GUI processing of %utt5---------------------------------  [OK]
+CKGUISET - check list of tests returned by GUISET----------------------  [OK]
+NEWSTYLE - test return of valid new style or @TEST indicators...-------  [OK]
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%ut -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%ut1 -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utcover -------------------
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+------------------- RUNNING ^%utt1 -------------------
+
+Running tests in NON-VERBOSE mode
+For Verbose mode use DO VERBOSE^%utt1(ARG) where ARG is an integer 1 to 3
+ENTER RETURN TO CONTINUE: ....
+T5^%utt1 - Error count check - This is an intentional failure.
+.
+T5^%utt1 - Error count check - Intentionally throwing a failure
+.................
+BADCHKEQ^%utt5 -  CHKEQ should fail on unequal value - <4> vs <3> - SET UNEQUAL 
+ON PURPOSE - SHOULD FAIL
+
+BADCHKTF^%utt5 -  CHKTF should fail on false value - SET FALSE (0) ON PURPOSE - 
+SHOULD FAIL
+
+BADERROR^%utt5 -  throws an error on purpose - Error: 150372778,BADERROR+6^%utt5
+,%GTM-E-EXPR, Expression expected but not found
+
+CALLFAIL^%utt5 -  called FAIL to test it - Called FAIL to test it
+
+LEAKSBAD^%utt5 - check leaks with leak - LEAKSBAD TEST - X NOT SPECIFIED VARIABL
+E LEAK: X
+
+NVLDARG1^%utt5 - check invalid arg in CHKEQ - NO VALUES INPUT TO CHKEQ^%ut - no 
+evaluation possible
+................................................................................
+
+Ran 6 Routines, 37 Entry Tags
+Checked 109 tests, with 7 failures and encountered 1 error.
+
+------------------- RUNNING ^%utt6 -------------------
+
+
+NOW RUNNING UNIT TESTS FOR %uttcovr
+
+......................................................................
+
+Ran 1 Routine, 9 Entry Tags
+Checked 70 tests, with 0 failures and encountered 0 errors.
+
+NOW RUNNING UNIT TESTS FOR %utt6
+
+.........
+
+Ran 1 Routine, 5 Entry Tags
+Checked 9 tests, with 0 failures and encountered 0 errors.
+
+
+------------ SUMMARY ------------
+Ran 20 Routines, 122 Entry Tags
+Checked 412 tests, with 14 failures and encountered 2 errors.
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Detailed Breakdown
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+   the following is a list of the lines **NOT** covered
+     DOSET+4   N %utROU,%utLIST
+     DOSET+5   I '$D(%utVERB) S %utVERB=0
+     DOSET+6   S %utLIST=0
+     DOSET+7   D GETSET($G(IEN),.%utROU,.%utLIST)
+     DOSET+8   I %utLIST>0  N IEN,%ut D SETUT,EN1(.%utROU,%utLIST)
+     DOSET+9   Q
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     ERROR+7   . S %ut("CNT")=%ut("CNT")+1
+     ERROR+8   . S %utERR=%utERR+1
+     ERROR+9   . S @%ut("RSLT")@(%ut("CNT"))=%ut("LOC")_XTGUISEP_"ERROR"_XTGUISE
+P_$S($$GETSYS()=47:$ZS,1:$ZE)
+     ERROR+10   . Q
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETLIST+1   N I,%utROUL,%utROUN,%ut,XTCOMNT,XTVALUE,%utCNT
+     GETLIST+2   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J)) K @XTVALUE
+     GETLIST+3   S %utCNT=0,XTCOMNT=""
+     GETLIST+4   D GETTREE^%ut1(.%utROU,%utLIST)
+     GETLIST+5   F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
+     GETLIST+6   S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D 
+LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
+     GETLIST+7   M @%utRSLT=@XTVALUE
+     GETLIST+8   K @%utRSLT@("SHUTDOWN")
+     GETLIST+9   K @%utRSLT@("STARTUP")
+     GETLIST+10   S @XTVALUE@("LASTROU")=""
+     GETLIST+11   Q
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+   the following is a list of the lines **NOT** covered
+     GETSET+1   N IENS,%utROOT
+     GETSET+3   S IENS=IEN_"," D GETS^DIQ(17.9001,IENS,"1*","","%utROOT")
+     GETSET+4   S %utLIST=0,IENS="" F  S IENS=$O(%utROOT(17.90011,IENS)) Q:IENS=
+""  S %utLIST=%utLIST+1,%utROU(%utLIST)=%utROOT(17.90011,IENS,.01)
+     GETSET+5   Q
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUILOAD+1   N %utROU,%ut
+     GUILOAD+2   D SETUT
+     GUILOAD+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUILOAD+4   S %utROU(1)=%utROUN
+     GUILOAD+5   D GETLIST(.%utROU,1,%ut("RSLT"))
+     GUILOAD+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1"
+     GUILOAD+7   S %utRSLT=%ut("RSLT")
+     GUILOAD+8   Q
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+   the following is a list of the lines **NOT** covered
+     GUINEXT+5   N %utETRY,%utROUT,XTOLROU,XTVALUE,%utERR,%utGUI
+     GUINEXT+6   N %ut
+     GUINEXT+7   I $G(XTGUISEP)="" S XTGUISEP="^"
+     GUINEXT+8   D SETUT
+     GUINEXT+9   S %ut("LOC")=%utLOC
+     GUINEXT+10   S %ut("CURR")=0,%ut("ECNT")=0,%ut("FAIL")=0,%ut("CHK")=0,%ut("
+NENT")=0,%ut("ERRN")=0
+     GUINEXT+11   S XTVALUE=$NA(^TMP("GUI-MUNIT",$J))
+     GUINEXT+12   S %ut("RSLT")=$NA(^TMP("GUINEXT",$J)) K @%ut("RSLT")
+     GUINEXT+13   S %utRSLT=%ut("RSLT")
+     GUINEXT+14   S %utETRY=$P(%utLOC,U),%utROUT=$P(%utLOC,U,2),XTOLROU=$G(@XTVA
+LUE@("LASTROU"))
+     GUINEXT+15   S %utGUI=1
+     GUINEXT+16   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+17   D  I %utROUT="" S @%utRSLT@(1)="" Q  ; 141018 JLI - Have to le
+ave XTVALUE intact, in case they simply run again for STARTUP, etc.
+     GUINEXT+18   . I XTOLROU="",$D(@XTVALUE@("STARTUP")) D
+     GUINEXT+19   . . S %ut("LOC")=@XTVALUE@("STARTUP")
+     GUINEXT+20   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+21   . . D @(@XTVALUE@("STARTUP"))
+     GUINEXT+22   . . Q
+     GUINEXT+23   . S @XTVALUE@("LASTROU")=%utROUT I %utROUT'="",$T(@("SETUP^"_%
+utROUT))'="" D
+     GUINEXT+24   . . S %ut("LOC")="SETUP^"_%utROUT
+     GUINEXT+25   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+26   . . D @("SETUP^"_%utROUT)
+     GUINEXT+27   . . Q
+     GUINEXT+28   . I %utROUT="",$D(@XTVALUE@("SHUTDOWN")) D
+     GUINEXT+29   . . S %ut("LOC")=@XTVALUE@("SHUTDOWN")
+     GUINEXT+30   . . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+31   . . D @(@XTVALUE@("SHUTDOWN"))
+     GUINEXT+32   . . Q
+     GUINEXT+33   . Q
+     GUINEXT+34   S %ut("LOC")=%utLOC
+     GUINEXT+35   S %ut("CHK")=0,%ut("CNT")=1,%utERR=0
+     GUINEXT+36   D  ; to limit range of error trap so we continue through other
+ tests
+     GUINEXT+37   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+38   . D @%ut("LOC")
+     GUINEXT+39   . Q
+     GUINEXT+40   I $T(@("TEARDOWN^"_%utROUT))'="" D
+     GUINEXT+41   . S %ut("LOC")="TEARDOWN^"_%utROUT
+     GUINEXT+42   . N $ETRAP S $ETRAP="D ERROR^%ut"
+     GUINEXT+43   . D @("TEARDOWN^"_%utROUT)
+     GUINEXT+44   . Q
+     GUINEXT+45   S @%ut("RSLT")@(1)=%ut("CHK")_XTGUISEP_(%ut("CNT")-1-%utERR)_X
+TGUISEP_%utERR
+     GUINEXT+46   K ^TMP("%ut",$J,"UTVALS")
+     GUINEXT+47   Q
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+   the following is a list of the lines **NOT** covered
+     GUISET+1   N %utROU,%utLIST,%ut
+     GUISET+2   D SETUT
+     GUISET+3   S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
+     GUISET+4   D GETSET(XTSET,.%utROU,.%utLIST)
+     GUISET+5   D GETLIST(.%utROU,%utLIST,%ut("RSLT"))
+     GUISET+6   S @%ut("RSLT")@(1)=(@%ut("RSLT")@(1))_"^1" ; 110719 mark as new 
+version
+     GUISET+7   S %utRSLT=%ut("RSLT")
+     GUISET+8   Q
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+   the following is a list of the lines **NOT** covered
+     LOAD+1   I $T(@("^"_%utROUN))="" S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_"^^*** ERROR - ROUTINE NAME NOT FOUND" Q
+     LOAD+2   S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_U_XTCOMNT
+     LOAD+3   N %utI,XTX1,XTX2,LINE,LIST,I
+     LOAD+4   I $T(@("STARTUP^"_%utROUN))'="",'$D(@XTVALUE@("STARTUP")) S @XTVAL
+UE@("STARTUP")="STARTUP^"_%utROUN
+     LOAD+5   I $T(@("SHUTDOWN^"_%utROUN))'="",'$D(@XTVALUE@("SHUTDOWN")) S @XTV
+ALUE@("SHUTDOWN")="SHUTDOWN^"_%utROUN
+     LOAD+6   D NEWSTYLE^%ut1(.LIST,%utROUN)
+     LOAD+7   F I=1:1:LIST S %utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%utROUN_U_LIST
+(I)
+     LOAD+8   F %utI=1:1 S LINE=$T(@("XTENT+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTX2=$P(LINE,";",4),%utNCNT=%utNCNT+1,@XTVALUE@(%utNCNT)=%ut
+ROUN_U_XTX1_U_XTX2
+     LOAD+9   F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,
+";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)=
+"" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
+     LOAD+10   Q
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+   the following is a list of the lines **NOT** covered
+     RUNSET+1   N Y,%utROU,%utLIST,%utVERB
+     RUNSET+2   Q:$G(SETNAME)=""
+     RUNSET+3   S %utVERB=$G(VERBOSE,0)
+     RUNSET+4   S Y=+$$FIND1^DIC(17.9001,"","X",SETNAME) Q:Y'>0
+     RUNSET+5   D GETSET(Y,.%utROU,.%utLIST)
+     RUNSET+6   N Y,SETNAME,%ut
+     RUNSET+7   D SETUT
+     RUNSET+8   D EN1(.%utROU,%utLIST)
+     RUNSET+9   Q
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Detailed Breakdown
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+   the following is a list of the lines **NOT** covered
+     CACHECOV+14   . . X "N %,%N S %N=0 X ""ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T
+(+%N) Q:$L(%)=0  S @(DIF_XCNP_"""",0)"""")=%""" ; JLI see 160701 note in comment
+s at top
+     CACHECOV+15   . . Q
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+   the following is a list of the lines **NOT** covered
+     COV+35   . N NMSP S NMSP=$G(NMSPS)
+     COV+36   . D:NMSP]""  S NMSP="" F  S NMSP=$O(NMSPS(NMSP)) Q:NMSP=""  D
+     COV+37   . . S NMSP1=NMSP I NMSP["*" S NMSP1=$P(NMSP,"*")
+     COV+38   . . I $D(^$R(NMSP1)) S RTNS(NMSP1)=""
+     COV+39   . . I NMSP["*" S RTN=NMSP1 F  S RTN=$O(^$R(RTN)) Q:RTN'[NMSP1  S R
+TNS(RTN)=""
+     COV+40   . . Q
+     COV+41   . Q
+     COV+52   . K ^TMP("%utCOVCOHORTSAV",$J)
+     COV+53   . M ^TMP("%utCOVCOHORTSAV",$J)=^TMP("%utCOVCOHORT",$J)
+     COV+54   . K ^TMP("%utCOVRESULT",$J)
+     COV+55   . S ^TMP("%utcovrunning",$J)=1,%utcovxx=1
+     COV+57   . I ($$GETSYS^%ut()=47) VIEW "TRACE":1:$NA(^TMP("%utCOVRESULT",$J)
+)  ; GT.M START PROFILING
+     COV+60   . . N NMSP,NMSPV S NMSP="",NMSPV="" F  S NMSPV=$O(RTNS(NMSPV)) Q:N
+MSPV=""  S NMSP=NMSP_NMSPV_","
+     COV+61   . . S NMSP=$E(NMSP,1,$L(NMSP)-1)
+     COV+62   . . S STATUS=##class(%Monitor.System.LineByLine).Start($lb(NMSP),$
+lb("RtnLine"),$lb($j))
+     COV+63   . . I +STATUS'=1 D DecomposeStatus^%apiOBJ(STATUS,.ERR,"-d") F I=1
+:1:ERR W ERR(I),!
+     COV+64   . . I +STATUS'=1 K ERR S EXIT=1
+     COV+65   . . Q
+     COV+79   . I ($$GETSYS^%ut()=0) ; CACHE SPECIFIC
+     COV+80   . K %utcovxx,^TMP("%utcovrunning",$J)
+     COV+81   . Q
+     COV+84   . I ($$GETSYS^%ut()=0) D  ; CACHE SPECIFIC CODE
+     COV+85   . . S COVERSAV=$NA(^TMP("%utCOVCOHORTSAV",$J)) K @COVERSAV
+     COV+86   . . S COVER=$NA(^TMP("%utCOVCOHORT",$J)) K @COVER
+     COV+87   . . D CACHECOV(COVERSAV,COVER)
+     COV+88   . . D TOTAGS(COVERSAV,0),TOTAGS(COVER,1)
+     COV+89   . . D ##class(%Monitor.System.LineByLine).Stop()
+     COV+90   . . Q
+     COV+91   . D COVCOV($NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J
+))) ; Venn diagram matching between globals
+     COV+93   . I VERBOSITY=-1 D
+     COV+94   . . K ^TMP("%utCOVREPORT",$J)
+     COV+95   . . D COVRPTGL^%utcover($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("
+%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+     COV+96   . . Q
+     COV+97   . E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHO
+RT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+     COV+98   . Q
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+   the following is a list of the lines **NOT** covered
+     GETVALS+2   N LINE,MORE,ROUNAME,RSET,VAL,X
+     GETVALS+4   S RSET=##class(%ResultSet).%New("%Monitor.System.LineByLine:Res
+ult")
+     GETVALS+5   S ROUNAME=##class(%Monitor.System.LineByLine).GetRoutineName(RO
+UNUM)
+     GETVALS+6   S LINE=RSET.Execute(ROUNAME)
+     GETVALS+7   F LINE=1:1 S MORE=RSET.Next() Q:'MORE  D
+     GETVALS+8   . S X=RSET.GetData(1)
+     GETVALS+9   . S VAL=$LI(X,MTRICNUM)
+     GETVALS+10   . S @GLOB@(ROUNAME,LINE,"C")=+VAL ; values are 0 if not seen, 
+otherwises positive number
+     GETVALS+11   . Q
+     GETVALS+12   D RSET.Close()
+     GETVALS+13   Q
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Detailed Breakdown
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut             (63.99%)   183 out of 286 lines covered
+  - Summary
+ Tag %ut^%ut              (100.00%)   2 out of 2 lines covered
+ Tag CHKEQ^%ut            (100.00%)   18 out of 18 lines covered
+ Tag CHKLEAKS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag CHKTF^%ut            (100.00%)   15 out of 15 lines covered
+ Tag COV^%ut              (100.00%)   2 out of 2 lines covered
+ Tag COVERAGE^%ut         (100.00%)   2 out of 2 lines covered
+ Tag DOSET^%ut              (0.00%)   0 out of 6 lines covered
+ Tag EN^%ut               (100.00%)   6 out of 6 lines covered
+ Tag EN1^%ut              (100.00%)   65 out of 65 lines covered
+ Tag ERROR^%ut             (55.56%)   5 out of 9 lines covered
+ Tag ERROR1^%ut           (100.00%)   9 out of 9 lines covered
+ Tag FAIL^%ut             (100.00%)   2 out of 2 lines covered
+ Tag GETLIST^%ut            (0.00%)   0 out of 11 lines covered
+ Tag GETSET^%ut             (0.00%)   0 out of 4 lines covered
+ Tag GETSYS^%ut           (100.00%)   3 out of 3 lines covered
+ Tag GETUTVAL^%ut         (100.00%)   5 out of 5 lines covered
+ Tag GTMVER^%ut           (100.00%)   1 out of 1 lines covered
+ Tag GUILOAD^%ut            (0.00%)   0 out of 8 lines covered
+ Tag GUINEXT^%ut            (0.00%)   0 out of 43 lines covered
+ Tag GUISET^%ut             (0.00%)   0 out of 8 lines covered
+ Tag ISUTEST^%ut          (100.00%)   1 out of 1 lines covered
+ Tag LOAD^%ut               (0.00%)   0 out of 10 lines covered
+ Tag LSTUTVAL^%ut         (100.00%)   4 out of 4 lines covered
+ Tag MULTAPIS^%ut         (100.00%)   2 out of 2 lines covered
+ Tag PICKSET^%ut          (100.00%)   3 out of 3 lines covered
+ Tag RUNSET^%ut             (0.00%)   0 out of 9 lines covered
+ Tag SETUT^%ut            (100.00%)   6 out of 6 lines covered
+ Tag SUCCEED^%ut          (100.00%)   6 out of 6 lines covered
+ Tag VERBOSE^%ut          (100.00%)   10 out of 10 lines covered
+ Tag VERBOSE1^%ut         (100.00%)   4 out of 4 lines covered
+ Tag ZHDIF^%ut            (100.00%)   10 out of 10 lines covered
+
+
+Routine %ut1            (82.16%)   221 out of 269 lines covered
+  - Summary
+ Tag %ut1^%ut1            (100.00%)   2 out of 2 lines covered
+ Tag ACTLINES^%ut1        (100.00%)   8 out of 8 lines covered
+ Tag CACHECOV^%ut1         (88.24%)   15 out of 17 lines covered
+ Tag CHECKTAG^%ut1        (100.00%)   10 out of 10 lines covered
+ Tag CHEKTEST^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag COV^%ut1              (51.39%)   37 out of 72 lines covered
+ Tag COVCOV^%ut1          (100.00%)   9 out of 9 lines covered
+ Tag COVRPT^%ut1          (100.00%)   5 out of 5 lines covered
+ Tag COVRPTLS^%ut1        (100.00%)   31 out of 31 lines covered
+ Tag FAIL^%ut1            (100.00%)   12 out of 12 lines covered
+ Tag GETTAG^%ut1          (100.00%)   4 out of 4 lines covered
+ Tag GETTREE^%ut1         (100.00%)   7 out of 7 lines covered
+ Tag GETVALS^%ut1           (0.00%)   0 out of 11 lines covered
+ Tag ISUTEST^%ut1         (100.00%)   1 out of 1 lines covered
+ Tag LINEDATA^%ut1        (100.00%)   9 out of 9 lines covered
+ Tag NEWSTYLE^%ut1        (100.00%)   4 out of 4 lines covered
+ Tag NVLDARG^%ut1         (100.00%)   11 out of 11 lines covered
+ Tag RESETIO^%ut1         (100.00%)   2 out of 2 lines covered
+ Tag RTNANAL^%ut1         (100.00%)   29 out of 29 lines covered
+ Tag SETIO^%ut1           (100.00%)   2 out of 2 lines covered
+ Tag TOTAGS^%ut1          (100.00%)   13 out of 13 lines covered
+ Tag UP^%ut1              (100.00%)   1 out of 1 lines covered
+
+
+Routine %utcover       (100.00%)   107 out of 107 lines covered
+  - Summary
+ Tag %utcover^%utcover    (100.00%)   2 out of 2 lines covered
+ Tag CHKLEAKS^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVENTRY^%utcover    (100.00%)   15 out of 15 lines covered
+ Tag COVERAGE^%utcover    (100.00%)   13 out of 13 lines covered
+ Tag COVRPTGL^%utcover    (100.00%)   14 out of 14 lines covered
+ Tag LIST^%utcover        (100.00%)   38 out of 38 lines covered
+ Tag MULTAPIS^%utcover    (100.00%)   5 out of 5 lines covered
+ Tag SETROUS^%utcover     (100.00%)   4 out of 4 lines covered
+ Tag TRIMDATA^%utcover    (100.00%)   3 out of 3 lines covered
+
+
+Routine %ut      (63.99%)   183 out of 286 lines covered
+Routine %ut1      (82.16%)   221 out of 269 lines covered
+Routine %utcover     (100.00%)   107 out of 107 lines covered
+
+
+Overall Analysis 511 out of 662 lines covered (77% coverage)
+GTM>
