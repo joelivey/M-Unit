@@ -9,8 +9,8 @@
 	;
 	; Dear Users,
 	;
-	; I know about about the irony of a test suite for the testing suite,
-	; so stop snikering. Aside from that, it's actually going to be hard.
+	; I know about the irony of a test suite for the testing suite,
+	; so stop snickering. Aside from that, it's actually going to be hard.
 	;
 	; Truly yours,
 	;
@@ -53,7 +53,7 @@ TEARDOWN	; This runs after every test
 	;
 	;
 	;
-T1	; @TEST - Make sure Start-up Ran
+T1	; @TEST - Make sure Start-up runs
 	D CHKTF($D(^TMP($J,"%ut","STARTUP")),"Start-up node on ^TMP must exist")
 	QUIT
 	;
@@ -81,7 +81,7 @@ T5	; ditto
 	D CHKEQ(%ut("FAIL"),1,"By this point, we should have failed one test")
 	D FAIL^%ut("Intentionally throwing a failure")
 	D CHKEQ(%ut("FAIL"),2,"By this point, we should have failed two tests")
-	; S %ut("FAIL")=0 ; Okay... Boy's and Girls... as the developer I can do that.
+	; S %ut("FAIL")=0 ; Okay... Boys and Girls... as the developer I can do that.
 	QUIT
 	;
 T6	; ditto
