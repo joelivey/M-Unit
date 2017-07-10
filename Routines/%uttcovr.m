@@ -1,6 +1,6 @@
-%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;02/01/17  11:03
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%uttcovr	;JIVEYSOFT/JLI - runs coverage tests on %ut and %ut1 routines via unit tests ;06/16/17  15:37
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	; Modified by Joel L. Ivey 02/2016-03/2016
 	;
@@ -9,10 +9,10 @@
 	N RUNCODE,XCLUDE
 	;
 	; Have it run the following entry points or, if no ^, call EN^%ut with routine name
-	S RUNCODE(1)="^%utt1,^%utt1,VERBOSE^%utt1(3),^%utt6,VERBOSE^%utt6,VERBOSE3^%utt6,VERBOSE2^%utt6,%uttcovr,^%ut,^%ut1,^%utcover"
+	S RUNCODE(1)="^%utt1,%utt1,VERBOSE^%utt1(3),^%utt6,VERBOSE^%utt6,VERBOSE3^%utt6,VERBOSE2^%utt6,%uttcovr,^%ut,^%ut1,^%utcover,^%utt7,VERBOSE^%utt7"
 	S RUNCODE("ENTRY^%uttcovr")=""
 	; Have the analysis EXCLUDE the following routines from coverage - unit test routines
-	S XCLUDE(1)="%utt1,%utt2,%utt3,%utt4,%utt5,%utt6,%uttcovr"
+	S XCLUDE(1)="%utt1,%utt2,%utt3,%utt4,%utt5,%utt6,%uttcovr,%utt7"
 	S XCLUDE(2)="%utf2hex" ; a GT.M system file, although it wasn't showing up anyway
 	M ^TMP("%uttcovr",$J,"XCLUDE")=XCLUDE
 	D COVERAGE^%ut("%ut*",.RUNCODE,.XCLUDE,3)

@@ -1,6 +1,6 @@
-%utt6	;JLI - Unit tests for MUnit functionality ;02/01/17  09:44
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt6	;JLI - Unit tests for MUnit functionality ;04/26/17  16:26
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-12/2015
 	;
 	;
@@ -42,6 +42,8 @@ VERBOSE	;
 	Q
 	;
 CMNDLINE	;
+	N %utt6
+	I '$D(VERBOSE) N VERBOSE S VERBOSE=1
 	W !!,"RUNNING COMMAND LINE TESTS VIA DOSET^%ut",!
 	D DOSET^%ut(1,VERBOSE) ; run `1 in M-UNIT TEST GROUP file
 	;
@@ -99,7 +101,7 @@ NEWSTYLE	; tests return of valid new style or @TEST indicators
 	N LIST
 	D NEWSTYLE^%ut1(.LIST,"%utt5")
 	D CHKEQ^%ut(LIST,1,"Returned an incorrect number ("_LIST_") of New Style indicators - should be one")
-	I LIST>0 D CHKEQ^%ut(LIST(1),"NEWSTYLE^identify new style test indicator functionality","Returned incorrect TAG^reason "_LIST(1))
+	I LIST>0 D CHKEQ^%ut(LIST(1),"@^NEWSTYLE^identify new style test indicator functionality","Returned incorrect TAG^reason "_LIST(1))
 	I LIST>0 D CHKEQ^%ut($G(LIST(2)),"","Returned a value for LIST(2) - should not have any value (i.e., null)")
 	; the following is basically just for coverage
 	D PICKSET^%ut

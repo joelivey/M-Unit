@@ -1,9 +1,9 @@
-%utPOST	;VEN-SMH/JLI - post install for M-Unit Test software ;04/08/16  20:51
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utPOST	;VEN-SMH/JLI - post install for M-Unit Test software ;07/04/17  12:50
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Sam H. Habiel 07/2013-04/2014
 	; Additions and modifications made by Joel L. Ivey 05/2014-08/2015
-	; Additions and Modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-04/2016
+	; Additions and Modifications made by Sam H. Habiel and Joel L. Ivey 02/2016-05/2017
 	;
 	N X,I
 	D RENAME
@@ -12,8 +12,8 @@
 RENAME	;
 	N %S,%D ; Source, destination
 	S U="^"
-	S %S="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^uttcovr"
-	S %D="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%uttcovr"
+	S %S="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^utt7^uttcovr"
+	S %D="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%utt7^%uttcovr"
 	;
 MOVE	; rename % routines
 	N %,X,Y,M
@@ -30,9 +30,10 @@ MOVE	; rename % routines
 	QUIT  ; END
 	;
 COPY(FROM,TO)	;
-	N XVAL
-	I +$SYSTEM=0 S XVAL="ZL @FROM ZS @TO" X XVAL QUIT
-	I +$SYSTEM=47 DO  QUIT
+	N XVAL,SYSTEM
+	S SYSTEM=$S($P($SY,",",2)'="":+$SY,1:0) ; protect against Windows with system names beginning with digits in Cache
+	I SYSTEM=0 S XVAL="ZL @FROM ZS @TO" X XVAL QUIT
+	I SYSTEM=47 DO  QUIT
 	. S FROM=$$PATH(FROM)
 	. S TO=$$PATH(TO,"WRITE")
 	. N CMD S CMD="cp "_FROM_" "_TO
@@ -119,8 +120,8 @@ TEST	; @TEST - TESTING TESTING
 PREKIDS	; Ready for KIDS - Move % routines to non-percent version
 	N %S,%D ; Source, destination
 	S U="^"
-	S %D="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^uttcovr"
-	S %S="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%uttcovr"
+	S %D="ut^ut1^utcover^utt1^utt2^utt3^utt4^utt5^utt6^utt7^uttcovr"
+	S %S="%ut^%ut1^%utcover^%utt1^%utt2^%utt3^%utt4^%utt5^%utt6^%utt7^%uttcovr"
 	D MOVE
 	QUIT
 	;

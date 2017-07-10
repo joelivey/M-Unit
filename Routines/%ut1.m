@@ -1,6 +1,6 @@
-%ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;02/11/17  09:37
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%ut1	;VEN/SMH/JLI - CONTINUATION OF M-UNIT PROCESSING ;04/26/17  21:10
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey as XTMUNIT1 while working for U.S. Department of Veterans Affairs 2003-2012
 	; Includes addition of original COV entry and code related coverage analysis as well as other substantial additions authored by Sam Habiel 07/2013?04/2014
 	; Original by Dr. Joel Ivey
@@ -19,10 +19,11 @@
 	;XTMUNIT1    ;JLI/FO-OAK-CONTINUATION OF UNIT TEST ROUTINE ;2014-04-17  5:26 PM
 	;;7.3;TOOLKIT;**81**;APR 25 1995;Build 24
 	;
-CHEKTEST(%utROU,%ut,%utUETRY)	; Collect Test list.
+CHEKTEST(%utROU,%ut,%utUETRY,FLAG)	; Collect Test list.
 	; %utROU - input - Name of routine to check for tags with @TEST attribute
 	; %ut - input/output - passed by reference
 	; %utUETRY - input/output - passed by reference
+	; FLAG - optional - if present and true, select only !TEST entries to run
 	;
 	; Test list collected in two ways:
 	; - @TEST on labellines
@@ -32,13 +33,21 @@ CHEKTEST(%utROU,%ut,%utUETRY)	; Collect Test list.
 	;
 	; This stanza and everything below is for collecting @TEST.
 	N I,LIST
+	S FLAG=$G(FLAG,0)
 	S I=$L($T(@(U_%utROU))) I I<0 Q "-1^Invalid Routine Name"
 	D NEWSTYLE(.LIST,%utROU)
-	F I=1:1:LIST S %ut("ENTN")=%ut("ENTN")+1,%utUETRY(%ut("ENTN"))=$P(LIST(I),U),%utUETRY(%ut("ENTN"),"NAME")=$P(LIST(I),U,2,99)
+	I FLAG D
+	. F I=1:1:LIST Q:'$D(LIST(I))  Q:LIST'>0  I $P(LIST(I),U)'="!" S LIST=LIST-1,I=I-1 F J=I+1:1:LIST S LIST(J)=LIST(J+1) I J=LIST K LIST(J+1)
+	. F I=LIST+1:1 Q:'$D(LIST(I))  K LIST(I)
+	. Q
+	F I=1:1:LIST S %ut("ENTN")=%ut("ENTN")+1,%utUETRY(%ut("ENTN"))=$P(LIST(I),U,2),%utUETRY(%ut("ENTN"),"NAME")=$P(LIST(I),U,3,99)
 	;
+	I FLAG Q  ; don't check if only !TEST entries are selected
 	; This Stanza is to collect XTENT offsets
 	N %utUI F %utUI=1:1 S %ut("ELIN")=$T(@("XTENT+"_%utUI_"^"_%utROU)) Q:$P(%ut("ELIN"),";",3)=""  D
-	. S %ut("ENTN")=%ut("ENTN")+1,%utUETRY(%ut("ENTN"))=$P(%ut("ELIN"),";",3),%utUETRY(%ut("ENTN"),"NAME")=$P(%ut("ELIN"),";",4)
+	. N TAGNAME,FOUND S FOUND=0,TAGNAME=$P(%ut("ELIN"),";",3)
+	. F I=1:1:%ut("ENTN") I %utUETRY(I)=TAGNAME S FOUND=1 Q  ; skip if already under NEW STYLE as well
+	. I 'FOUND S %ut("ENTN")=%ut("ENTN")+1,%utUETRY(%ut("ENTN"))=$P(%ut("ELIN"),";",3),%utUETRY(%ut("ENTN"),"NAME")=$P(%ut("ELIN"),";",4)
 	. Q
 	;
 	QUIT
@@ -66,14 +75,21 @@ NEWSTYLE(LIST,ROUNAME)	; JLI 140726 identify and return list of newstyle tags or
 	F I=1:1 S LINE=$T(@("+"_I_"^"_ROUNAME)) Q:LINE=""  S VALUE=$$CHECKTAG(LINE) I VALUE'="" S LIST=LIST+1,LIST(LIST)=VALUE
 	Q
 	;
-CHECKTAG(LINE)	; JLI 140726 check line to determine @test TAG
+CHECKTAG(LINE)	; JLI 170426 modified to add !TEST to checks check line to determine @test TAG
 	; LINE - input - Line of code to be checked
-	; returns null line if not @TEST line, otherwise TAG^NOTE
+	; returns null line if not @TEST line or !TEST line, otherwise TAG^NOTE
+	N TAG
+	S TAG=$$CHKTAGS(LINE,"@TEST") I TAG'="" Q "@"_U_TAG
+	S TAG=$$CHKTAGS(LINE,"!TEST")
+	I TAG'="" S TAG="!"_U_TAG
+	Q TAG
+	;
+CHKTAGS(LINE,TEST)	; check input LINE for TAG line, containing TEST as first test after comment
 	N TAG,NOTE,CHAR
 	I $E(LINE)=" " Q "" ; test entry must have a tag
-	I $$UP(LINE)'["@TEST" Q "" ; must have @TEST declaration
-	I $P($$UP(LINE),"@TEST")["(" Q "" ; can't have an argument
-	S TAG=$P(LINE," "),LINE=$P(LINE," ",2,400),NOTE=$P($$UP(LINE),"@TEST"),LINE=$E(LINE,$L(NOTE)+5+1,$L(LINE))
+	I $$UP(LINE)'[TEST Q ""  ; must have TEST declaration
+	I $P($$UP(LINE),"TEST")["(" Q "" ; can't have an argument
+	S TAG=$P(LINE," "),LINE=$P(LINE," ",2,400),NOTE=$P($$UP(LINE),TEST),LINE=$E(LINE,$L(NOTE)+5+1,$L(LINE))
 	F  Q:NOTE=""  S CHAR=$E(NOTE),NOTE=$E(NOTE,2,$L(NOTE)) I " ;"'[CHAR Q  ;
 	I $L(NOTE)'=0 Q "" ; @TEST must be first text on line
 	F  Q:$E(LINE)'=" "  S LINE=$E(LINE,2,$L(LINE)) ; remove leading spaces from test info
@@ -90,7 +106,6 @@ FAIL(XTERMSG)	; Entry point for generating a failure message
 	. D SETIO
 	. W !,%ut("ENT")," - " W:%ut("NAME")'="" %ut("NAME")," - " W XTERMSG,! D
 	. . S %ut("FAIL")=%ut("FAIL")+1,%utERRL(%ut("FAIL"))=%ut("NAME"),%utERRL(%ut("FAIL"),"MSG")=XTERMSG,%utERRL(%ut("FAIL"),"ENTRY")=%ut("ENT")
-	. . ; I $D(%ut("BREAK")) BREAK  ; Break upon failure ; output comment added JLI 161020
 	. . I $D(%ut("BREAK")) W !,"Breaking on Failure" BREAK  ;
 	. . Q
 	. D RESETIO
@@ -144,6 +159,7 @@ COV(NMSPS,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculatio
 	;
 	; ZEXCEPT: %utcovxx - SET and KILLED in this code at top level
 	; ZEXCEPT: %Monitor,%apiOBJ,DecomposeStatus,LineByLine,Start,Stop,System,class - not variables parts of classes
+	; ZEXCEPT: %utIO - NEWed and set in EN^%ut
 	N COVER,COVERSAV,I,NMSP1,RTN,RTNS,ERR,STATUS
 	W !,"Loading routines to test coverage...",!
 	I ($$GETSYS^%ut()=47) D  ; GT.M only!
@@ -154,11 +170,8 @@ COV(NMSPS,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculatio
 	.. N RN S RN=""
 	.. F  S RN=$O(%ZR(RN)) Q:RN=""  W RN," " D
 	... N L2 S L2=$T(+2^@RN)
-	. . . ;S L2=$TR(L2,$C(9,32)) ; Translate spaces and tabs out ; JLI 160316 commented out
 	. . . S L2=$TR(L2,$C(9)," ") ; change tabs to spaces ; JLI 160316 inserted to replace above
-	. . . ;I $E(L2,1,2)'=";;" K %ZR(RN)  ; Not a human produced routine JLI 160316 commented out
-	. . . ; routine doesn't follow the standards and second line start with ;; ; JLI 160316
-	. . . I $E($P(L2," ",2),1,2)'=";;" K %ZR(RN) W !,"Routine "_RN_" removed from analysis, since it doesn't have the standard second line",! ; JLI 160316 inserted to replace above
+	. . . I $E($P(L2," ",2),1,2)'=";;" K %ZR(RN) W !,"Routine "_RN_" removed from analysis, since it doesn't have the standard second line format",!
 	.. M RTNS=%ZR
 	.. K %ZR
 	. Q
@@ -200,9 +213,10 @@ COV(NMSPS,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculatio
 	. NEW $ETRAP,$ESTACK
 	. I ($$GETSYS^%ut()=47) D  ; GT.M SPECIFIC
 	. . SET $ETRAP="Q:($ES&$Q) -9 Q:$ES  W ""CTRL-C ENTERED"""
-	. . USE $PRINCIPAL:(CTRAP=$C(3))
+	. . ;USE $PRINCIPAL:(CTRAP=$C(3)) ; JLI 170403
+	. . USE %utIO:(CTRAP=$C(3)) ; JLI 170403
 	. . Q
-	. NEW (DUZ,IO,COVCODE,U,DILOCKTM,DISYS,DT,DTIME,IOBS,IOF,IOM,ION,IOS,IOSL,IOST,IOT,IOXY)
+	. NEW (DUZ,IO,COVCODE,U,DILOCKTM,DISYS,DT,DTIME,IOBS,IOF,IOM,ION,IOS,IOSL,IOST,IOT,IOXY,%utIO)
 	. XECUTE COVCODE
 	. Q
 	; GT.M STOP PROFILING if this is the original level that started it
@@ -225,14 +239,18 @@ COV(NMSPS,COVCODE,VERBOSITY)	; VEN/SMH - PUBLIC ENTRY POINT; Coverage calculatio
 	. I VERBOSITY=-1 D
 	. . K ^TMP("%utCOVREPORT",$J)
 	. . D COVRPTGL^%utcover($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),$NA(^TMP("%utCOVREPORT",$J)))
+	. . K ^TMP("%utCOVCOHORTSAV",$J),^TMP("%utCOVCOHORT",$J),^TMP("%utCOVRESULT",$J) ; %utCOVREPORT contains the data for the user
 	. . Q
-	. E  D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+	. E  D
+	. . D COVRPT($NA(^TMP("%utCOVCOHORTSAV",$J)),$NA(^TMP("%utCOVCOHORT",$J)),$NA(^TMP("%utCOVRESULT",$J)),VERBOSITY)
+	. . K ^TMP("%utCOVCOHORTSAV",$J),^TMP("%utCOVCOHORT",$J),^TMP("%utCOVRESULT",$J),^TMP("%utCOVREPORT",$J)
+	. . Q
 	. Q
 	QUIT
 	;
 CACHECOV(GLOBSAV,GLOB)	;
 	; ZEXCEPT: %Monitor,GetMetrics,GetRoutineCount,GetRoutineName,LineByLine,System,class - not variable names, part of classes
-	N DIF,I,METRIC,METRICNT,METRICS,MTRICNUM,ROUNAME,ROUNUM,X,XCNP,XXX
+	N %N,DIF,I,METRIC,METRICNT,METRICS,MTRICNUM,ROUNAME,ROUNUM,X,XCNP,XXX
 	I $$ISUTEST(),'$D(^TMP("%utt4val",$J)) S ROUNUM=1,METRICS="RtnLine",METRICNT=1,ROUNAME="%ut"
 	I $D(^TMP("%utt4val",$J))!'$$ISUTEST() S ROUNUM=##class(%Monitor.System.LineByLine).GetRoutineCount(),METRICS=##class(%Monitor.System.LineByLine).GetMetrics(),METRICNT=$l(METRICS,",")
 	; if only running to do coverage, should be 1

@@ -1,8 +1,9 @@
-%utt5	;JLI - test for aspects of MUnit functionality ;01/30/17  11:46
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utt5	;JLI - test for aspects of MUnit functionality ;04/05/17  15:36
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 05/2014-12/2015.
 	;
+	D ^%utt1
 	Q
 	;
 OLDSTYLE	;

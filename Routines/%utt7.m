@@ -1,24 +1,15 @@
-%utt1	; VEN/SMH-JLI - Testing routines for M-Unit;07/10/17  09:30
+%utt7	;JLI/JIVEY@JIVEYSOFT.COM - Unit tests for MUnit !TEST functionality ;04/26/17  21:41
 	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
 	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
-	; Original routine authored by Sam H. Habiel 07/2013-04/2014
-	; Additions and modifications made by Joel L. Ivey 05/2014-12/2015
-	; Modifications made by Sam H. Habiel 02/2016
+	; Original routine authored by Joel L. Ivey 04/2017
 	;
-	; THIS ROUTINE IS THE UNIFIED UNIT TESTER FOR ALL OF M-UNIT.
+	; This routine is a copy of %utt1 modified by changing tag T1 to !TEST instead of @Test and adding !TEST to tag T5 to test
+	; the handling of !TEST functionality, so that only only those tags are run while tags marked @TEST or under XTENT are ignored
 	;
-	; Dear Users,
-	;
-	; I know about the irony of a test suite for the testing suite,
-	; so stop snickering. Aside from that, it's actually going to be hard.
-	;
-	; Truly yours,
-	;
-	; Sam H
-	;
-	W !,"Running tests in NON-VERBOSE mode",!,"For Verbose mode use DO VERBOSE^%utt1(ARG) where ARG is an integer 1 to 3"
+	W !,"Running tests in VERBOSE mode"
 	N X R !,"ENTER RETURN TO CONTINUE: ",X:3
-	D EN^%ut($T(+0)) ; Run tests here, be non-verbose.
+	D EN^%ut($T(+0),3) ; Run tests here.
+	I $G(^TMP("%ut",$J,"UTVALS"))'="7^2^5^2^0" W !!,"The test of !TEST failed, since expected results were:",!,"Ran 7 Routines, 2 Entry Tags",!,"Checked 5 tests, with 2 failures and encountered 0 errors."
 	Q
 	;
 VERBOSE(VERBSITY)	;
@@ -53,7 +44,7 @@ TEARDOWN	; This runs after every test
 	;
 	;
 	;
-T1	; @TEST - Make sure Start-up runs
+T1	; !TEST - Make sure Start-up Ran
 	D CHKTF($D(^TMP($J,"%ut","STARTUP")),"Start-up node on ^TMP must exist")
 	QUIT
 	;
@@ -75,13 +66,13 @@ T4	; Specified in XTMTAG
 	I '$G(%utGUI) D CHKEQ(%utETRY(4),"T4","T4 should be the collected as the fourth entry in %utETRY")
 	QUIT
 	;
-T5	; ditto
+T5	; !test  - ditto
 	; ZEXCEPT: %ut - NEWed and created in EN1^%ut
 	D CHKTF(0,"This is an intentional failure")
 	D CHKEQ(%ut("FAIL"),1,"By this point, we should have failed one test")
 	D FAIL^%ut("Intentionally throwing a failure")
 	D CHKEQ(%ut("FAIL"),2,"By this point, we should have failed two tests")
-	; S %ut("FAIL")=0 ; Okay... Boys and Girls... as the developer I can do that.
+	; S %ut("FAIL")=0 ; Okay... Boy's and Girls... as the developer I can do that.
 	QUIT
 	;
 T6	; ditto
@@ -187,6 +178,7 @@ XTENT	; Entry points
 	;;COVRPTGL;coverage report returning global
 	;
 XTROU	; Routines containing additional tests
+	;;%utt1;
 	;;%utt2; old %utNITU
 	;;%utt4; old %utNITW
 	;;%utt5;

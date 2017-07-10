@@ -1,8 +1,9 @@
 Submitted by: Joel Ivey <jivey@jiveysoft.com>
-Copyright 2015 The Open Source Electronic Health Record Alliance
+Copyright 2017 Joel Ivey
 
-This product includes software developed for the Open Source
-Electronic Health Record Alliance (http://www.osehra.org/).
+This product includes software originally developed for the Open Source
+Electronic Health Record Alliance (http://www.osehra.org/).  Subsequently,
+it has been maintained for the open source VistA community in general.
 
 The Apache 2 license covers the following source and test files
 
@@ -20,4 +21,5 @@ Test:
 %utt4
 %utt5
 %utt6
+%utt7
 %uttcovr

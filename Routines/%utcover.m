@@ -1,6 +1,6 @@
-%utcover	;JLI - generic coverage and unit test runner ;02/06/17  13:51
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%utcover	;JLI - generic coverage and unit test runner ;04/29/17  15:29
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey 08/15.  Additional work 08/15-02/17.
 	;
 	; Changes:  (Moved from %ut and %ut1)
@@ -99,7 +99,8 @@ COVENTRY	; setup of COVERAGE NEWs most variables, so TESTROUS passed by global
 	. I ROU'=+ROU S TESTS(ROU)=""
 	. F I=1:1 S VAL=$P(TESTROUS(ROU),",",I) Q:VAL=""  S TESTS(VAL)=""
 	. Q
-	S ROU="" F  S ROU=$O(TESTS(ROU)) Q:ROU=""  D
+	;W !,"COVENTRY^%utcover TESTS:",! ZW TESTS
+	S ROU="" F  S ROU=$O(TESTS(ROU)) Q:ROU=""  D  W !,"Coventry ROU=",ROU
 	. W !!,"------------------- RUNNING ",ROU," -------------------",! ; JLI 160319 put CR after line so periods start on new line
 	. I ROU[U D @ROU
 	. I ROU'[U D @("EN^%ut("""_ROU_""")")
@@ -131,7 +132,9 @@ COVERAGE(ROUNMSP,TESTROUS,XCLDROUS,RESLTLVL)	; run coverage analysis for multipl
 	;                     3  -  Full analysis for each tag, and lists out those lines which were
 	;                           not executed during the analysis
 	;
-	N I,ROU,TYPE,XCLUDE
+	;W !,"ENTERING COVERAGE^%utcover" H 1 ; DEBUG
+	N I,ROU,TYPE,XCLUDE,%utIO
+	S %utIO=$I
 	S RESLTLVL=$G(RESLTLVL,1)
 	I (RESLTLVL<1) S RESLTLVL=1
 	I (RESLTLVL>3) S RESLTLVL=3

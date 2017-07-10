@@ -1,6 +1,6 @@
-%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;02/11/17  11:07
-	;;1.5;MASH UTILITIES;;Feb 8, 2017;
-	; Submitted to OSEHRA Feb 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
+%ut	;VEN-SMH/JLI - PRIMARY PROGRAM FOR M-UNIT TESTING ;07/05/17  11:47
+	;;1.5;MASH UTILITIES;;Jul 8, 2017;Build 6
+	; Submitted to OSEHRA Jul 8, 2017 by Joel L. Ivey under the Apache 2 license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	; Original routine authored by Joel L. Ivey as XTMUNIT while working for U.S. Department of Veterans Affairs 2003-2012
 	; Includes addition of %utVERB and %utBREAK arguments and code related to them as well as other substantial additions authored by Sam Habiel 07/2013-04/2014
 	; Additions and modifications made by Sam H. Habiel and Joel L. Ivey 2013-02/2017 ;
@@ -22,8 +22,9 @@ EN(%utRNAM,%utVERB,%utBREAK)	; .SR Entry point with primary test routine name
 	; %utRNAM: (Required) Routine name that contians the tags with @TEST in them or the tag XTROU
 	; %utVERB: (optional) 1 for verbose output or for verbose and timing info 2 (milliseconds) or 3 (microseconds).
 	; %utBREAK:(optional) bool - Break upon error or upon failure
-	N %utLIST,%utROU,%ut
-	S %utLIST=1,%utROU(%utLIST)=%utRNAM
+	N %utLIST,%utROU,%ut,%utIO
+	S %utLIST=1,%utROU(%utLIST)=%utRNAM,%utIO=$S($D(IO)#2:IO,1:$PRINCIPAL)
+	N IO S IO=%utIO
 	K ^TMP("%ut",$J,"UTVALS")
 	D SETUT
 	D EN1(.%utROU,%utLIST)
@@ -37,7 +38,7 @@ GETSYS()	;.EF - returns numeric indicator of system value
 	;
 SETUT	;
 	; VEN/SMH 26JUL2013
-	I '($D(IO)#2) S IO=$P
+	I '($D(IO)#2) S IO=$PRINCIPLE
 	S U="^"
 	; VEN/SMH 26JUL2013 END
 	;
@@ -53,7 +54,8 @@ EN1(%utROU,%utLIST)	;
 	; ZEXCEPT: %utGUI      -- CONDITIONALLY DEFINED BY GUINEXT
 	; ZEXCEPT: %ut  -- NEWED IN EN
 	; ZEXCEPT: GetCPUTime,Process -- parts of Cache method names
-	N %utERRL,%utK,%utI,%utJ,%utSTRT
+	; ZEXCEPT: IOM - if present margin width defined by Kernel
+	N %utERRL,%utK,%utI,%utJ,%utSTRT,%utONLY,%utROU1
 	; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
 	I '+$G(%utVERB) S %utVERB=0
 	;
@@ -69,7 +71,9 @@ EN1(%utROU,%utLIST)	;
 	; -- GET LIST OF ROUTINES --
 	; first get any tree of routines from this one
 	D GETTREE^%ut1(.%utROU,.%utLIST)
-	;
+	; identify whether any tests are marked with !test - as run only these tests
+	S %utONLY=0
+	F I=1:1 S %utROU1=$G(%utROU(I)) Q:%utROU1=""  D CHEKTEST^%ut1(%utROU1,.%ut,.%utETRY,1) I %ut("ENTN")>0 S %utONLY=1 Q
 	; Now process each routine that has been referenced
 	N CURRROU
 	S %ut("CURR")=0
@@ -80,12 +84,13 @@ EN1(%utROU,%utLIST)	;
 	. I %utVERB D  ; JLI 161113 - if verbose, list routine name as header for following tags
 	. . N LINEMARK,LENGTH
 	. . S LENGTH=$S(($L(CURRROU)#2):($L(CURRROU)+3),1:($L(CURRROU)+2))
-	. . S $P(LINEMARK,"-",(78-LENGTH)/2)="-"
-	. . W !!,LINEMARK," ",CURRROU," ",LINEMARK
+	. . N RM S RM=$G(IOM,80)-2 ; SMH
+	. . S $P(LINEMARK,"-",(RM-LENGTH)/2)="-"
+	. . W !!," ",LINEMARK," ",CURRROU," ",LINEMARK
 	. . Q
 	. ;
 	. ; Collect Test list.
-	. D CHEKTEST^%ut1(%utROU(%ut("CURR")),.%ut,.%utETRY)
+	. D CHEKTEST^%ut1(%utROU(%ut("CURR")),.%ut,.%utETRY,%utONLY)
 	. ;
 	. ; if a SETUP entry point exists, save it off in %ut
 	. S %ut("SETUP")=""
@@ -163,14 +168,17 @@ EN1(%utROU,%utLIST)	;
 	; -- end EN1
 VERBOSE(%utETRY,SUCCESS,%utVERB,%utElapsed)	; Say whether we succeeded or failed.
 	; ZEXCEPT: %ut - NEWED IN EN
+	; ZEXCEPT: IOM - if present - margin width defined by Kernel
 	D SETIO^%ut1
-	N RM S RM=73 ; Right Margin
-	I 23[%utVERB,$G(%utElapsed)]"" S RM=RM-$L(%utElapsed)-1
+	N RM S RM=$G(IOM,80)-7 ; Right Margin
+	I 23[%utVERB,$G(%utElapsed)]"" S RM=RM-9
+	I $X>RM W !," "
 	N I F I=$X+3:1:RM W "-"
 	W ?RM
 	I $G(SUCCESS) W "[OK]"
 	E  W "[FAIL]"
-	I 23[%utVERB,$G(%utElapsed)]"" W " ",%utElapsed
+	;I 23[%utVERB,$G(%utElapsed)]"" W " ",%utElapsed
+	I 23[%utVERB,$G(%utElapsed)]"" W " ",$J(%utElapsed,8,3),"ms"
 	D RESETIO^%ut1
 	Q
 	;
@@ -354,7 +362,7 @@ LSTUTVAL(UTDATA)	; .SR - lists cumulative totals in UTDATA array
 	Q
 	;
 	;
-GUISET(%utRSLT,XTSET)	; Entry point for GUI start with selected Test Set IEN - called by %ut-TEST GROUP LOAD rpc
+GUISET(%utRSLT,XTSET)	; Entry point for GUI start with selected Test Set IEN - called by utMUNIT-TEST GROUP LOAD rpc
 	N %utROU,%utLIST,%ut
 	D SETUT
 	S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
@@ -364,7 +372,7 @@ GUISET(%utRSLT,XTSET)	; Entry point for GUI start with selected Test Set IEN - c
 	S %utRSLT=%ut("RSLT")
 	Q
 	;
-GUILOAD(%utRSLT,%utROUN)	; Entry point for GUI start with %utROUN containing primary routine name - called by %ut-TEST LOAD rpc
+GUILOAD(%utRSLT,%utROUN)	; Entry point for GUI start with %utROUN containing primary routine name - called by utMUNIT-TEST LOAD rpc
 	N %utROU,%ut
 	D SETUT
 	S %ut("RSLT")=$NA(^TMP("MUNIT-%utRSLT",$J)) K @%ut("RSLT")
@@ -381,6 +389,8 @@ GETLIST(%utROU,%utLIST,%utRSLT)	; called from GUISET, GUILOAD
 	D GETTREE^%ut1(.%utROU,%utLIST)
 	F I=1:1 Q:'$D(%utROU(I))  S %utROUL(%utROU(I))=""
 	S %utROUN="" F  S %utROUN=$O(%utROUL(%utROUN)) Q:%utROUN=""  D LOAD(%utROUN,.%utCNT,XTVALUE,XTCOMNT,.%utROUL)
+	; 170705 JLI next line added to remove @ and ! indicators from tags for GUI run
+	S I="" F  S I=$O(@XTVALUE@(I)) Q:I=""  S %utLINE=^(I) I $P(%utLINE,U,2)="@" S @XTVALUE@(I)=$P(%utLINE,U)_U_$P(%utLINE,U,3,99)
 	M @%utRSLT=@XTVALUE
 	K @%utRSLT@("SHUTDOWN")
 	K @%utRSLT@("STARTUP")
@@ -400,7 +410,7 @@ LOAD(%utROUN,%utNCNT,XTVALUE,XTCOMNT,%utROUL)	; called from GETLIST, and recursi
 	F %utI=1:1 S LINE=$T(@("XTROU+"_%utI_"^"_%utROUN)) S XTX1=$P(LINE,";",3) Q:XTX1=""  S XTCOMNT=$P(LINE,";",4) I '$D(%utROUL(XTX1)) S %utROUL(XTX1)="" D LOAD(XTX1,.%utNCNT,XTVALUE,XTCOMNT,.%utROUL)
 	Q
 	;
-GUINEXT(%utRSLT,%utLOC,XTGUISEP)	; Entry point for GUI execute next test - called by %ut-TEST NEXT rpc
+GUINEXT(%utRSLT,%utLOC,XTGUISEP)	; Entry point for GUI execute next test - called by utMUNIT-TEST NEXT rpc
 	; XTGUISEP - added 110719 to provide for changing separator for GUI
 	;            return from ^ to another value ~~^~~  so that data returned
 	;            is not affected by ^ values in the data - if not present
@@ -464,4 +474,4 @@ ZHDIF(%ZH0,%ZH1)	;Display dif of two $ZH's
 	N T1 S T1=SC1+DC1+MCS1
 	;
 	N %ZH2 S %ZH2=T1-T0*1000
-	QUIT %ZH2_"ms"
+	QUIT %ZH2
