@@ -55,7 +55,7 @@ EN1(%utROU,%utLIST)	;
 	; ZEXCEPT: %ut  -- NEWED IN EN
 	; ZEXCEPT: GetCPUTime,Process -- parts of Cache method names
 	; ZEXCEPT: IOM - if present margin width defined by Kernel
-	N %utERRL,%utK,%utI,%utJ,%utSTRT,%utONLY,%utROU1
+	N %utERRL,%utK,%utI,%utJ,%utSTRT,%utONLY,%utROU1,I
 	; ZEXCEPT: %utVERB   -- ARGUMENT TO EN
 	I '+$G(%utVERB) S %utVERB=0
 	;
