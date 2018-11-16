@@ -32,7 +32,7 @@ CHEKTEST(%utROU,%ut,%utUETRY,FLAG)	; Collect Test list.
 	S %ut("ENTN")=0 ; Number of test, sub to %utUETRY.
 	;
 	; This stanza and everything below is for collecting @TEST.
-	N I,LIST
+	N I,J,LIST
 	S FLAG=$G(FLAG,0)
 	S I=$L($T(@(U_%utROU))) I I<0 Q "-1^Invalid Routine Name"
 	D NEWSTYLE(.LIST,%utROU)
